@@ -13,17 +13,17 @@ const AppNavigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-
-                <Stack.Screen
-                    options={{ headerShown: false }}
-                    name={Routers.Login}
-                    component={Login}
-                />
                 <Stack.Screen
                     options={{ headerShown: false }}
                     name={Routers.Main}
                     component={Main}
                 />
+                <Stack.Screen
+                    options={{ headerShown: false }}
+                    name={Routers.Login}
+                    component={Login}
+                />
+
                 <Stack.Screen
                     options={{ headerShown: false }}
                     name={Routers.Home}

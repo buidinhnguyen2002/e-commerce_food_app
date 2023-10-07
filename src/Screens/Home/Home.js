@@ -72,10 +72,10 @@ const Home = () => {
                             setTextSearch(text);
                         }} placeholder={'What are you craving?'} />
                     </View>
-                    <View style={Margin.mb_30}>
+                    <View style={[Margin.mb_30]}>
                         {getHeaderHomeFragment({ name: 'Special Offers', onPress: redirectSpecialOffers })}
                         <SpecialOfferItem />
-                        <View style={[Styles.categoryContainer]}>
+                        <View style={[Styles.categoryContainer, Margin.mt_15]}>
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />

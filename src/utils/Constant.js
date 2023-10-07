@@ -3,6 +3,8 @@ export const FontSize = {
     medium: 22,
     normal: 18,
     small: 16,
+    verySmall: 14,
+    tinySmall: 12,
 }
 
 export const FontFamily = {
@@ -13,5 +15,6 @@ export const Routers = {
     Main: 'Main',
     Home: 'Home',
     Login: 'Login',
+    SpecialOffers: 'Special Offers',
 }
 

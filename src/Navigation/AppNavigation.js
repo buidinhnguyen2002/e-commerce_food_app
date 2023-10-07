@@ -7,23 +7,25 @@ import Splash from "../Screens/Splash/Splash";
 import Login from "../Screens/Login/Login";
 import Home from "../Screens/Home/Home";
 import Main from "../Screens/Main";
+import SpecialOffers from "../Screens/SpecialOffers/SpecialOffers";
+import { StyleSheet } from "react-native";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-
-                <Stack.Screen
-                    options={{ headerShown: false }}
-                    name={Routers.Login}
-                    component={Login}
-                />
                 <Stack.Screen
                     options={{ headerShown: false }}
                     name={Routers.Main}
                     component={Main}
                 />
+                <Stack.Screen
+                    options={{ headerShown: false }}
+                    name={Routers.Login}
+                    component={Login}
+                />
+
                 <Stack.Screen
                     options={{ headerShown: false }}
                     name={Routers.Home}
@@ -34,10 +36,19 @@ const AppNavigation = () => {
                     name={Routers.Splash}
                     component={Splash}
                 />
-
+                <Stack.Screen
+                    options={{ headerShown: true, headerTitleStyle: Styles.specialOffersTitle }}
+                    name={Routers.SpecialOffers}
+                    component={SpecialOffers}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
 };
+const Styles = StyleSheet.create({
+    specialOffersTitle: {
+        fontSize: 24,
+    },
+});
 
 export default AppNavigation;

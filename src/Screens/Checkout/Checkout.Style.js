@@ -13,7 +13,7 @@ const CheckoutStyles = StyleSheet.create({
     marginLeft: 20,
   },
   deliverTo: {
-    width: 410,
+    // width: 410,
     height: 160,
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
@@ -53,7 +53,7 @@ const CheckoutStyles = StyleSheet.create({
     marginLeft: 7,
   },
   orderSummary: {
-    width: 410,
+    // width: 410,
     height: "auto",
     borderRadius: 20,
     backgroundColor: "#FFFFFF",

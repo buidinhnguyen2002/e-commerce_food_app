@@ -9,11 +9,13 @@ import Styles from "../../Screens/Product/ProductDetail.Style";
 const ProductDetail = () => {
   const miQuangData = [
     {
+      id: 0,
       name: "Mi quang Ha Noi kkkkkkk",
       price: "$12.00",
       imageSource: require("../../../assets/Images/Foods/miquang.png"),
     },
     {
+      id: 1,
       name: "Mi quang Ha Noi",
       price: "$12.00",
       imageSource: require("../../../assets/Images/Foods/pho2.png"),
@@ -21,7 +23,22 @@ const ProductDetail = () => {
 
     // Thêm dữ liệu cho các mì quảng khác nếu cần
   ];
+  const MenuData = [
+    {
+      id: 0,
+      name: "Mi quang Ha Noi kkkkkkk",
+      price: "$12.00",
+      imageSource: require("../../../assets/Images/Foods/miquang.png"),
+    },
+    {
+      id: 1,
+      name: "Mi quang Ha Noi",
+      price: "$12.00",
+      imageSource: require("../../../assets/Images/Foods/pho2.png"),
+    },
 
+    // Thêm dữ liệu cho các mì quảng khác nếu cần
+  ];
   const [hoveredItem, setHoveredItem] = useState(null);
   const [clickedItems, setClickedItems] = useState([]);
 
@@ -152,7 +169,7 @@ const ProductDetail = () => {
               <View style={Styles.divider} />
             </View>
           </View>
-          <View style={{ backgroundColor: "#E5E5E5" }}>
+          <View style={{ backgroundColor: Colors.background }}>
             <Text
               style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
             >
@@ -203,48 +220,35 @@ const ProductDetail = () => {
             >
               Menu
             </Text>
-            <View style={[Styles.rowContainer, Styles.menuStyle]}>
-              <Image
-                style={CommonStyles.imageCart}
-                source={require("../../../assets/Images/Foods/banhmi.png")}
-              />
-              <View style={{ margin: 30 }}>
-                <Text style={TypographyStyles.nameFood}>
-                  Bánh mì thịt nguội
-                </Text>
-                <Text style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}>
-                  $12.000
-                </Text>
-              </View>
-            </View>
-            <View style={[Styles.rowContainer, Styles.menuStyle]}>
-              <Image
-                style={CommonStyles.imageCart}
-                source={require("../../../assets/Images/Foods/banhmi.png")}
-              />
-              <View style={{ margin: 30 }}>
-                <Text style={TypographyStyles.nameFood}>
-                  Bánh mì thịt nguội
-                </Text>
-                <Text style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}>
-                  $12.000
-                </Text>
-              </View>
-            </View>
-            <View style={[Styles.rowContainer, Styles.menuStyle]}>
-              <Image
-                style={CommonStyles.imageCart}
-                source={require("../../../assets/Images/Foods/banhmi.png")}
-              />
-              <View style={{ margin: 30 }}>
-                <Text style={TypographyStyles.nameFood}>
-                  Bánh mì thịt nguội
-                </Text>
-                <Text style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}>
-                  $12.000
-                </Text>
-              </View>
-            </View>
+            {MenuData.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={[clickedItems.includes(item.id) && styles.clicked]}
+                onPress={() => handleItemClick(item.id)}
+                onMouseEnter={() => {
+                  setHoveredItem(item.id);
+                }}
+                onMouseLeave={() => {
+                  setHoveredItem(null);
+                }}
+              >
+                <View style={[Styles.rowContainer, Styles.menuStyle]}>
+                  <Image
+                    style={CommonStyles.imageCart}
+                    source={item.imageSource}
+                  />
+                  <View style={{ margin: 30 }}>
+                    <Text style={TypographyStyles.nameFood}>{item.name}</Text>
+                    <Text
+                      style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}
+                    >
+                      {item.price}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+
             <View style={[Styles.rowContainer, { marginTop: 20 }]}>
               <TouchableOpacity
                 style={[Styles.buttonProduct, { marginRight: 20 }]}

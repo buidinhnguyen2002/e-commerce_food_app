@@ -8,6 +8,7 @@ import Styles from "../../Screens/Product/ProductDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import OverView from "./OverView";
+
 const ProductDetail = () => {
   const miQuangData = [
     {
@@ -58,6 +59,8 @@ const ProductDetail = () => {
       // Nếu item chưa được nhấn, hãy thêm nó vào mảng clickedItems
       setClickedItems([...clickedItems, itemIndex]);
     }
+
+    console.log("clickedItems:", clickedItems); // Kiểm tra giá trị của clickedItems
   };
 
   const navigation = useNavigation();
@@ -94,6 +97,8 @@ const ProductDetail = () => {
   const OffersAreAvailable = () => {
     navigation.navigate(Routers.OffersAreAvailable);
   };
+  const [clickedMenuItems, setClickedMenuItems] = useState([]);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView
@@ -220,6 +225,7 @@ const ProductDetail = () => {
             >
               For you
             </Text>
+
             {rows.map((row, rowIndex) => (
               <View key={rowIndex} style={[Styles.rowTagForYou]}>
                 {row.map((item, itemIndex) => (
@@ -241,6 +247,11 @@ const ProductDetail = () => {
                       style={Styles.imageForYou}
                       source={item.imageSource}
                     />
+                    <Text
+                      style={[Styles.cardTicker, TypographyStyles.tinySmall]}
+                    >
+                      Best Seller
+                    </Text>
                     <Text
                       style={[TypographyStyles.nameFood, { paddingLeft: 20 }]}
                     >
@@ -268,7 +279,10 @@ const ProductDetail = () => {
             {MenuData.map((item) => (
               <TouchableOpacity
                 key={item.id}
-                style={[clickedItems.includes(item.id) && styles.clicked]}
+                style={[
+                  styles.menuItem, // Sử dụng một kiểu CSS mới cho các thẻ Menu
+                  clickedMenuItems.includes(item.id) && styles.clicked, // Kiểm tra trạng thái ấn
+                ]}
                 onPress={() => handleItemClick(item.id)}
                 onMouseEnter={() => {
                   setHoveredItem(item.id);
@@ -282,6 +296,9 @@ const ProductDetail = () => {
                     style={CommonStyles.imageCart}
                     source={item.imageSource}
                   />
+                  <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
+                    New
+                  </Text>
                   <View style={{ margin: 30 }}>
                     <Text style={TypographyStyles.nameFood}>{item.name}</Text>
                     <Text
@@ -330,9 +347,12 @@ const ProductDetail = () => {
 };
 
 const styles = StyleSheet.create({
-  clicked: {
-    borderColor: Colors.green,
+  menuItem: {
     borderWidth: 2,
+    borderColor: "transparent", // Màu viền mặc định là trong suốt
+  },
+  clicked: {
+    borderColor: Colors.green, // Màu viền khi ấn
   },
 });
 

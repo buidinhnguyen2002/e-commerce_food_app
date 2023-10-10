@@ -73,6 +73,16 @@ const Styles = StyleSheet.create({
     fontWeight: 500,
     color: "#FFFFFF",
   },
+  cardTicker: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: Colors.primaryColor,
+    position: "absolute",
+    borderRadius: 10,
+    color: Colors.white,
+    left: 10,
+    top: 10,
+  },
 });
 
 export default Styles;

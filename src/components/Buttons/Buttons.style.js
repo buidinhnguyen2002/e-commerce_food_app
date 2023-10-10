@@ -26,5 +26,16 @@ export const ButtonStyles = StyleSheet.create({
         borderRadius: 25,
         borderColor: Colors.paleGray,
         borderWidth: 1,
-    }
+    },
+    profileIconButton: {
+        width:15, height: 15, alignSelf:'center'
+    },
+     profileButton: {
+        borderColor: 'white',
+        borderWidth: 1,
+        height: 40,
+        borderRadius: 5,
+        marginHorizontal: 15,
+        marginVertical: 10
+     }
 });

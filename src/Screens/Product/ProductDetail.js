@@ -5,7 +5,9 @@ import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
 import { ScrollView } from "react-native";
 import Styles from "../../Screens/Product/ProductDetail.Style";
-
+import { useNavigation } from "@react-navigation/native";
+import { Routers } from "../../utils/Constant";
+import OverView from "./OverView";
 const ProductDetail = () => {
   const miQuangData = [
     {
@@ -58,6 +60,40 @@ const ProductDetail = () => {
     }
   };
 
+  const navigation = useNavigation();
+  const getHeaderHomeFragment = ({ name, icon, onPress }) => {
+    return (
+      <View style={[Styles.specialOfferHeader, Margin.mb_30]}>
+        <View style={[{ flexDirection: "row" }]}>
+          <Text style={[TypographyStyles.medium, Margin.mr_10]}>{name}</Text>
+          {icon && (
+            <Image source={require("../../../assets/Icons/emoji.png")} />
+          )}
+        </View>
+        <Text
+          onPress={onPress}
+          style={[
+            TypographyStyles.normal,
+            { color: Colors.primaryColor, fontWeight: 600 },
+          ]}
+        >
+          See All
+        </Text>
+      </View>
+    );
+  };
+  const redirectSpecialOffers = () => {
+    navigation.navigate(Routers.SpecialOffers);
+  };
+  const OverViewScreen = () => {
+    navigation.navigate(Routers.OverView);
+  };
+  const RatingAndReview = () => {
+    navigation.navigate(Routers.RatingAndReview);
+  };
+  const OffersAreAvailable = () => {
+    navigation.navigate(Routers.OffersAreAvailable);
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView
@@ -87,9 +123,11 @@ const ProductDetail = () => {
 
           <View>
             <View style={Styles.rowContainer}>
-              <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
-                Big Garden Salad
-              </Text>
+              <TouchableOpacity onPress={OverViewScreen}>
+                <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
+                  Big Garden Salad
+                </Text>
+              </TouchableOpacity>
               <Image
                 style={[
                   CommonStyles.iconSize,
@@ -100,26 +138,28 @@ const ProductDetail = () => {
             </View>
             <View>
               <View style={Styles.divider} />
-              <View style={Styles.rowContainer}>
-                <Image
-                  style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                  source={require("../../../assets/Icons/star.png")}
-                />
-                <Text style={[TypographyStyles.medium, { marginRight: 20 }]}>
-                  4.8
-                </Text>
-                <Text style={[TypographyStyles.small, Colors.grey]}>
-                  (4.8k reviews)
-                </Text>
-                <Image
-                  style={[
-                    CommonStyles.iconSize,
-                    { marginRight: 20 },
-                    { marginLeft: 150 },
-                  ]}
-                  source={require("../../../assets/Icons/arrownext.png")}
-                />
-              </View>
+              <TouchableOpacity onPress={RatingAndReview}>
+                <View style={Styles.rowContainer}>
+                  <Image
+                    style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                    source={require("../../../assets/Icons/star.png")}
+                  />
+                  <Text style={[TypographyStyles.medium, { marginRight: 20 }]}>
+                    4.8
+                  </Text>
+                  <Text style={[TypographyStyles.small, Colors.grey]}>
+                    (4.8k reviews)
+                  </Text>
+                  <Image
+                    style={[
+                      CommonStyles.iconSize,
+                      { marginRight: 20 },
+                      { marginLeft: 150 },
+                    ]}
+                    source={require("../../../assets/Icons/arrownext.png")}
+                  />
+                </View>
+              </TouchableOpacity>
               <View style={Styles.divider} />
               <View style={Styles.rowContainer}>
                 <Image
@@ -143,9 +183,12 @@ const ProductDetail = () => {
                 >
                   Delivery now
                 </Text>
-                <Text style={[Margin.mR_20]}>|</Text>
+                <Text style={Margin.ml_20}>|</Text>
                 <Image
-                  style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                  style={[
+                    CommonStyles.iconSize,
+                    { marginLeft: 20, marginRight: 20 },
+                  ]}
                   source={require("../../../assets/Icons/bike.png")}
                 />
                 <Text style={[TypographyStyles.small, Colors.blackGrey]}>
@@ -153,19 +196,21 @@ const ProductDetail = () => {
                 </Text>
               </View>
               <View style={Styles.divider} />
-              <View style={Styles.rowContainer}>
-                <Image
-                  style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                  source={require("../../../assets/Icons/z.png")}
-                />
-                <Text style={TypographyStyles.medium}>
-                  Offers are available
-                </Text>
-                <Image
-                  style={[CommonStyles.iconSize, { marginLeft: 100 }]}
-                  source={require("../../../assets/Icons/arrownext.png")}
-                />
-              </View>
+              <TouchableOpacity onPress={OffersAreAvailable}>
+                <View style={Styles.rowContainer}>
+                  <Image
+                    style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                    source={require("../../../assets/Icons/z.png")}
+                  />
+                  <Text style={TypographyStyles.medium}>
+                    Offers are available
+                  </Text>
+                  <Image
+                    style={[CommonStyles.iconSize, { marginLeft: 100 }]}
+                    source={require("../../../assets/Icons/arrownext.png")}
+                  />
+                </View>
+              </TouchableOpacity>
               <View style={Styles.divider} />
             </View>
           </View>

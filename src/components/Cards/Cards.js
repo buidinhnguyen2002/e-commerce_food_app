@@ -36,10 +36,13 @@ export const CardDiscount = () => {
         </View>
     )
 }
-export const ListTileCard = () => {
+export const ListTileCard = ({ isDiscount }) => {
     return (
         <View style={[Styles.cardContainer, CommonStyles.horizontal_direction, Margin.mb_20, Margin.mg_horizontal_1]}>
-            <Image style={[Styles.imageListTile, Margin.mr_25]} source={require('../../../assets/Images/food.png')} />
+            <View style={[{ width: '35%' }, Margin.mr_25]}>
+                <Image style={[Styles.imageListTile]} source={require('../../../assets/Images/food.png')} />
+                {isDiscount && <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>Promo</Text>}
+            </View>
             <View style={[Padding.pd_vertical_10, { justifyContent: 'space-between', flex: 1 }]}>
                 <Text style={TypographyStyles.medium}>Vegetarian Noodles</Text>
                 <View style={CommonStyles.horizontal_direction}>

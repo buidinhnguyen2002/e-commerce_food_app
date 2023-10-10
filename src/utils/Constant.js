@@ -16,5 +16,8 @@ export const Routers = {
     Home: 'Home',
     Login: 'Login',
     SpecialOffers: 'Special Offers',
+    Recommended: 'Recommended For You',
+    DiscountGuaranteed: 'Discount Guaranteed!',
+    MyFavorite: 'My Favorite',
 }
 

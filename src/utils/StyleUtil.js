@@ -77,6 +77,9 @@ export const Margin = StyleSheet.create({
     ml_30: {
         marginLeft: 30,
     },
+    mr_5: {
+        marginRight: 5,
+    },
     mr_10: {
         marginRight: 10,
     },

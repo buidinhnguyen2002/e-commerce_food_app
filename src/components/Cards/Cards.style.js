@@ -23,7 +23,7 @@ export const Styles = StyleSheet.create({
         borderRadius: 22.5,
     },
     imageListTile: {
-        width: '35%',
+        width: '100%',
         objectFit: "cover",
         height: 160,
         borderRadius: 30,

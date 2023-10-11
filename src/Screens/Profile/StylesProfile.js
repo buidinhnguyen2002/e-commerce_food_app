@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../utils/Colors";
+import { FontSize } from "../../utils/Constant";
 
 const  styles = StyleSheet.create({
     page:{
@@ -13,7 +14,8 @@ const  styles = StyleSheet.create({
         height:20,
         alignItems: 'center',
         resizeMode: 'contain',
-        alignSelf:'center'
+        alignSelf:'center',
+        
     },
     header:{
         flex: 5,
@@ -26,7 +28,7 @@ const  styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderColor: Colors.grey,
+        borderColor: Colors.grey_01,
         alignSelf: 'center'
     },
     content: {
@@ -34,18 +36,22 @@ const  styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between', 
     }, 
+    editbutton:{
+        flex: 1,flexDirection:'row', justifyContent: 'flex-end', alignSelf: 'center'
+    },
     buttonContainer: {
         alignItems: 'center',
-      },
-      icon: {
-        width: 30,
-        height: 30,
-      },
-    //   label: {
-    //     fontSize: FontSize.normal,
-    //     fontWeight: "normal",
-    //     marginBottom: 5,
-    //   },
+        flex: 1,
+        flexDirection: 'row'
+    },
+    label: {
+        fontSize: 15,
+        fontWeight: "normal",
+        paddingLeft: 20
+    },
+    profileIconButton: {
+        width:15, height: 15, alignSelf:'center', resizeMode:'contain'
+    },
   })
 
   export default styles;

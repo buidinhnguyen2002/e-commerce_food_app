@@ -27,26 +27,5 @@ export const OutlineButton = ({ onPress }) => {
     </TouchableOpacity>
   )
 }
-export const EditButton = ({onPress}) => {
-  return (
-    <TouchableOpacity onPress={onPress} >
-      <Image source={require('../../../assets/Icons/pen.png')} style = {[ButtonStyles.profileIconButton]}></Image>
-    </TouchableOpacity>
-  )
-}
-export const MoreButton = ({onPress}) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Image source={require('../../../assets/Icons/more.png')} style = {[ButtonStyles.profileIconButton]}></Image>
-    </TouchableOpacity>
-  )
-}
-export const ProfileButtons = ({onPress}) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Image source={require('../../../assets/Icons/more.png')} style = {[ButtonStyles.profileButton]}></Image>
-    </TouchableOpacity>
-  )
-}
 export default CommonButton;
 

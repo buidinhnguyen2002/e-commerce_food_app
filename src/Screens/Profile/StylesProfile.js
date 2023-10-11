@@ -41,11 +41,11 @@ const  styles = StyleSheet.create({
         width: 30,
         height: 30,
       },
-      label: {
-        fontSize: FontSize.normal,
-        fontWeight: "normal",
-        marginBottom: 5,
-      },
+    //   label: {
+    //     fontSize: FontSize.normal,
+    //     fontWeight: "normal",
+    //     marginBottom: 5,
+    //   },
   })
 
   export default styles;

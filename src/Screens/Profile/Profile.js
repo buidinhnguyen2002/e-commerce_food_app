@@ -44,18 +44,18 @@ const Profile = () => {
     )
 }
 // const buttons = [
-//     { id: 'myFavRes', iconSource: require(/* Icon source for Button 1 */), label: 'My favorite restaurants' },
-//     { id: 'specOfPro', iconSource: require(/* Icon source for Button 2 */), label: 'Special Offer & Promo' },
-//     { id: 'payMed', iconSource: require(/* Icon source for Button 3 */), label: 'Payment Methods' },
-//     { id: 'profile', iconSource: require(/* Icon source for Button 4 */), label: 'Profile' },
-//     { id: 'adress', iconSource: require(/* Icon source for Button 5 */), label: 'Address' },
+//     { id: 'myFavRes', iconSource: require('../../../assets/Icons/lich.png'), label: 'My favorite restaurants' },
+//     { id: 'specOfPro', iconSource: require('../../../assets/Icons/ma.png'), label: 'Special Offer & Promo' },
+//     { id: 'payMed', iconSource: require('../../../assets/Icons/wallet.png'), label: 'Payment Methods' },
+//     { id: 'profile', iconSource: require('../../../assets/Icons/user.png'), label: 'Profile' },
+//     { id: 'adress', iconSource: require('../../../assets/Icons/address.png'), label: 'Address' },
 //     { id: 'noti', iconSource: require('../../../assets/Icons/notification-light_mode.png'), label: 'Notification' },
-//     { id: 'security', iconSource: require(/* Icon source for Button 2 */), label: 'Security' },
-//     { id: 'language', iconSource: require(/* Icon source for Button 3 */), label: 'Language' },
-//     { id: 'darkMode', iconSource: require(/* Icon source for Button 4 */), label: 'Dark Mode' },
-//     { id: 'help', iconSource: require(/* Icon source for Button 5 */), label: 'Help Center' },
-//     { id: 'invite', iconSource: require(/* Icon source for Button 1 */), label: 'Invite Friends' },
-//     { id: 'logOut', iconSource: require(/* Icon source for Button 2 */), label: 'Logout' },
+//     { id: 'security', iconSource: require('../../../assets/Icons/secu.png'), label: 'Security' },
+//     { id: 'language', iconSource: require('../../../assets/Icons/language.png'), label: 'Language' },
+//     { id: 'darkMode', iconSource: require('../../../assets/Icons/darkmode.png'), label: 'Dark Mode' },
+//     { id: 'help', iconSource: require('../../../assets/Icons/help.png'), label: 'Help Center' },
+//     { id: 'invite', iconSource: require('../../../assets/Icons/friend.png'), label: 'Invite Friends' },
+//     { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
 //   ];
 //   const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
 //     <TouchableOpacity style={styles.buttonContainer} onPress={() => onPress(id)}>

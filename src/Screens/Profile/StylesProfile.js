@@ -42,8 +42,9 @@ const  styles = StyleSheet.create({
         height: 30,
       },
       label: {
-        ...TypographyStyles.normal,
-        ...Margin.mb_5,
+        fontSize: FontSize.normal,
+        fontWeight: "normal",
+        marginBottom: 5,
       },
   })
 

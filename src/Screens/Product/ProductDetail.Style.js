@@ -39,13 +39,14 @@ const Styles = StyleSheet.create({
   rowTagForYou: {
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
     alignItems: "center", // Căn giữa các phần tử trong hàng
+    // padding: 10,
+    justifyContent: "center",
+    marginRight: 20,
   },
   divider: {
     height: 2, // Chiều cao của dòng ngăn cách
     backgroundColor: "#EEEEEF", // Màu FF0000
-    marginVertical: 10, // Khoảng cách dọc giữa các phần tử
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 10,
   },
   imageForYou: {
     width: "auto",
@@ -56,7 +57,8 @@ const Styles = StyleSheet.create({
   menuStyle: {
     backgroundColor: "#FFFFFF",
     width: "auto",
-    height: 120,
+    height: 150,
+
     borderRadius: 30,
     marginTop: 20,
     marginRight: 20,

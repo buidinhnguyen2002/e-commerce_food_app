@@ -25,10 +25,8 @@ const VoucherClaim = ({ imageUrl, text, textDetail }) => {
         />
       </View>
       <View style={[{ alignItems: "center", justifyContent: "space-between" }]}>
-        <Text style={[{ fontSize: 19, fontWeight: 700, marginLeft: -30 }]}>
-          {text}
-        </Text>
-        <Text style={[{ color: "grey", marginLeft: -30 }]}>{textDetail}</Text>
+        <Text style={[{ fontSize: 18, fontWeight: 700 }]}>{text}</Text>
+        <Text style={[{ color: "grey" }]}>{textDetail}</Text>
       </View>
       <TouchableOpacity
         style={[

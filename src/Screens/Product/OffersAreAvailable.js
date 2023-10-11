@@ -53,7 +53,7 @@ const OffersAreAvailable = () => {
       <View
         style={[
           Styles.specialOfferContainer,
-          Padding.pd_horizontal_30,
+          Padding.pd_horizontal_20,
           Padding.pd_vertical_20,
           { backgroundColor: Colors.background },
         ]}
@@ -62,9 +62,9 @@ const OffersAreAvailable = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[
             Padding.pd_vertical_5,
-            { paddingHorizontal: 2 },
+            // { paddingHorizontal: 2 },
           ]}
-          ItemSeparatorComponent={() => <SeparatorComponent height={25} />}
+          ItemSeparatorComponent={() => <SeparatorComponent height={20} />}
           data={dataDiscount}
           renderItem={({ item }) => (
             <VoucherClaim

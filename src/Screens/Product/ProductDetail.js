@@ -355,7 +355,7 @@ const ProductDetail = () => {
                     fontSize: 18,
                     fontWeight: 500,
                     color: "#FFFFFF",
-                    paddingTop: 10,
+                    paddingTop: 5,
                   }}
                 >
                   Buy Now

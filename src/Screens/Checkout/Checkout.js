@@ -210,16 +210,25 @@ const Checkout = () => {
           <View style={CheckoutStyles.totalStyles}>
             <View style={CheckoutStyles.rowTotal}>
               <Text>Subtotal</Text>
-              <Text style={{ marginLeft: 250, fontWeight: "500" }}>$200</Text>
+              <Text
+                style={{
+                  margin: "auto",
+                  fontWeight: "500",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
+                $200
+              </Text>
             </View>
             <View style={CheckoutStyles.rowTotal}>
               <Text>Deliver Free</Text>
-              <Text style={{ marginLeft: 230, fontWeight: "500" }}>$20</Text>
+              <Text style={{ fontWeight: "500" }}>$20</Text>
             </View>
             <View style={Styles.divider} />
             <View style={CheckoutStyles.rowTotal}>
               <Text>Total</Text>
-              <Text style={{ marginLeft: 270, fontWeight: "500" }}>$220</Text>
+              <Text style={{ fontWeight: "500" }}>$220</Text>
             </View>
           </View>
           <TouchableOpacity

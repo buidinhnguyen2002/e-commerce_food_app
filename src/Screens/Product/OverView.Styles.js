@@ -4,19 +4,18 @@ const styles = StyleSheet.create({
   barContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 18,
     backgroundColor: "#E1E1E1",
     borderRadius: 10,
-    width: "75%",
-    height: "4%",
+    width: "80%",
+    height: "5%",
     marginLeft: 10,
   },
   numberContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 11,
-    marginLeft: 10,
-    // paddingRight: -2,
+    justifyContent: "center",
+    paddingBottom: 10,
   },
   bar: {
     height: 20,
@@ -28,26 +27,25 @@ const styles = StyleSheet.create({
   innerBar: {
     flex: 1, // Để innerBar mở rộng theo chiều ngang tùy theo tỷ lệ
   },
-  toolbar: {
-    marginTop: 10,
-    marginLeft: 0,
-  },
+
   StarReview: {
     marginLeft: 20,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
   dividerStar: {
     width: 2,
     height: "55%",
     backgroundColor: "#EEEEEF",
     margin: 10,
+    // marginLeft: 30,
   },
   dividerStar1: {
     width: 2,
-    height: "50%",
+    height: "65%",
     backgroundColor: "#EEEEEF",
     margin: 10,
+    // marginLeft: 30,
   },
 });
 

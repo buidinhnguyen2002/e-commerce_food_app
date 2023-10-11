@@ -6,15 +6,10 @@ import { Colors } from "../../utils/Colors";
 import styles from "./OverView.Styles";
 import { SafeAreaView } from "react-native";
 import { ScrollView } from "react-native";
+import ToolBar from "../../components/ToolBar";
 
 const stars = Array(5).fill(require("../../../assets/Icons/star.png")); // Tạo một mảng với 5 ngôi sao
-const toolBarData = [
-  { percentage: "90%", color: "#2EBC5D", text: "5" },
-  { percentage: "75%", color: "#2EBC5D", text: "4" },
-  { percentage: "15%", color: "#2EBC5D", text: "3" },
-  { percentage: "20%", color: "#2EBC5D", text: "2" },
-  { percentage: "5%", color: "#2EBC5D", text: "1" },
-];
+
 const OverView = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
@@ -46,30 +41,10 @@ const OverView = () => {
             </View>
 
             <View style={styles.dividerStar} />
-            <View style={[styles.toolbar]}>
-              {toolBarData.map((item, index) => (
-                <View key={index} style={styles.numberContainer}>
-                  <Text style={[{ fontSize: 11, fontWeight: 700 }]}>
-                    {item.text}
-                  </Text>
-                </View>
-              ))}
-            </View>
-
-            <View style={styles.toolbar}>
-              {toolBarData.map((item, index) => (
-                <View key={index} style={styles.barContainer}>
-                  <View style={[styles.bar, { width: item.percentage }]}>
-                    <View
-                      style={[styles.innerBar, { backgroundColor: item.color }]}
-                    ></View>
-                  </View>
-                </View>
-              ))}
-            </View>
+            <ToolBar />
           </View>
 
-          <View style={[Margin.ml_10, { marginTop: -70 }]}>
+          <View style={[Margin.ml_10, { marginTop: -60 }]}>
             <View style={Styles.divider} />
             <Text style={TypographyStyles.mediumSWe}>OrverView</Text>
             <Text style={Margin.mt_10}>

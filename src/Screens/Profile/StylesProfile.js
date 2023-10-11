@@ -34,7 +34,17 @@ const  styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between', 
     }, 
-   
+    buttonContainer: {
+        alignItems: 'center',
+      },
+      icon: {
+        width: 30,
+        height: 30,
+      },
+      label: {
+        ...TypographyStyles.normal,
+        ...Margin.mb_5,
+      },
   })
 
   export default styles;

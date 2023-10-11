@@ -15,7 +15,7 @@ export const CommonStyles = StyleSheet.create({
     flexDirection: "row",
   },
   imageProduct: {
-    width: 450,
+    width: "auto",
     height: 300,
   },
   imageCart: {
@@ -64,6 +64,7 @@ export const TypographyStyles = StyleSheet.create({
   nameFood: {
     fontSize: 20,
     fontWeight: "700",
+    marginRight: 20,
   },
   soBig: {
     fontSize: FontSize.soLarge,

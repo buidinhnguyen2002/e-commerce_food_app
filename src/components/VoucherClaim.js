@@ -24,15 +24,17 @@ const VoucherClaim = ({ imageUrl, text, textDetail }) => {
           source={imageUrl} // Truyền đường dẫn hình ảnh vào đây
         />
       </View>
-      <View style={{ marginRight: 80 }}>
-        <Text style={[{ fontSize: 18, fontWeight: 600 }]}>{text}</Text>
-        <Text>{textDetail}</Text>
+      <View style={[{ alignItems: "center", justifyContent: "space-between" }]}>
+        <Text style={[{ fontSize: 19, fontWeight: 700, marginLeft: -30 }]}>
+          {text}
+        </Text>
+        <Text style={[{ color: "grey", marginLeft: -30 }]}>{textDetail}</Text>
       </View>
       <TouchableOpacity
         style={[
           {
-            width: 60,
-            height: 30,
+            width: 80,
+            height: 40,
             borderRadius: 30,
             backgroundColor: Colors.primaryColor,
             marginRight: 10,
@@ -44,7 +46,7 @@ const VoucherClaim = ({ imageUrl, text, textDetail }) => {
             {
               color: Colors.white,
               textAlign: "center",
-              marginTop: 5,
+              marginTop: 10,
             },
           ]}
         >

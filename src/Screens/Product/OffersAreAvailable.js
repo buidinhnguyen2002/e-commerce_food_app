@@ -11,12 +11,12 @@ import { SafeAreaView } from "react-native";
 const OffersAreAvailable = () => {
   const dataDiscount = [
     {
-      imageUrl: require("../../../assets/Icons/discount.png"),
+      imageUrl: require("../../../assets/Icons/user3.png"),
       text: "Promo New User",
       textDetail: "Valid for new users",
     },
     {
-      imageUrl: require("../../../assets/Icons/discount.png"),
+      imageUrl: require("../../../assets/Icons/newxe.png"),
       text: "Free Delivery",
       textDetail: "Valid for new users",
     },
@@ -31,12 +31,12 @@ const OffersAreAvailable = () => {
       textDetail: "Valid for new users",
     },
     {
-      imageUrl: require("../../../assets/Icons/discount.png"),
+      imageUrl: require("../../../assets/Icons/tick.png"),
       text: "Extra 20% OFF",
       textDetail: "Valid for new users",
     },
     {
-      imageUrl: require("../../../assets/Icons/discount.png"),
+      imageUrl: require("../../../assets/Icons/tick.png"),
       text: "Extra 20% OFF",
       textDetail: "Valid for new users",
     },

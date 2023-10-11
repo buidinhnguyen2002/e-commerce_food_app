@@ -7,6 +7,11 @@ export const DummyChip = [
     { text: 'All', source: '' },
     { text: 'All', source: '' },
 ];
+export const DummyChipFilter = [
+    { text: 'Sort', source: '' },
+    { text: 'Promo', source: '' },
+    { text: 'Self Pick', source: '' },
+];
 export const Categorys = [
     { source: '', name: 'Sandwich' },
     { source: '', name: 'Sandwich' },

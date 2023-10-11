@@ -13,6 +13,7 @@ import ListCard from "../Screens/ListCard/ListCard";
 import CustomHeader from "../components/CustomHeader";
 import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
 import Category from "../Screens/Category/Category";
+import CategoryDetail from "../Screens/Category/CategoryDetail";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -74,6 +75,13 @@ const AppNavigation = () => {
                     }}
                     name={Routers.MoreCategory}
                     component={Category}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.CategoryDetail}
+                    component={CategoryDetail}
                 />
             </Stack.Navigator>
         </NavigationContainer>

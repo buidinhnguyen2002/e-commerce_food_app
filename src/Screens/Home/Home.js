@@ -51,6 +51,9 @@ const Home = () => {
     const redirectScreens = (name) => {
         navigation.navigate(name);
     }
+    const redirectCategoryDetail = (name, titleHeader) => {
+        navigation.navigate(name, { titleHeader: titleHeader });
+    }
     return (
         <SafeAreaView style={Styles.screenContainer}>
             <ScrollView showsVerticalScrollIndicator={false} >
@@ -81,7 +84,7 @@ const Home = () => {
                         {getHeaderHomeFragment({ name: 'Special Offers', onPress: redirectSpecialOffers })}
                         <SpecialOfferItem />
                         <View style={[Styles.categoryContainer, Margin.mt_15]}>
-                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
+                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} onPress={() => redirectCategoryDetail(Routers.CategoryDetail, 'Sandwich')} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />

@@ -20,5 +20,6 @@ export const Routers = {
     DiscountGuaranteed: 'Discount Guaranteed!',
     MyFavorite: 'My Favorite',
     MoreCategory: 'More Category',
+    CategoryDetail: 'Category Detail',
 }
 

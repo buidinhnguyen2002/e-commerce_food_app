@@ -48,6 +48,9 @@ const Home = () => {
     const redirectListCardScreen = (name) => {
         navigation.navigate(name);
     }
+    const redirectScreens = (name) => {
+        navigation.navigate(name);
+    }
     return (
         <SafeAreaView style={Styles.screenContainer}>
             <ScrollView showsVerticalScrollIndicator={false} >
@@ -85,7 +88,7 @@ const Home = () => {
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
-                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
+                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'More'} onPress={() => redirectScreens(Routers.MoreCategory)} />
                         </View>
                     </View>
                 </View>

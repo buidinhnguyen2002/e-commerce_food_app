@@ -11,9 +11,6 @@ const CustomHeader = ({ title, imageSource, actionIcon }) => {
                 <Text style={[{ fontSize: 24, fontWeight: 600 }, Margin.mr_5]}>{title}</Text>
                 <Image source={imageSource} style={{ width: 30, height: 30 }} />
             </View>
-            <View style={Margin.mr_15}>
-                <Image source={actionIcon} style={{ width: 30, height: 30 }} />
-            </View>
         </View>
     )
 }

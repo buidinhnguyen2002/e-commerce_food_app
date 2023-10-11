@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableHighlight } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
@@ -11,6 +11,8 @@ import SpecialOffers from "../Screens/SpecialOffers/SpecialOffers";
 import { StyleSheet } from "react-native";
 import ListCard from "../Screens/ListCard/ListCard";
 import CustomHeader from "../components/CustomHeader";
+import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
+import Category from "../Screens/Category/Category";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -61,11 +63,17 @@ const AppNavigation = () => {
                 />
                 <Stack.Screen
                     options={{
-                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                        headerTitle: () => (<CustomHeader title={Routers.MyFavorite} imageSource={require('../../assets/Icons/emoji.png')} actionIcon={require('../../assets/Icons/emoji.png')} />)
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
                     }}
                     name={Routers.MyFavorite}
                     component={ListCard}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.MoreCategory}
+                    component={Category}
                 />
             </Stack.Navigator>
         </NavigationContainer>

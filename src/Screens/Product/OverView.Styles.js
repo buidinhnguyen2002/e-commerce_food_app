@@ -9,7 +9,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "75%",
     height: "4%",
-    marginLeft: 20,
+    marginLeft: 10,
+  },
+  numberContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 11,
+    marginLeft: 10,
+    // paddingRight: -2,
   },
   bar: {
     height: 20,

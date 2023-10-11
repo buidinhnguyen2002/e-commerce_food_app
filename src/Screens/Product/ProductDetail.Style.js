@@ -4,15 +4,16 @@ import { Colors } from "../../utils/Colors";
 const Styles = StyleSheet.create({
   Container: {
     backgroundColor: "#FFFFFF",
-    width: "40%",
+    width: "auto",
     height: 280,
-    marginLeft: 30,
-
+    marginLeft: 20,
     marginTop: 20,
     borderRadius: 20,
+    maxWidth: "50%",
   },
   NameProduct: {
     paddingTop: 30,
+    // paddingRight: 20,
   },
   iconContainer: {
     position: "absolute",
@@ -47,17 +48,18 @@ const Styles = StyleSheet.create({
     marginRight: 20,
   },
   imageForYou: {
-    width: 150,
+    width: "auto",
     height: 150,
     borderRadius: 20,
     margin: 15,
   },
   menuStyle: {
     backgroundColor: "#FFFFFF",
-    width: 400,
+    width: "auto",
     height: 120,
     borderRadius: 30,
     marginTop: 20,
+    marginRight: 20,
   },
   buttonProduct: {
     width: "45%",

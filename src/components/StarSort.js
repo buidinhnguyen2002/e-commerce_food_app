@@ -11,7 +11,7 @@ const StarSort = ({ source, text, onPress, isChoose }) => {
   const starImageSource =
     source === "../../assets/Icons/z.png"
       ? require("../../assets/Icons/z.png")
-      : require("../../assets/Icons/star.png");
+      : require("../../assets/Icons/greenStar.png");
 
   return (
     <TouchableHighlight

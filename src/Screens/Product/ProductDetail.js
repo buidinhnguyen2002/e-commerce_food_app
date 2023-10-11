@@ -136,7 +136,12 @@ const ProductDetail = () => {
               <Image
                 style={[
                   CommonStyles.iconSize,
-                  { marginLeft: 70, marginTop: 30 },
+                  {
+                    alignItems: "baseline",
+                    justifyContent: "flex-end",
+                    marginTop: 30,
+                    marginLeft: "auto",
+                  },
                 ]}
                 source={require("../../../assets/Icons/arrownext.png")}
               />
@@ -158,8 +163,12 @@ const ProductDetail = () => {
                   <Image
                     style={[
                       CommonStyles.iconSize,
-                      { marginRight: 20 },
-                      { marginLeft: 150 },
+
+                      {
+                        alignItems: "baseline",
+                        justifyContent: "flex-end",
+                        marginLeft: "auto",
+                      },
                     ]}
                     source={require("../../../assets/Icons/arrownext.png")}
                   />
@@ -173,7 +182,14 @@ const ProductDetail = () => {
                 />
                 <Text style={TypographyStyles.medium}>2.4 km</Text>
                 <Image
-                  style={[CommonStyles.iconSize, { marginLeft: 230 }]}
+                  style={[
+                    CommonStyles.iconSize,
+                    {
+                      alignItems: "baseline",
+                      justifyContent: "flex-end",
+                      marginLeft: "auto",
+                    },
+                  ]}
                   source={require("../../../assets/Icons/arrownext.png")}
                 />
               </View>
@@ -211,7 +227,14 @@ const ProductDetail = () => {
                     Offers are available
                   </Text>
                   <Image
-                    style={[CommonStyles.iconSize, { marginLeft: 100 }]}
+                    style={[
+                      CommonStyles.iconSize,
+                      {
+                        alignItems: "baseline",
+                        justifyContent: "flex-end",
+                        marginLeft: "auto",
+                      },
+                    ]}
                     source={require("../../../assets/Icons/arrownext.png")}
                   />
                 </View>

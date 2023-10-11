@@ -57,15 +57,16 @@ const Checkout = () => {
                 </Text>
                 <Text style={CheckoutStyles.defaultStyles}>Default</Text>
               </View>
-              <Image
-                style={[
-                  CommonStyles.iconSize,
-                  Styles.icon,
-                  CheckoutStyles.CheckoutICon,
-                  { marginLeft: 200 },
-                ]}
-                source={require("../../../assets/Icons/greenArrow.png")}
-              />
+              <View style={{ flex: 1, alignItems: "flex-end" }}>
+                <Image
+                  style={[
+                    CommonStyles.iconSize,
+                    Styles.icon,
+                    CheckoutStyles.CheckoutICon,
+                  ]}
+                  source={require("../../../assets/Icons/greenArrow.png")}
+                />
+              </View>
             </View>
             <Text style={CheckoutStyles.addressText}>
               Times Square NYC, Manhattan
@@ -123,45 +124,10 @@ const Checkout = () => {
                 style={[CommonStyles.imageCart, CheckoutStyles.imageCart]}
                 source={require("../../../assets/Images/Foods/miquang.png")}
               ></Image>
-              <View style={{ marginLeft: 20 }}>
-                <Text style={TypographyStyles.nameFood}>Mì quảng Hà Nội</Text>
-                <Text style={[TypographyStyles.nameFood, { color: "#1BAC4B" }]}>
-                  $12.00
+              <View style={{ flex: 1, marginLeft: 20 }}>
+                <Text style={[TypographyStyles.nameFood]}>
+                  Mì quảng Hà Nội kkkkk
                 </Text>
-              </View>
-              <View
-                style={[
-                  CheckoutStyles.rowContainer,
-                  CheckoutStyles.modifyQuantity,
-                ]}
-              >
-                <TouchableOpacity onPress={decreaseQuantity}>
-                  <Text style={CheckoutStyles.buttonQuantity}>-</Text>
-                </TouchableOpacity>
-                <View style={CheckoutStyles.quantityStyles}>
-                  <Text
-                    style={{
-                      fontWeight: "500",
-                      fontSize: 16,
-                      textAlign: "center",
-                    }}
-                  >
-                    {quantity}
-                  </Text>
-                </View>
-                <TouchableOpacity onPress={increaseQuantity}>
-                  <Text style={CheckoutStyles.buttonPlus}>+</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={Styles.divider} />
-            <View style={CheckoutStyles.rowContainer}>
-              <Image
-                style={[CommonStyles.imageCart, CheckoutStyles.imageCart]}
-                source={require("../../../assets/Images/Foods/miquang.png")}
-              ></Image>
-              <View style={{ marginLeft: 20 }}>
-                <Text style={TypographyStyles.nameFood}>Mì quảng Hà Nội</Text>
                 <Text style={[TypographyStyles.nameFood, { color: "#1BAC4B" }]}>
                   $12.00
                 </Text>
@@ -194,36 +160,50 @@ const Checkout = () => {
           </View>
 
           <View style={CheckoutStyles.discountStyle}>
-            <View style={[CheckoutStyles.rowContainer, { marginTop: 10 }]}>
+            <View
+              style={[
+                CheckoutStyles.rowContainer,
+                { alignItems: "center", justifyContent: "center" },
+              ]}
+            >
               <Image
                 style={[CommonStyles.iconSize, CheckoutStyles.imageCart]}
                 source={require("../../../assets/Icons/vi.png")}
               ></Image>
-              <Text style={{ marginLeft: 20 }}>Payment Methods</Text>
-              <Image
-                style={[
-                  CommonStyles.iconSize,
-                  CheckoutStyles.imageCart,
-                  { marginLeft: 150 },
-                ]}
-                source={require("../../../assets/Icons/greenArrow.png")}
-              ></Image>
+              <Text style={{ marginLeft: 10 }}>Payment Methods</Text>
+              <View style={{ flex: 1, alignItems: "flex-end" }}>
+                <Image
+                  style={[
+                    CommonStyles.iconSize,
+                    Styles.icon,
+                    CheckoutStyles.CheckoutICon,
+                  ]}
+                  source={require("../../../assets/Icons/greenArrow.png")}
+                />
+              </View>
             </View>
             <View style={[Styles.divider, { marginTop: 0 }]} />
-            <View style={[CheckoutStyles.rowContainer, { marginTop: -20 }]}>
+            <View
+              style={[
+                CheckoutStyles.rowContainer,
+                { alignItems: "center", justifyContent: "center" },
+              ]}
+            >
               <Image
                 style={[CommonStyles.iconSize, CheckoutStyles.imageCart]}
                 source={require("../../../assets/Icons/z.png")}
               ></Image>
-              <Text style={{ margin: 20 }}>Get Discounts</Text>
-              <Image
-                style={[
-                  CommonStyles.iconSize,
-                  CheckoutStyles.imageCart,
-                  { marginLeft: 155 },
-                ]}
-                source={require("../../../assets/Icons/greenArrow.png")}
-              ></Image>
+              <Text style={{ marginLeft: 10 }}>Get Discounts</Text>
+              <View style={{ flex: 1, alignItems: "flex-end" }}>
+                <Image
+                  style={[
+                    CommonStyles.iconSize,
+                    Styles.icon,
+                    CheckoutStyles.CheckoutICon,
+                  ]}
+                  source={require("../../../assets/Icons/greenArrow.png")}
+                />
+              </View>
             </View>
           </View>
 

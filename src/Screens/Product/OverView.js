@@ -9,11 +9,11 @@ import { ScrollView } from "react-native";
 
 const stars = Array(5).fill(require("../../../assets/Icons/star.png")); // Tạo một mảng với 5 ngôi sao
 const toolBarData = [
-  { percentage: "90%", color: "#2EBC5D" },
-  { percentage: "75%", color: "#2EBC5D" },
-  { percentage: "15%", color: "#2EBC5D" },
-  { percentage: "20%", color: "#2EBC5D" },
-  { percentage: "5%", color: "#2EBC5D" },
+  { percentage: "90%", color: "#2EBC5D", text: "5" },
+  { percentage: "75%", color: "#2EBC5D", text: "4" },
+  { percentage: "15%", color: "#2EBC5D", text: "3" },
+  { percentage: "20%", color: "#2EBC5D", text: "2" },
+  { percentage: "5%", color: "#2EBC5D", text: "1" },
 ];
 const OverView = () => {
   return (
@@ -46,6 +46,15 @@ const OverView = () => {
             </View>
 
             <View style={styles.dividerStar} />
+            <View style={[styles.toolbar]}>
+              {toolBarData.map((item, index) => (
+                <View key={index} style={styles.numberContainer}>
+                  <Text style={[{ fontSize: 11, fontWeight: 700 }]}>
+                    {item.text}
+                  </Text>
+                </View>
+              ))}
+            </View>
 
             <View style={styles.toolbar}>
               {toolBarData.map((item, index) => (

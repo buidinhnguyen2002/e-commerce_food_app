@@ -27,9 +27,7 @@ const  styles = StyleSheet.create({
         flex: 15,
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomWidth: 1,
-        borderColor: Colors.grey_01,
-        alignSelf: 'center'
+        alignSelf: 'center',backgroundColor:'red'
     },
     content: {
         flex: 90,
@@ -52,6 +50,21 @@ const  styles = StyleSheet.create({
     profileIconButton: {
         width:15, height: 15, alignSelf:'center', resizeMode:'contain'
     },
+    contentProfileDetail: {
+        flex: 95,
+        flexDirection: 'column',
+        justifyContent: 'space-between', 
+        backgroundColor: 'green'
+    }, 
+    avatarEdit:{
+        flex: 15,
+        width:80,
+        flexDirection:'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        alignSelf: 'center',
+        backgroundColor:'red'
+    }
   })
 
   export default styles;

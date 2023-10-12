@@ -8,9 +8,10 @@ import { Avatar } from '@rneui/themed'
 import { Margin, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
 import { EditButton, MoreButton } from './ButtonProfile'
+import { useNavigation } from '@react-navigation/native';
 
 
-const Profile = () => {
+const Profile = (navigation) => {
     return (
       <View style = {styles.page}>      
         <View style = {styles.header}>
@@ -23,7 +24,7 @@ const Profile = () => {
             </View>
         </View>
         <View style = {styles.content}>
-                <View style={styles.avatar}>
+                <View style={[styles.avatar,{borderColor: Colors.grey_01,}]}>
                     <Avatar
                         size={55}
                         rounded
@@ -77,7 +78,7 @@ const buttons = [
     { id: 'invite', iconSource: require('../../../assets/Icons/friend.png'), label: 'Invite Friends' },
     { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
   ];
-  const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
+const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
     <TouchableOpacity style={styles.buttonContainer} onPress={() => onPress(id)}>
         {/* Icon */}
         <Image source={iconSource} style={styles.icon} />
@@ -107,6 +108,7 @@ const buttons = [
     </TouchableOpacity>
   );
   const handleButtonClick = (buttonId) => {
+    const navigation = useNavigation();
     switch (buttonId) {
       case 'myFavRes':
         // Handle 'My favorite restaurants' button click
@@ -119,6 +121,7 @@ const buttons = [
         break;
       case 'profile':
         // Handle 'Profile' button click
+        navigation.navigate('ProductDetail')
         break;
       case 'adress':
         // Handle 'Address' button click

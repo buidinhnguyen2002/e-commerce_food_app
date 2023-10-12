@@ -9,6 +9,7 @@ import EWallet from "./E-Wallet/E-Wallet";
 import Profile from "./Profile/Profile";
 import ProductDetail from "./Product/ProductDetail";
 import Checkout from "./Checkout/Checkout";
+import ProfileDetail from "./Profile/ProfileDetail";
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -18,7 +19,7 @@ const Main = () => {
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Checkout />}
         {selectedTab == 2 && <ProductDetail />}
-        {selectedTab == 3 && <Profile />}
+        {selectedTab == 3 && <ProfileDetail />}
       </>
     );
   };

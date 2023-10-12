@@ -4,15 +4,15 @@ import { CommonStyles, Margin, TypographyStyles } from "../utils/StyleUtil";
 import { StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
 
-const VoucherClaim = ({ imageUrl, text, textDetail }) => {
+const AddressDeliver = ({ imageUrl, text, textDetail }) => {
   return (
     <View style={[Styles.specialOfferBanner]}>
       <View
         style={[
           {
-            backgroundColor: Colors.primaryColor,
-            width: 70,
-            height: 70,
+            backgroundColor: Colors.lightGrey,
+            width: 40,
+            height: 40,
             borderRadius: 50,
             alignItems: "center", // Căn giữa hình ảnh theo chiều dọc và ngang
             justifyContent: "center",
@@ -25,21 +25,23 @@ const VoucherClaim = ({ imageUrl, text, textDetail }) => {
         />
       </View>
       <View style={[{ alignItems: "center", justifyContent: "space-between" }]}>
-        <Text style={[{ fontSize: 19, fontWeight: 700 }]}>{text}</Text>
+        <Text style={[{ fontSize: 18, fontWeight: 700 }]}>{text}</Text>
         <Text style={[{ color: "grey" }]}>{textDetail}</Text>
       </View>
       <TouchableOpacity
         style={[
           {
-            width: 80,
-            height: 40,
+            width: 30,
+            height: 30,
             borderRadius: 30,
-            backgroundColor: Colors.primaryColor,
+            // backgroundColor: Colors.primaryColor,
+            borderColor: Colors.primaryColor,
+            borderWidth: 2,
             marginRight: 10,
           },
         ]}
       >
-        <Text
+        {/* <Text
           style={[
             {
               color: Colors.white,
@@ -49,7 +51,7 @@ const VoucherClaim = ({ imageUrl, text, textDetail }) => {
           ]}
         >
           Claim
-        </Text>
+        </Text> */}
       </TouchableOpacity>
     </View>
   );
@@ -67,4 +69,4 @@ const Styles = StyleSheet.create({
   },
 });
 
-export default VoucherClaim;
+export default AddressDeliver;

@@ -145,7 +145,7 @@ const RatingAndReview = () => {
               source={require("../../../assets/Icons/3cham.png")}
             />
           </View>
-          <Text style={[Margin.mt_10, { textAlign: "center" }]}>
+          <Text style={[Margin.mt_10]}>
             Excellent food.Menu is extensive and and seasonal to a particularly
             high standard. Definitely find dining.
             <Image

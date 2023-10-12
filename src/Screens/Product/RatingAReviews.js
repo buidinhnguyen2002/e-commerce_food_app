@@ -17,18 +17,19 @@ import { Avatar, Badge } from "@rneui/themed";
 import { SafeAreaView } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Rating from "./RatingAReview.style";
+import ToolBar from "../../components/ToolBar";
 
 const stars = Array(5).fill(require("../../../assets/Icons/star.png")); // Tạo một mảng với 5 ngôi sao
 const toolBarData = [
-  { percentage: "90%", color: "#2EBC5D" },
-  { percentage: "75%", color: "#2EBC5D" },
-  { percentage: "15%", color: "#2EBC5D" },
-  { percentage: "20%", color: "#2EBC5D" },
-  { percentage: "5%", color: "#2EBC5D" },
+  { percentage: "90%", color: "#2EBC5D", text: "5" },
+  { percentage: "75%", color: "#2EBC5D", text: "4" },
+  { percentage: "15%", color: "#2EBC5D", text: "3" },
+  { percentage: "20%", color: "#2EBC5D", text: "2" },
+  { percentage: "5%", color: "#2EBC5D", text: "1" },
 ];
 
 const ReviewSort = [
-  { text: "Sort by", source: "" },
+  { text: "Sort by", source: "../../assets/Icons/sort.png" },
   { text: "5", source: "" },
   { text: "4", source: "" },
   { text: "3", source: "" },
@@ -47,14 +48,14 @@ const RatingAndReview = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 180 }}
+        contentContainerStyle={{ paddingTop: 20, paddingBottom: 200 }}
       >
         <View style={[{ backgroundColor: Colors.white }]}>
           <View style={Styles.divider} />
           <View
             style={[
               { flexDirection: "row", justifyContent: "space-between" },
-              Margin.mt_15,
+
               { marginTop: 10 },
             ]}
           >
@@ -75,20 +76,10 @@ const RatingAndReview = () => {
             </View>
 
             <View style={styles.dividerStar1} />
-            <View style={styles.toolbar}>
-              {toolBarData.map((item, index) => (
-                <View key={index} style={styles.barContainer}>
-                  <View style={[styles.bar, { width: item.percentage }]}>
-                    <View
-                      style={[styles.innerBar, { backgroundColor: item.color }]}
-                    ></View>
-                  </View>
-                </View>
-              ))}
-            </View>
+            <ToolBar />
           </View>
-          <View style={[Styles.divider, { marginTop: -90 }]} />
-          <View style={{}}>
+          <View style={[Styles.divider, { marginTop: -10 }]} />
+          <View>
             <FlatList
               contentContainerStyle={[
                 Padding.pd_vertical_5,
@@ -111,158 +102,70 @@ const RatingAndReview = () => {
             />
           </View>
           <View style={[Styles.divider, { marginTop: -10 }]} />
-          <View style={Rating.commnent}>
-            <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
-              <Text style={[TypographyStyles.mediumSWe, Margin.ml_15]}>
-                Charolette Hanlin
-              </Text>
-              <View style={[{ flexDirection: "row", marginLeft: 40 }]}>
-                {stars.map((star, index) => (
-                  <Image
-                    key={index}
-                    style={[CommonStyles.iconSizeSuperSmall, Margin.ml_5]}
-                    source={star}
-                  />
-                ))}
-              </View>
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_15]}
-                source={require("../../../assets/Icons/3cham.png")}
-              />
-            </View>
-            <Text style={Margin.mt_10}>
-              Excellent food.Menu is extensive and and seasonal to a
-              particularly high standard. Definitely find dining.
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
-                source={require("../../../assets/Icons/emoji.png")}
-              />
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
-                source={require("../../../assets/Icons/emoji.png")}
-              />
-            </Text>
-            <View style={[{ flexDirection: "row", marginTop: 10 }]}>
-              <TouchableOpacity onPress={handleLove}>
+        </View>
+        <View style={Rating.commnent}>
+          <View
+            style={[
+              {
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              },
+            ]}
+          >
+            <Avatar
+              size={55}
+              rounded
+              source={{
+                uri: "https://randomuser.me/api/portraits/men/36.jpg",
+              }}
+            />
+            <Text style={[TypographyStyles.mediumSWe]}>Charolette Hanlin</Text>
+            <View
+              style={[
+                {
+                  flexDirection: "row",
+                },
+              ]}
+            >
+              {stars.map((star, index) => (
                 <Image
-                  style={[CommonStyles.iconSizeSmall]}
-                  source={require("../../../assets/Icons/heart2.png")}
+                  key={index}
+                  style={[CommonStyles.iconSizeSuperSmall, { marginLeft: 3 }]}
+                  source={star}
                 />
-              </TouchableOpacity>
-              <Text style={{ marginLeft: 10 }}>{count}</Text>
-              <Text style={[{ marginLeft: 50, color: "grey" }]}>
-                6 days ago
-              </Text>
+              ))}
             </View>
+            <Image
+              style={[
+                CommonStyles.iconSizeSmall,
+                // Margin.ml_15,
+                { marginRight: 20 },
+              ]}
+              source={require("../../../assets/Icons/3cham.png")}
+            />
           </View>
-          <View style={Rating.commnent}>
-            <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
-              <Text style={[TypographyStyles.mediumSWe, Margin.ml_15]}>
-                Charolette Hanlin
-              </Text>
-              <View style={[{ flexDirection: "row", marginLeft: 40 }]}>
-                {stars.map((star, index) => (
-                  <Image
-                    key={index}
-                    style={[CommonStyles.iconSizeSuperSmall, Margin.ml_5]}
-                    source={star}
-                  />
-                ))}
-              </View>
+          <Text style={[Margin.mt_10]}>
+            Excellent food.Menu is extensive and and seasonal to a particularly
+            high standard. Definitely find dining.
+            <Image
+              style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
+              source={require("../../../assets/Icons/emoji.png")}
+            />
+            <Image
+              style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
+              source={require("../../../assets/Icons/emoji.png")}
+            />
+          </Text>
+          <View style={[{ flexDirection: "row", marginTop: 10 }]}>
+            <TouchableOpacity onPress={handleLove}>
               <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_15]}
-                source={require("../../../assets/Icons/3cham.png")}
+                style={[CommonStyles.iconSizeSmall]}
+                source={require("../../../assets/Icons/heart2.png")}
               />
-            </View>
-            <Text style={Margin.mt_10}>
-              Excellent food.Menu is extensive and and seasonal to a
-              particularly high standard. Definitely find dining.
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
-                source={require("../../../assets/Icons/emoji.png")}
-              />
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
-                source={require("../../../assets/Icons/emoji.png")}
-              />
-            </Text>
-            <View style={[{ flexDirection: "row", marginTop: 10 }]}>
-              <TouchableOpacity onPress={handleLove}>
-                <Image
-                  style={[CommonStyles.iconSizeSmall]}
-                  source={require("../../../assets/Icons/heart2.png")}
-                />
-              </TouchableOpacity>
-              <Text style={{ marginLeft: 10 }}>{count}</Text>
-              <Text style={[{ marginLeft: 50, color: "grey" }]}>
-                6 days ago
-              </Text>
-            </View>
-          </View>
-          <View style={Rating.commnent}>
-            <View style={[{ flexDirection: "row", alignItems: "center" }]}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
-              <Text style={[TypographyStyles.mediumSWe, Margin.ml_15]}>
-                Charolette Hanlin
-              </Text>
-              <View style={[{ flexDirection: "row", marginLeft: 40 }]}>
-                {stars.map((star, index) => (
-                  <Image
-                    key={index}
-                    style={[CommonStyles.iconSizeSuperSmall, Margin.ml_5]}
-                    source={star}
-                  />
-                ))}
-              </View>
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_15]}
-                source={require("../../../assets/Icons/3cham.png")}
-              />
-            </View>
-            <Text style={Margin.mt_10}>
-              Excellent food.Menu is extensive and and seasonal to a
-              particularly high standard. Definitely find dining.
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
-                source={require("../../../assets/Icons/emoji.png")}
-              />
-              <Image
-                style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
-                source={require("../../../assets/Icons/emoji.png")}
-              />
-            </Text>
-            <View style={[{ flexDirection: "row", marginTop: 10 }]}>
-              <TouchableOpacity onPress={handleLove}>
-                <Image
-                  style={[CommonStyles.iconSizeSmall]}
-                  source={require("../../../assets/Icons/heart2.png")}
-                />
-              </TouchableOpacity>
-              <Text style={{ marginLeft: 10 }}>{count}</Text>
-              <Text style={[{ marginLeft: 50, color: "grey" }]}>
-                6 days ago
-              </Text>
-            </View>
+            </TouchableOpacity>
+            <Text style={{ marginLeft: 10 }}>{count}</Text>
+            <Text style={[{ marginLeft: 50, color: "grey" }]}>6 days ago</Text>
           </View>
         </View>
       </ScrollView>

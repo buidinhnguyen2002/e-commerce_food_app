@@ -24,9 +24,8 @@ const CheckoutStyles = StyleSheet.create({
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
     alignItems: "center", // Căn giữa các phần tử trong hàng
     padding: 10,
-    marginLeft: 20,
     marginBottom: 10,
-    // marginTop: -5,
+    marginLeft: 10,
   },
   defaultStyles: {
     width: 60,
@@ -60,14 +59,12 @@ const CheckoutStyles = StyleSheet.create({
     margin: 20,
   },
   discountStyle: {
-    width: 410,
     height: 130,
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
     margin: 20,
   },
   totalStyles: {
-    width: 410,
     height: 160,
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
@@ -75,11 +72,11 @@ const CheckoutStyles = StyleSheet.create({
   },
   rowTotal: {
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
-    alignItems: "center", // Căn giữa các phần tử trong hàng
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 10,
-    marginLeft: 20,
-    // marginBottom: 10,
-    // paddingLeft: 20,
+    paddingRight: 30,
+    paddingLeft: 20,
     marginTop: 5,
   },
   buttonProduct: {
@@ -118,7 +115,7 @@ const CheckoutStyles = StyleSheet.create({
   modifyQuantity: {
     // width: 95,
     // height: 40,
-    marginLeft: -10,
+    // marginLeft: -10,
     alignItems: "center",
     marginTop: 50,
   },

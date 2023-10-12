@@ -4,15 +4,16 @@ import { Colors } from "../../utils/Colors";
 const Styles = StyleSheet.create({
   Container: {
     backgroundColor: "#FFFFFF",
-    width: "40%",
+    width: "auto",
     height: 280,
-    marginLeft: 30,
-
+    marginLeft: 20,
     marginTop: 20,
     borderRadius: 20,
+    maxWidth: "50%",
   },
   NameProduct: {
     paddingTop: 30,
+    // paddingRight: 20,
   },
   iconContainer: {
     position: "absolute",
@@ -38,26 +39,29 @@ const Styles = StyleSheet.create({
   rowTagForYou: {
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
     alignItems: "center", // Căn giữa các phần tử trong hàng
+    // padding: 10,
+    justifyContent: "center",
+    marginRight: 20,
   },
   divider: {
     height: 2, // Chiều cao của dòng ngăn cách
     backgroundColor: "#EEEEEF", // Màu FF0000
-    marginVertical: 10, // Khoảng cách dọc giữa các phần tử
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 10,
   },
   imageForYou: {
-    width: 150,
+    width: "auto",
     height: 150,
     borderRadius: 20,
     margin: 15,
   },
   menuStyle: {
     backgroundColor: "#FFFFFF",
-    width: 400,
-    height: 120,
+    width: "auto",
+    height: 150,
+
     borderRadius: 30,
     marginTop: 20,
+    marginRight: 20,
   },
   buttonProduct: {
     width: "45%",

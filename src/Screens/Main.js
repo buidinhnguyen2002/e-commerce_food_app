@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
 import Home from "./Home/Home";
 import Order from "./Order/Order";
-import EWallet from "./E-Wallet/E-Wallet";
+import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
 import ProductDetail from "./Product/ProductDetail";
 import Checkout from "./Checkout/Checkout";
@@ -19,7 +19,8 @@ const Main = () => {
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Checkout />}
         {selectedTab == 2 && <ProductDetail />}
-        {selectedTab == 3 && <ProfileDetail />}
+        {selectedTab == 3 && <Profile />}
+        {selectedTab == 4 && <EWallet />}
       </>
     );
   };

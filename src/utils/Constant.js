@@ -18,4 +18,7 @@ export const Routers = {
   OverView: " ",
   RatingAndReview: "Rating & Review",
   OffersAreAvailable: "Offers Are Available",
+  DeliverTo: "Deliver to",
+  Payment: "Payment Methods",
+  TransactionHistory: "Transaction History",
 };

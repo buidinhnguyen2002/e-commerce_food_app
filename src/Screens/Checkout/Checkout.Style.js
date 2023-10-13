@@ -72,11 +72,11 @@ const CheckoutStyles = StyleSheet.create({
   },
   rowTotal: {
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
-    alignItems: "center", // Căn giữa các phần tử trong hàng
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 10,
-    marginLeft: 20,
-    // marginBottom: 10,
-    // paddingLeft: 20,
+    paddingRight: 30,
+    paddingLeft: 20,
     marginTop: 5,
   },
   buttonProduct: {

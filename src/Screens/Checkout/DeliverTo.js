@@ -7,45 +7,35 @@ import { StyleSheet } from "react-native";
 import { Colors } from "../../utils/Colors";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native";
+import AddressDeliver from "../../components/AddressDeliver";
 
-const OffersAreAvailable = () => {
+const DeliverTo = () => {
   const dataDiscount = [
     {
-      imageUrl: require("../../../assets/Icons/user3.png"),
-      text: "Promo New User",
-      textDetail: "Valid for new users",
+      imageUrl: require("../../../assets/Icons/locate.png"),
+      text: "Home",
+      textDetail: "Time Square NYC, Manhattan, 27",
     },
     {
-      imageUrl: require("../../../assets/Icons/newxe.png"),
-      text: "Free Delivery",
-      textDetail: "Valid for new users",
+      imageUrl: require("../../../assets/Icons/locate.png"),
+      text: "My Office",
+      textDetail: "5259 Blue Bill Park, PC 4327",
     },
     {
-      imageUrl: require("../../../assets/Icons/discount.png"),
-      text: "Extra 20% OFF",
-      textDetail: "Valid for new users",
+      imageUrl: require("../../../assets/Icons/locate.png"),
+      text: "My Apartment",
+      textDetail: "21883 Clyde Gallagher, PC 4662",
     },
     {
-      imageUrl: require("../../../assets/Icons/discount.png"),
-      text: "Extra 20% OFF",
-      textDetail: "Valid for new users",
+      imageUrl: require("../../../assets/Icons/locate.png"),
+      text: "Parent's House",
+      textDetail: "6993 Meadow Valley Terra, PC 36",
     },
     {
-      imageUrl: require("../../../assets/Icons/tick.png"),
-      text: "Extra 20% OFF",
-      textDetail: "Valid for new users",
+      imageUrl: require("../../../assets/Icons/locate.png"),
+      text: "My Villa",
+      textDetail: "61480 Sunbrook Park, PC 5679",
     },
-    {
-      imageUrl: require("../../../assets/Icons/tick.png"),
-      text: "Extra 20% OFF",
-      textDetail: "Valid for new users",
-    },
-    {
-      imageUrl: require("../../../assets/Icons/discount.png"),
-      text: "Extra 20% OFF",
-      textDetail: "Valid for new users",
-    },
-    // Thêm nhiều mục khác nếu cần
   ];
 
   return (
@@ -67,7 +57,7 @@ const OffersAreAvailable = () => {
           ItemSeparatorComponent={() => <SeparatorComponent height={20} />}
           data={dataDiscount}
           renderItem={({ item }) => (
-            <VoucherClaim
+            <AddressDeliver
               imageUrl={item.imageUrl}
               text={item.text}
               textDetail={item.textDetail}
@@ -86,4 +76,4 @@ const Styles = StyleSheet.create({
   },
 });
 
-export default OffersAreAvailable;
+export default DeliverTo;

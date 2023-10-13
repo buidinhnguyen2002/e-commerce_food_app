@@ -49,5 +49,9 @@ export const Styles = StyleSheet.create({
         width: 25,
         height: 25,
         objectFit: 'contain',
+    },
+    labelCard: {
+        backgroundColor: Colors.primaryColor,
+        borderRadius: 10,
     }
 });

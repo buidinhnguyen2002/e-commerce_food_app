@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
-import { Colors } from "../../utils/Colors";
+import { View, Text, Button, Image } from "react-native";
+import { Colors, Margin } from "../../utils/Colors";
 import CommonButton from "../../components/Buttons/CommonButton";
-import { TypographyStyles } from "../../utils/StyleUtil";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
+import Modal from "react-native-modal"; // Import react-native-modal
 
 const EnterYourPin = () => {
   const navigation = useNavigation();
+  const [isSuccessVisible, setSuccessVisible] = useState(false);
 
   const handleButtonPress = () => {
+    setSuccessVisible(true);
+  };
+
+  const hideSuccessMessage = () => {
+    setSuccessVisible(false);
     navigation.navigate(Routers.TopUp);
   };
 
@@ -30,7 +36,6 @@ const EnterYourPin = () => {
       />
     );
   }
-
   return (
     <View style={{ backgroundColor: Colors.white }}>
       <View
@@ -57,8 +62,6 @@ const EnterYourPin = () => {
           >
             {buttons}
           </View>
-        </View>
-        <View>
           <CommonButton
             height={60}
             title={"Continue"}
@@ -71,6 +74,75 @@ const EnterYourPin = () => {
           />
         </View>
       </View>
+
+      {/* Success Modal */}
+      <Modal
+        isVisible={isSuccessVisible}
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        backdropColor={Colors.black}
+        backdropOpacity={0.7}
+      >
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            height: 400,
+            padding: 30,
+            borderRadius: 30,
+            margin: 30,
+          }}
+        >
+          <View
+            style={[
+              {
+                alignItems: "center",
+                margin: 20,
+                justifyContent: "center",
+                width: 100,
+                height: 100,
+                backgroundColor: Colors.primaryColor,
+                borderRadius: 50,
+                marginLeft: 100,
+              },
+            ]}
+          >
+            <Image
+              style={[
+                {
+                  alignContent: "space-between",
+                },
+              ]}
+              source={require("../../../assets/Icons/wallet.png")}
+            ></Image>
+          </View>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: Colors.primaryColor,
+              textAlign: "center",
+              marginTop: 20,
+            }}
+          >
+            Top Up Success!
+          </Text>
+          <Text style={{ textAlign: "center", margin: 20 }}>
+            Xin chuc mung Xin chuc mung Xin chuc mung
+          </Text>
+          <View style={{}}>
+            <CommonButton
+              height={60}
+              title={"OK"}
+              bgColor={Colors.primaryColor}
+              textColor={Colors.white}
+              size={16}
+              fontWeight={500}
+              onPress={hideSuccessMessage}
+              borderRadius={30}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

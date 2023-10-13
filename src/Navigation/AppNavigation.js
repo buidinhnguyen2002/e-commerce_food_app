@@ -7,6 +7,7 @@ import Splash from "../Screens/Splash/Splash";
 import Login from "../Screens/Login/Login";
 import Home from "../Screens/Home/Home";
 import Main from "../Screens/Main";
+import EmptyCart from "../Screens/Cart/EmptyCart";
 import SpecialOffers from "../Screens/SpecialOffers/SpecialOffers";
 import { StyleSheet } from "react-native";
 
@@ -40,6 +41,11 @@ const AppNavigation = () => {
                     options={{ headerShown: true, headerTitleStyle: Styles.specialOffersTitle }}
                     name={Routers.SpecialOffers}
                     component={SpecialOffers}
+                />
+                <Stack.Screen
+                options={{headerShown: false}}
+                name="EmptyCart"
+                component={EmptyCart}
                 />
             </Stack.Navigator>
         </NavigationContainer>

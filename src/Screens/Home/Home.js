@@ -45,6 +45,9 @@ const Home = () => {
     const redirectSpecialOffers = () => {
         navigation.navigate(Routers.SpecialOffers);
     }
+    const redirectMTCart = () => {
+        navigation.navigate('EmptyCart');
+    }
     // const separatorComponent = () => <View style={Styles.separator}></View>
     return (
         <SafeAreaView style={Styles.screenContainer}>
@@ -64,7 +67,7 @@ const Home = () => {
                         </View>
                         <View style={Styles.topRightContainer}>
                             <View><OutlineButton /></View>
-                            <View style={Margin.ml_15}><OutlineButton /></View>
+                            <View style={Margin.ml_15}><OutlineButton onPress={redirectMTCart}/></View>
                         </View>
                     </View>
                     <View style={Margin.mb_25}>

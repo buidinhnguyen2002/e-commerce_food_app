@@ -45,7 +45,15 @@ const Home = () => {
     const redirectSpecialOffers = () => {
         navigation.navigate(Routers.SpecialOffers);
     }
-    // const separatorComponent = () => <View style={Styles.separator}></View>
+    const redirectListCardScreen = (name) => {
+        navigation.navigate(name);
+    }
+    const redirectScreens = (name) => {
+        navigation.navigate(name);
+    }
+    const redirectCategoryDetail = (name, titleHeader) => {
+        navigation.navigate(name, { titleHeader: titleHeader });
+    }
     return (
         <SafeAreaView style={Styles.screenContainer}>
             <ScrollView showsVerticalScrollIndicator={false} >
@@ -76,25 +84,25 @@ const Home = () => {
                         {getHeaderHomeFragment({ name: 'Special Offers', onPress: redirectSpecialOffers })}
                         <SpecialOfferItem />
                         <View style={[Styles.categoryContainer, Margin.mt_15]}>
+                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} onPress={() => redirectCategoryDetail(Routers.CategoryDetail, 'Sandwich')} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
                             <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
-                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
-                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'Sandwich'} />
+                            <CategoryItem source={'../../assets/Images/sandwich.png'} name={'More'} onPress={() => redirectScreens(Routers.MoreCategory)} />
                         </View>
                     </View>
                 </View>
                 <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
-                    {getHeaderHomeFragment({ name: 'Discount Guaranteed!', icon: 'abc', onPress: redirectSpecialOffers })}
+                    {getHeaderHomeFragment({ name: 'Discount Guaranteed!', icon: 'abc', onPress: () => redirectListCardScreen(Routers.DiscountGuaranteed) })}
                     <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} ItemSeparatorComponent={SeparatorComponent({ width: 25 })} showsHorizontalScrollIndicator={false} data={[1, 1, 1, 1, 1]} horizontal={true} renderItem={({ item }) => (
                         <CardDiscount />
                     )} />
                 </View>
                 <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
-                    {getHeaderHomeFragment({ name: 'Recommended For You', icon: 'abc' })}
+                    {getHeaderHomeFragment({ name: 'Recommended For You', icon: 'abc', onPress: () => redirectListCardScreen(Routers.Recommended) })}
                     <FlatList contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 2 }]} ItemSeparatorComponent={SeparatorComponent({ width: 15 })} showsHorizontalScrollIndicator={false} data={dummyChip} horizontal={true} renderItem={({ item, index }) => (
                         <ChipCustom text={item.text} isChoose={chip == index} onPress={() => {
                             setChip(index);
@@ -113,7 +121,6 @@ const Home = () => {
                             <ListTileCard />
                         </ScrollView>
                     </View>
-
                 </View>
             </ScrollView>
         </SafeAreaView>

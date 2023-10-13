@@ -4,12 +4,12 @@ import { ButtonStyles } from './Buttons.style';
 import { CommonStyles, TypographyStyles } from '../../utils/StyleUtil';
 import { Image } from 'react-native';
 
-const CommonButton = ({ title, onPress, width, bgColor, textColor }) => {
+const CommonButton = ({ title, onPress, width, bgColor, textColor, height, size, fontWeight }) => {
   return (
     <TouchableOpacity onPress={() => {
       onPress();
-    }} style={[ButtonStyles.primaryButton]}>
-      <Text style={[TypographyStyles.normal, { backgroundColor: bgColor, color: textColor, fontWeight: '700' }]}>{title}</Text>
+    }} style={[ButtonStyles.primaryButton, { width: width, backgroundColor: bgColor, height: height }]}>
+      <Text style={[TypographyStyles.normal, { color: textColor, fontWeight: fontWeight, fontSize: size }]}>{title}</Text>
     </TouchableOpacity>
   )
 }

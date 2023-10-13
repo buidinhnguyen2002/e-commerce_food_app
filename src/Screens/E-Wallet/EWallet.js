@@ -13,6 +13,9 @@ const EWallet = () => {
   const TransactionHistory = () => {
     navigation.navigate(Routers.TransactionHistory);
   };
+  const TopUp = () => {
+    navigation.navigate(Routers.TopUp);
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView
@@ -110,6 +113,7 @@ const EWallet = () => {
               $9,379
             </Text>
             <TouchableOpacity
+              onPress={TopUp}
               style={[
                 {
                   width: 100,

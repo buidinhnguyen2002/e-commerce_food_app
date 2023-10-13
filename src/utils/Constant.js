@@ -21,4 +21,5 @@ export const Routers = {
   DeliverTo: "Deliver to",
   Payment: "Payment Methods",
   TransactionHistory: "Transaction History",
+  TopUp: "Top Up E-Wallet",
 };

@@ -69,7 +69,15 @@ const Home = () => {
   const redirectSpecialOffers = () => {
     navigation.navigate(Routers.SpecialOffers);
   };
-  // const separatorComponent = () => <View style={Styles.separator}></View>
+  const redirectListCardScreen = (name) => {
+    navigation.navigate(name);
+  };
+  const redirectScreens = (name) => {
+    navigation.navigate(name);
+  };
+  const redirectCategoryDetail = (name, titleHeader) => {
+    navigation.navigate(name, { titleHeader: titleHeader });
+  };
   return (
     <SafeAreaView style={Styles.screenContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -124,6 +132,9 @@ const Home = () => {
               <CategoryItem
                 source={"../../assets/Images/sandwich.png"}
                 name={"Sandwich"}
+                onPress={() =>
+                  redirectCategoryDetail(Routers.CategoryDetail, "Sandwich")
+                }
               />
               <CategoryItem
                 source={"../../assets/Images/sandwich.png"}
@@ -151,7 +162,8 @@ const Home = () => {
               />
               <CategoryItem
                 source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
+                name={"More"}
+                onPress={() => redirectScreens(Routers.MoreCategory)}
               />
             </View>
           </View>
@@ -160,7 +172,7 @@ const Home = () => {
           {getHeaderHomeFragment({
             name: "Discount Guaranteed!",
             icon: "abc",
-            onPress: redirectSpecialOffers,
+            onPress: () => redirectListCardScreen(Routers.DiscountGuaranteed),
           })}
           <FlatList
             contentContainerStyle={[
@@ -175,7 +187,11 @@ const Home = () => {
           />
         </View>
         <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
-          {getHeaderHomeFragment({ name: "Recommended For You", icon: "abc" })}
+          {getHeaderHomeFragment({
+            name: "Recommended For You",
+            icon: "abc",
+            onPress: () => redirectListCardScreen(Routers.Recommended),
+          })}
           <FlatList
             contentContainerStyle={[
               Padding.pd_vertical_5,

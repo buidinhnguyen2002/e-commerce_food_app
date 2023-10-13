@@ -34,7 +34,9 @@ const ProductDetail = () => {
       </View>
     );
   };
-
+  const redirectSpecialOffers = () => {
+    navigation.navigate(Routers.SpecialOffers);
+  };
   const OverViewScreen = () => {
     navigation.navigate(Routers.OverView);
   };
@@ -44,6 +46,7 @@ const ProductDetail = () => {
   const OffersAreAvailable = () => {
     navigation.navigate(Routers.OffersAreAvailable);
   };
+  const [clickedMenuItems, setClickedMenuItems] = useState([]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
@@ -82,12 +85,7 @@ const ProductDetail = () => {
               <Image
                 style={[
                   CommonStyles.iconSize,
-                  {
-                    alignItems: "baseline",
-                    justifyContent: "flex-end",
-                    marginTop: 30,
-                    marginLeft: "auto",
-                  },
+                  { marginLeft: 70, marginTop: 30 },
                 ]}
                 source={require("../../../assets/Icons/arrownext.png")}
               />
@@ -109,12 +107,8 @@ const ProductDetail = () => {
                   <Image
                     style={[
                       CommonStyles.iconSize,
-
-                      {
-                        alignItems: "baseline",
-                        justifyContent: "flex-end",
-                        marginLeft: "auto",
-                      },
+                      { marginRight: 20 },
+                      { marginLeft: 150 },
                     ]}
                     source={require("../../../assets/Icons/arrownext.png")}
                   />

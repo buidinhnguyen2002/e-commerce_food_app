@@ -16,7 +16,7 @@ const Main = () => {
     return (
       <>
         {selectedTab == 0 && <Home />}
-        {selectedTab == 1 && <Checkout />}
+        {selectedTab == 1 && <Order />}
         {selectedTab == 2 && <ProductDetail />}
         {selectedTab == 3 && <Profile />}
         {selectedTab == 4 && <EWallet />}

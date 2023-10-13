@@ -15,6 +15,11 @@ export const Routers = {
   Home: "Home",
   Login: "Login",
   SpecialOffers: "Special Offers",
+  Recommended: "Recommended For You",
+  DiscountGuaranteed: "Discount Guaranteed!",
+  MyFavorite: "My Favorite",
+  MoreCategory: "More Category",
+  CategoryDetail: "Category Detail",
   OverView: " ",
   RatingAndReview: "Rating & Review",
   OffersAreAvailable: "Offers Are Available",
@@ -22,4 +27,5 @@ export const Routers = {
   Payment: "Payment Methods",
   TransactionHistory: "Transaction History",
   TopUp: "Top Up E-Wallet",
+  EnterYourPin: "Enter Your Pin",
 };

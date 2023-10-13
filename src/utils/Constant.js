@@ -20,4 +20,5 @@ export const Routers = {
   OffersAreAvailable: "Offers Are Available",
   DeliverTo: "Deliver to",
   Payment: "Payment Methods",
+  TransactionHistory: "Transaction History",
 };

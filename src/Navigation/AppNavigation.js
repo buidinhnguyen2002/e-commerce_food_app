@@ -14,6 +14,7 @@ import RatingAndReview from "../Screens/Product/RatingAReviews";
 import OffersAreAvailable from "../Screens/Product/OffersAreAvailable";
 import DeliverTo from "../Screens/Checkout/DeliverTo";
 import Payment from "../Screens/Checkout/Payment";
+import TransactionHistory from "../Screens/E-Wallet/TransactionHistory";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -88,6 +89,14 @@ const AppNavigation = () => {
           }}
           name={Routers.Payment}
           component={Payment}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitleStyle: Styles.specialOffersTitle,
+          }}
+          name={Routers.TransactionHistory}
+          component={TransactionHistory}
         />
       </Stack.Navigator>
     </NavigationContainer>

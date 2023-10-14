@@ -46,7 +46,7 @@ const Home = () => {
         navigation.navigate(Routers.SpecialOffers);
     }
     const redirectMTCart = () => {
-        navigation.navigate('EmptyCart');
+        navigation.navigate('FullCart');
     }
     // const separatorComponent = () => <View style={Styles.separator}></View>
     return (

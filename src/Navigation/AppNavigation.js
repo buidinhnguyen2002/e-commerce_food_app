@@ -10,6 +10,7 @@ import Main from "../Screens/Main";
 import EmptyCart from "../Screens/Cart/EmptyCart";
 import SpecialOffers from "../Screens/SpecialOffers/SpecialOffers";
 import { StyleSheet } from "react-native";
+import FullCart from "../Screens/Cart/FullCart";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -46,6 +47,11 @@ const AppNavigation = () => {
                 options={{headerShown: false}}
                 name="EmptyCart"
                 component={EmptyCart}
+                />
+                <Stack.Screen
+                options={{headerShown: false}}
+                name="FullCart"
+                component={FullCart}
                 />
             </Stack.Navigator>
         </NavigationContainer>

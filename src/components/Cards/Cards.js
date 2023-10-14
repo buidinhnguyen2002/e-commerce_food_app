@@ -61,5 +61,29 @@ export const ListTileCard = () => {
         </View>
     )
 }
+// export const MyCart = () => {
+//     return (
+//         <View style={[Styles.cardContainer]}>
+//             <View style={[CommonStyles.horizontal_direction]}>
+//                 <View style={[{ width: '30%' }]}>
+//                     <Image style={[Styles.imageListTile]} source={require('../../../assets/Images/food.png')} />
+//                     {/* <Image style={[Styles.imageListTile]} source={require('../../../assets/Images/food.png')} /> */}
 
+//                 </View>
+//                 <View style={[{ justifyContent: 'space-between' }, Padding.pd_vertical_20, Padding.pd_horizontal_30]}>
+//                     <Text style={TypographyStyles.medium}>Big Garden Salad</Text>
+//                     <View style={CommonStyles.horizontal_direction}>
+//                         <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>3 items</Text>
+//                         <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small, Margin.mg_horizontal_10]}>|</Text>
+//                         <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>2.4km</Text>
+//                     </View>
+
+//                     <View style={[CommonStyles.horizontal_direction, { alignItems: 'center' }]}>
+//                         <Text style={[TypographyStyles.big, Margin.mr_20, { color: Colors.primaryColor }]}>$21.20</Text>
+//                     </View>
+//                 </View>
+//             </View>
+//         </View>
+//     )
+// }
 export default CardDiscount

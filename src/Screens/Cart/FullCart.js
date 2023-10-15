@@ -38,7 +38,7 @@ const FullCart = () => {
 
     const getBody=()=>{
         return (
-          <FlatList contentContainerStyle={[Padding.pd_vertical_5,{paddingHorizontal:2}]} style={[{paddingHorizontal:2}]} data={[1,2,3,4,5,6,7,8]} renderItem={()=>(<MyCart/>)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={()=>(<SeparatorComponent height={30} />)} /> 
+          <FlatList contentContainerStyle={[Padding.pd_vertical_5,{paddingHorizontal:2}]} style={[{paddingHorizontal:2}]} data={[1,2,3,4,5,6,7,8,9,10]} renderItem={()=>(<MyCart/>)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={()=>(<SeparatorComponent height={30} />)} /> 
         )
     }
 

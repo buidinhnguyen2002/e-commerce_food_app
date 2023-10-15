@@ -23,7 +23,7 @@ export const Styles = StyleSheet.create({
         borderRadius: 22.5,
     },
     imageListTile: {
-        width: '35%',
+        width: '100%',
         objectFit: "cover",
         height: 160,
         borderRadius: 30,
@@ -49,5 +49,16 @@ export const Styles = StyleSheet.create({
         width: 25,
         height: 25,
         objectFit: 'contain',
+    },
+    labelCard: {
+        backgroundColor: Colors.primaryColor,
+        borderRadius: 10,
+    },
+    labelCardCancelled: {
+        backgroundColor: Colors.red,
+        borderRadius: 10,
+        
     }
+   
+    
 });

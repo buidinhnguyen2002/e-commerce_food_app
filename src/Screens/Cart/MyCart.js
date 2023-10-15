@@ -6,10 +6,12 @@ import { StyleSheet } from 'react-native'
 import { CommonStyles, Margin, Padding, TypographyStyles } from '../../utils/StyleUtil'
 import { FlatList } from 'react-native'
 import SeparatorComponent from '../../components/SeparatorComponent'
+import { DummyCart } from '../../Data/DummyData'
+import { FontSize } from '../../utils/Constant'
 
 
 
- const MyCart = () => {
+ const CartItem = () => {
     return (
         <View style={[Styles.cardContainer]}>
             <View style={[CommonStyles.horizontal_direction,{...Padding.pd_horizontal_10}]}>
@@ -33,33 +35,29 @@ import SeparatorComponent from '../../components/SeparatorComponent'
         </View>
     )
 }
+const EmptyCart = () => {
+    return (
+            <View style={Styles.container}>
+                <View style={[Styles.container, {alignItems: 'center'}]}>
+                    <Image source={require('../../../assets/Images/clipboard.png') }style={Styles.cartImage}  />
+                    <Text style={Styles.emptyCartText}>Your cart is empty</Text>
+                    <Text style={[{fontSize:18, color: Colors.black, marginTop: 10 }]}>You do not have any food in your cart.</Text>
+                </View>
+            </View>
+    )
+}
 
-const FullCart = () => {
+const MyCart = () => {
 
     const getBody=()=>{
+        if(DummyCart.length==0)return(<EmptyCart/>) 
         return (
-          <FlatList contentContainerStyle={[Padding.pd_vertical_5,{paddingHorizontal:2}]} style={[{paddingHorizontal:2}]} data={[1,2,3,4,5,6,7,8,9,10]} renderItem={()=>(<MyCart/>)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={()=>(<SeparatorComponent height={30} />)} /> 
+          <FlatList contentContainerStyle={[Padding.pd_vertical_5,{paddingHorizontal:2}]} style={[{paddingHorizontal:2}]} data={DummyCart} renderItem={()=>(<CartItem/>)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={()=>(<SeparatorComponent height={30} />)} /> 
         )
     }
 
     return (
         <View style={[Styles.container]}>
-            <View style={[CommonStyles.horizontal_direction, {justifyContent:'space-between', alignItems:'center'}]}>
-                <View style={[CommonStyles.horizontal_direction, Styles.topLeft]}>
-                    <TouchableOpacity>
-                        <Image style={[Margin.mr_20]} source={require('../../../assets/Icons/backArrow.png')} />
-                    </TouchableOpacity>
-                    <Text style={TypographyStyles.big}> My Cart</Text>
-
-                </View>
-                
-                <View>
-                    <TouchableOpacity>
-                        <Image source={require('../../../assets/Icons/3cham.png')}/>
-                    </TouchableOpacity>
-                </View>
-
-            </View>
             <View style={Margin.mt_20} >
                 {getBody()}
 
@@ -72,19 +70,22 @@ const Styles=StyleSheet.create({
     container:{
         backgroundColor:Colors.white,
         paddingHorizontal:20,
-        paddingVertical:40,
-        paddingBottom:70
+        // paddingVertical:20,
+        paddingBottom:20
     },
-    topLeftLogo:{
-        objectFit:'contain',
-
-
-    },
-    topLeft:{
-        alignItems:'center',
-    },
-    topRight:{
-        objectFit:'contain',
+    emptyCartContainer: {
+        alignItems: 'center',
+        backgroundColor:Colors.white,
+      },
+      cartImage: {
+        width: 300,
+        height: 300,
+    }, 
+    emptyCartText: {
+        ...TypographyStyles.normal,
+        color: Colors.black,
+        marginTop: 20,
+        fontSize: FontSize.medium,
     },
     cardContainer: {
         backgroundColor: 'white',
@@ -111,4 +112,4 @@ const Styles=StyleSheet.create({
 
 })
 
-export default FullCart
+export default MyCart

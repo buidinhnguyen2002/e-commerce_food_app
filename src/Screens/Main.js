@@ -8,7 +8,6 @@ import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
 import Checkout from "./Checkout/Checkout";
-import Logout from "./Profile/Logout";
 
 
 const Main = () => {
@@ -18,7 +17,7 @@ const Main = () => {
       <>
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Order />}
-        {selectedTab == 2 && <ProductDetail />}
+        {selectedTab == 2 && <Checkout />}
         {selectedTab == 3 && <Profile/>}
         {selectedTab == 4 && <EWallet />}
       </>

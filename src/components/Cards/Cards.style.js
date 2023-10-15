@@ -29,29 +29,36 @@ export const Styles = StyleSheet.create({
     borderRadius: 30,
   },
 
-  cardTicker: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: Colors.primaryColor,
-    position: "absolute",
-    borderRadius: 10,
-    textTransform: "uppercase",
-    color: Colors.white,
-    left: 10,
-    top: 10,
-  },
-  imageBike: {
-    width: 20,
-    height: 20,
-    objectFit: "contain",
-  },
-  imageHeart: {
-    width: 25,
-    height: 25,
-    objectFit: "contain",
-  },
-  labelCard: {
-    backgroundColor: Colors.primaryColor,
-    borderRadius: 10,
-  },
+    cardTicker: {
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        backgroundColor: Colors.primaryColor,
+        position: 'absolute',
+        borderRadius: 10,
+        textTransform: "uppercase",
+        color: Colors.white,
+        left: 10,
+        top: 10,
+    },
+    imageBike: {
+        width: 20,
+        height: 20,
+        objectFit: "contain"
+    },
+    imageHeart: {
+        width: 25,
+        height: 25,
+        objectFit: 'contain',
+    },
+    labelCard: {
+        backgroundColor: Colors.primaryColor,
+        borderRadius: 10,
+    },
+    labelCardCancelled: {
+        backgroundColor: Colors.red,
+        borderRadius: 10,
+        
+    }
+   
+    
 });

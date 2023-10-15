@@ -15,9 +15,11 @@ import OverView from "../Screens/Product/OverView";
 import { StyleSheet } from "react-native";
 import ListCard from "../Screens/ListCard/ListCard";
 import CustomHeader from "../components/CustomHeader";
-import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
 import Category from "../Screens/Category/Category";
 import CategoryDetail from "../Screens/Category/CategoryDetail";
+import MyCart from "../Screens/Cart/MyCart";
+import { Image } from "react-native";
+import { TouchableOpacity } from "react-native";
 import RatingAndReview from "../Screens/Product/RatingAReviews";
 import OffersAreAvailable from "../Screens/Product/OffersAreAvailable";
 import DeliverTo from "../Screens/Checkout/DeliverTo";
@@ -42,25 +44,70 @@ const AppNavigation = () => {
           component={Login}
         />
 
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={Routers.Home}
-          component={Home}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={Routers.Splash}
-          component={Splash}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.specialOffersTitle,
-          }}
-          name={Routers.SpecialOffers}
-          component={SpecialOffers}
-        />
-        <Stack.Screen
+                <Stack.Screen
+                    options={{ headerShown: false }}
+                    name={Routers.Home}
+                    component={Home}
+                />
+                <Stack.Screen
+                    options={{ headerShown: false }}
+                    name={Routers.Splash}
+                    component={Splash}
+                />
+                <Stack.Screen
+                    options={{ headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }}
+                    name={Routers.SpecialOffers}
+                    component={SpecialOffers}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.Recommended} imageSource={require('../../assets/Icons/emoji.png')} />)
+                    }}
+                    name={Routers.Recommended}
+                    component={ListCard}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.DiscountGuaranteed} imageSource={require('../../assets/Icons/emoji.png')} />)
+                    }}
+                    name={Routers.DiscountGuaranteed}
+                    component={ListCard}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.MyFavorite}
+                    component={ListCard}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.MoreCategory}
+                    component={Category}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.CategoryDetail}
+                    component={CategoryDetail}
+                />
+                <Stack.Screen
+                    options={{
+                        headerRight: ()=>(<TouchableOpacity>
+                        <Image source={require('../../assets/Icons/3cham.png')}/>
+                        </TouchableOpacity>),headerRightContainerStyle: {marginRight:20},
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.Cart}
+                    
+                    component={MyCart}
+                />
+                <Stack.Screen
           options={{
             headerShown: true,
             headerTitleStyle: Styles.specialOffersTitle,
@@ -132,42 +179,14 @@ const AppNavigation = () => {
           name={Routers.CheckOut}
           component={Checkout}
         />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            headerTitle: () => (
-              <CustomHeader
-                title={Routers.DiscountGuaranteed}
-                imageSource={require("../../assets/Icons/emoji.png")}
-              />
-            ),
-          }}
-          name={Routers.DiscountGuaranteed}
-          component={ListCard}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            headerTitle: () => (
-              <CustomHeader
-                title={Routers.Recommended}
-                imageSource={require("../../assets/Icons/emoji.png")}
-              />
-            ),
-          }}
-          name={Routers.Recommended}
-          component={ListCard}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 };
 const Styles = StyleSheet.create({
-  specialOffersTitle: {
-    fontSize: 24,
-  },
+    headerTitleStyle: {
+        fontSize: 24,
+    }
 });
 
 export default AppNavigation;

@@ -31,6 +31,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import SpecialOfferItem from "../../components/SpecialOfferItem";
 import SeparatorComponent from "../../components/SeparatorComponent";
+import MyCart from "../Cart/MyCart";
 
 const Home = () => {
   const [textSearch, setTextSearch] = useState("");

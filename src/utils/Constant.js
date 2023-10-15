@@ -20,6 +20,7 @@ export const Routers = {
   MyFavorite: "My Favorite",
   MoreCategory: "More Category",
   CategoryDetail: "Category Detail",
+  Cart:'My Cart',
   OverView: " ",
   RatingAndReview: "Rating & Review",
   OffersAreAvailable: "Offers Are Available",

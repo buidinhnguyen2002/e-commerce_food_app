@@ -2,42 +2,74 @@ import { StyleSheet } from "react-native";
 import { FontSize } from "./Constant";
 
 export const CommonStyles = StyleSheet.create({
-    center: {
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    iconSize: {
-        width: 25,
-        height: 25,
-        resizeMode: "contain",
-    },
-    horizontal_direction: {
-        flexDirection: "row",
-    },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconSize: {
+    width: 25,
+    height: 25,
+    resizeMode: "contain",
+  },
+  horizontal_direction: {
+    flexDirection: "row",
+  },
+  imageProduct: {
+    width: "auto",
+    height: 300,
+  },
+  imageCart: {
+    width: 100,
+    height: 100,
+    borderRadius: 20,
+  },
+  iconSizeSmall: {
+    width: 20,
+    height: 20,
+    resizeMode: "contain",
+  },
+  iconSizeSuperSmall: {
+    width: 15,
+    height: 15,
+    resizeMode: "contain",
+  },
 });
 
 export const TypographyStyles = StyleSheet.create({
-    big: {
-        fontSize: FontSize.large,
-        fontWeight: "700",
-    },
-    medium: {
-        fontSize: FontSize.medium,
-        fontWeight: "700",
-    },
-    normal: {
-        fontSize: FontSize.normal,
-        fontWeight: "normal",
-    },
-    small: {
-        fontSize: FontSize.small,
-    },
-    verySmall: {
-        fontSize: FontSize.verySmall,
-    },
-    tinySmall: {
-        fontSize: FontSize.tinySmall,
-    }
+  big: {
+    fontSize: FontSize.large,
+    fontWeight: "700",
+  },
+  medium: {
+    fontSize: FontSize.medium,
+    fontWeight: "700",
+  },
+  normal: {
+    fontSize: FontSize.normal,
+    fontWeight: "normal",
+  },
+  small: {
+    fontSize: FontSize.small,
+  },
+  verySmall: {
+    fontSize: FontSize.verySmall,
+  },
+  tinySmall: {
+    fontSize: FontSize.tinySmall,
+  },
+  mediumSWe: {
+    fontSize: FontSize.medium,
+    fontWeight: "500",
+  },
+  nameFood: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginRight: 20,
+  },
+  soBig: {
+    fontSize: FontSize.soLarge,
+    fontWeight: "700",
+  },
 });
 
 export const Margin = StyleSheet.create({
@@ -197,4 +229,3 @@ export const Padding = StyleSheet.create({
         paddingVertical: 5,
     }
 });
-

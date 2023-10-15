@@ -5,15 +5,15 @@ import { StyleSheet } from 'react-native'
 import { CommonStyles, Margin, Padding, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
 import { useState } from 'react'
-import { CardOrder } from '../../components/Cards/Cards'
+import { CardOrder, CardOrderCancelled } from '../../components/Cards/Cards'
 import SeparatorComponent from '../../components/SeparatorComponent'
-
+import { CardOrderCompleted } from '../../components/Cards/Cards'
 const Order = () => {
     const [tabIndex, setTabIndex] = useState(0);
-    const TabOrder = ({ title, isActive }) => {
+    const TabOrder = ({ title, isActive, onPress }) => {
         return (
             <View style={[Styles.tabOrderItem, CommonStyles.center]}>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={onPress}>
                     <Text style={[TypographyStyles.normal, { color: isActive ? Colors.primaryColor : Colors.grey_02, fontSize: 22, fontWeight: 600 }]}>{title}</Text>
                 </TouchableOpacity>
             </View>
@@ -21,10 +21,11 @@ const Order = () => {
     }
     const GetBody = () => {
         if (tabIndex == 0) return (
-            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} renderItem={() => (<CardOrder />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />
-        )
-        if (tabIndex == 1) return <View></View>
-        if (tabIndex == 2) return <View></View>
+            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} renderItem={() => (<CardOrder />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} /> )
+        if (tabIndex == 1) return( 
+            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} renderItem={() => (<CardOrderCompleted />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
+        if (tabIndex == 2) return ( 
+            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} renderItem={() => (<CardOrderCancelled />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
     }
     return (
         <View style={[Styles.container, Padding.pd_horizontal_30, Padding.pd_vertical_20, { marginBottom: 240 }]} >
@@ -35,14 +36,14 @@ const Order = () => {
                 </View>
                 <View>
                     <TouchableOpacity>
-                        <Image style={Styles.actionTopRight} source={require('../../../assets/Icons/cart.png')} />
+                        <Image style={Styles.actionTopRight} source={require('../../../assets/Icons/search.png')} />
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={[CommonStyles.horizontal_direction, Styles.tabOrder, Padding.pd_vertical_15, Margin.mt_20]}>
-                <TabOrder title={'Active'} isActive={tabIndex == 0} />
-                <TabOrder title={'Completed'} isActive={tabIndex == 1} />
-                <TabOrder title={'Cancelled'} isActive={tabIndex == 2} />
+                <TabOrder title={'Active'} isActive={tabIndex == 0} onPress={()=>setTabIndex(0)}/>
+                <TabOrder title={'Completed'} isActive={tabIndex == 1} onPress={()=>setTabIndex(1)}/>
+                <TabOrder title={'Cancelled'} isActive={tabIndex == 2} onPress={()=>setTabIndex(2)}/>   
             </View>
             <View style={[Padding.pd_vertical_20]}>
                 {GetBody()}

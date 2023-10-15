@@ -53,5 +53,12 @@ export const Styles = StyleSheet.create({
     labelCard: {
         backgroundColor: Colors.primaryColor,
         borderRadius: 10,
+    },
+    labelCardCancelled: {
+        backgroundColor: Colors.red,
+        borderRadius: 10,
+        
     }
+   
+    
 });

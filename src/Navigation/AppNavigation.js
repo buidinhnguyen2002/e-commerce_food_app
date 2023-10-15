@@ -89,7 +89,7 @@ const AppNavigation = () => {
                     options={{
                         headerRight: ()=>(<TouchableOpacity>
                         <Image source={require('../../assets/Icons/3cham.png')}/>
-                        </TouchableOpacity>),headerRightContainerStyle: {marginRight:50},
+                        </TouchableOpacity>),headerRightContainerStyle: {marginRight:20},
                         headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
                     }}
                     name={Routers.Cart}

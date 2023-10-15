@@ -46,6 +46,9 @@ const ProductDetail = () => {
   const OffersAreAvailable = () => {
     navigation.navigate(Routers.OffersAreAvailable);
   };
+  const CheckOutScreen = () => {
+    navigation.navigate(Routers.CheckOut);
+  };
   const [clickedMenuItems, setClickedMenuItems] = useState([]);
 
   return (
@@ -76,62 +79,102 @@ const ProductDetail = () => {
           </View>
 
           <View>
-            <View style={Styles.rowContainer}>
-              <TouchableOpacity onPress={OverViewScreen}>
-                <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
-                  Big Garden Salad
-                </Text>
-              </TouchableOpacity>
-              <Image
-                style={[
-                  CommonStyles.iconSize,
-                  { marginLeft: 70, marginTop: 30 },
-                ]}
-                source={require("../../../assets/Icons/arrownext.png")}
-              />
+            <View
+              style={[
+                {
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginRight: 20,
+                },
+              ]}
+            >
+              <View style={Styles.rowContainer}>
+                <TouchableOpacity onPress={OverViewScreen}>
+                  <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
+                    Big Garden Salad
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Image
+                  style={[
+                    CommonStyles.iconSize,
+                    { marginLeft: 70, marginTop: 30 },
+                  ]}
+                  source={require("../../../assets/Icons/arrownext.png")}
+                />
+              </View>
             </View>
             <View>
               <View style={Styles.divider} />
               <TouchableOpacity onPress={RatingAndReview}>
+                <View
+                  style={[
+                    {
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginRight: 20,
+                    },
+                  ]}
+                >
+                  <View style={Styles.rowContainer}>
+                    <Image
+                      style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                      source={require("../../../assets/Icons/star.png")}
+                    />
+                    <Text
+                      style={[TypographyStyles.medium, { marginRight: 20 }]}
+                    >
+                      4.8
+                    </Text>
+                    <Text style={[TypographyStyles.small, Colors.grey]}>
+                      (4.8k reviews)
+                    </Text>
+                  </View>
+                  <View>
+                    <Image
+                      style={[
+                        CommonStyles.iconSize,
+                        { alignItems: "flex-end", justifyContent: "flex-end" },
+                      ]}
+                      source={require("../../../assets/Icons/arrownext.png")}
+                    />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <View style={Styles.divider} />
+              <View
+                style={[
+                  {
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginRight: 20,
+                  },
+                ]}
+              >
                 <View style={Styles.rowContainer}>
                   <Image
                     style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                    source={require("../../../assets/Icons/star.png")}
+                    source={require("../../../assets/Icons/locate.png")}
                   />
-                  <Text style={[TypographyStyles.medium, { marginRight: 20 }]}>
-                    4.8
-                  </Text>
-                  <Text style={[TypographyStyles.small, Colors.grey]}>
-                    (4.8k reviews)
-                  </Text>
+                  <Text style={TypographyStyles.medium}>2.4 km</Text>
+                </View>
+                <View>
                   <Image
                     style={[
                       CommonStyles.iconSize,
-                      { marginRight: 20 },
-                      { marginLeft: 150 },
+                      {
+                        alignItems: "baseline",
+                        justifyContent: "flex-end",
+                        marginLeft: "auto",
+                      },
                     ]}
                     source={require("../../../assets/Icons/arrownext.png")}
                   />
                 </View>
-              </TouchableOpacity>
-              <View style={Styles.divider} />
-              <View style={Styles.rowContainer}>
-                <Image
-                  style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                  source={require("../../../assets/Icons/locate.png")}
-                />
-                <Text style={TypographyStyles.medium}>2.4 km</Text>
-                <Image
-                  style={[
-                    CommonStyles.iconSize,
-                    {
-                      alignItems: "baseline",
-                      justifyContent: "flex-end",
-                      marginLeft: "auto",
-                    },
-                  ]}
-                  source={require("../../../assets/Icons/arrownext.png")}
-                />
               </View>
               <View style={Styles.rowContainer}>
                 <Text
@@ -156,33 +199,47 @@ const ProductDetail = () => {
                   $2.00
                 </Text>
               </View>
+
               <View style={Styles.divider} />
               <TouchableOpacity onPress={OffersAreAvailable}>
-                <View style={Styles.rowContainer}>
-                  <Image
-                    style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                    source={require("../../../assets/Icons/z.png")}
-                  />
-                  <Text style={TypographyStyles.medium}>
-                    Offers are available
-                  </Text>
-                  <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      {
-                        alignItems: "baseline",
-                        justifyContent: "flex-end",
-                        marginLeft: "auto",
-                      },
-                    ]}
-                    source={require("../../../assets/Icons/arrownext.png")}
-                  />
+                <View
+                  style={[
+                    {
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginRight: 20,
+                    },
+                  ]}
+                >
+                  <View style={Styles.rowContainer}>
+                    <Image
+                      style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                      source={require("../../../assets/Icons/z.png")}
+                    />
+                    <Text style={TypographyStyles.medium}>
+                      Offers are available
+                    </Text>
+                  </View>
+                  <View>
+                    <Image
+                      style={[
+                        CommonStyles.iconSize,
+                        {
+                          alignItems: "baseline",
+                          justifyContent: "flex-end",
+                          marginLeft: "auto",
+                        },
+                      ]}
+                      source={require("../../../assets/Icons/arrownext.png")}
+                    />
+                  </View>
                 </View>
               </TouchableOpacity>
               <View style={Styles.divider} />
             </View>
           </View>
-          <View style={{ backgroundColor: Colors.background }}>
+          <View>
             <Text
               style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
             >
@@ -191,7 +248,7 @@ const ProductDetail = () => {
 
             <CardProductDetail />
           </View>
-          <View style={{ backgroundColor: Colors.background }}>
+          <View>
             <Text
               style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
             >
@@ -213,7 +270,10 @@ const ProductDetail = () => {
                   Cart
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={Styles.buttonProduct}>
+              <TouchableOpacity
+                onPress={CheckOutScreen}
+                style={Styles.buttonProduct}
+              >
                 <Text
                   style={{
                     fontSize: 18,

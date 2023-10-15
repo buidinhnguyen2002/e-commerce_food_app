@@ -33,6 +33,7 @@ const EnterYourPin = () => {
         // borderWidth={1}
         borderRadius={20}
         bgColor={Colors.paleGray}
+        margin={5}
       />
     );
   }
@@ -58,7 +59,10 @@ const EnterYourPin = () => {
             Enter your PIN to confirm top up
           </Text>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           >
             {buttons}
           </View>
@@ -95,14 +99,15 @@ const EnterYourPin = () => {
           <View
             style={[
               {
+                // alignContent: "space-between",
                 alignItems: "center",
-                margin: 20,
+                // margin: 20,
+                marginLeft: 60,
+                marginRight: 60,
+                height: 150,
                 justifyContent: "center",
-                width: 100,
-                height: 100,
                 backgroundColor: Colors.primaryColor,
-                borderRadius: 50,
-                marginLeft: 100,
+                borderRadius: 90,
               },
             ]}
           >

@@ -109,7 +109,7 @@ const Home = () => {
                 <OutlineButton />
               </View>
               <View style={Margin.ml_15}>
-                <OutlineButton />
+                <OutlineButton onPress={() => redirectScreens(Routers.Cart)} />
               </View>
             </View>
           </View>

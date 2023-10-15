@@ -156,7 +156,15 @@ const EWallet = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <Transaction />
+        <View style={{ flex: 1, height: 500 }}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}
+            style={{ paddingHorizontal: 10 }}
+          >
+            <Transaction />
+          </ScrollView>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

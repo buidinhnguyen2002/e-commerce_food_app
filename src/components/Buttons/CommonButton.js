@@ -15,6 +15,8 @@ const CommonButton = ({
   fontWeight,
   borderWidth,
   borderRadius,
+  padding,
+  margin,
 }) => {
   return (
     <TouchableOpacity
@@ -29,6 +31,8 @@ const CommonButton = ({
           height: height,
           borderWidth: borderWidth,
           borderRadius: borderRadius,
+          padding: padding,
+          margin: margin,
         },
       ]}
     >

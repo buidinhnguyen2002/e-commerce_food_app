@@ -28,4 +28,5 @@ export const Routers = {
   TransactionHistory: "Transaction History",
   TopUp: "Top Up E-Wallet",
   EnterYourPin: "Enter Your Pin",
+  CheckOut: " Checkout Orders ",
 };

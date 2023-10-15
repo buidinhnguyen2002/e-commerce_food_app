@@ -13,9 +13,7 @@ const stars = Array(5).fill(require("../../../assets/Icons/star.png")); // Tạo
 const OverView = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
-      <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 130 }}
-      >
+      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View style={{ backgroundColor: Colors.white }}>
           <Text style={[TypographyStyles.soBig, Margin.ml_15, Margin.mt_15]}>
             Big Garden Salad

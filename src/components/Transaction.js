@@ -2,9 +2,11 @@ import React from "react";
 import { View, Image, Text } from "react-native";
 import { Colors } from "../utils/Colors";
 import { CommonStyles } from "../utils/StyleUtil";
+import { ScrollView } from "react-native";
 
 const Transaction = ({ name, date, amount, url, upDown, iconUrl }) => {
   return (
+    // <ScrollView>
     <View style={{ padding: 20, paddingBottom: 10 }}>
       <View
         style={{
@@ -35,7 +37,7 @@ const Transaction = ({ name, date, amount, url, upDown, iconUrl }) => {
           }}
         >
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>{amount}</Text>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", marginTop: 5 }}>
             <Text style={{ color: Colors.grey }}>{upDown}</Text>
             <Image
               style={[CommonStyles.iconSizeSmall, { marginLeft: 5 }]}
@@ -45,6 +47,7 @@ const Transaction = ({ name, date, amount, url, upDown, iconUrl }) => {
         </View>
       </View>
     </View>
+    // </ScrollView>
   );
 };
 

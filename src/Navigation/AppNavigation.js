@@ -25,6 +25,7 @@ import Payment from "../Screens/Checkout/Payment";
 import TransactionHistory from "../Screens/E-Wallet/TransactionHistory";
 import TopUp from "../Screens/E-Wallet/TopUp";
 import EnterYourPin from "../Screens/E-Wallet/EnterYourPin";
+import Checkout from "../Screens/Checkout/Checkout";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   return (
@@ -122,6 +123,42 @@ const AppNavigation = () => {
           }}
           name={Routers.EnterYourPin}
           component={EnterYourPin}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitleStyle: Styles.specialOffersTitle,
+          }}
+          name={Routers.CheckOut}
+          component={Checkout}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerTitle: () => (
+              <CustomHeader
+                title={Routers.DiscountGuaranteed}
+                imageSource={require("../../assets/Icons/emoji.png")}
+              />
+            ),
+          }}
+          name={Routers.DiscountGuaranteed}
+          component={ListCard}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerTitle: () => (
+              <CustomHeader
+                title={Routers.Recommended}
+                imageSource={require("../../assets/Icons/emoji.png")}
+              />
+            ),
+          }}
+          name={Routers.Recommended}
+          component={ListCard}
         />
       </Stack.Navigator>
     </NavigationContainer>

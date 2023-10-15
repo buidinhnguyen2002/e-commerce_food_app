@@ -47,9 +47,7 @@ const RatingAndReview = () => {
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 200 }}
-      >
+      <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
         <View style={[{ backgroundColor: Colors.white }]}>
           <View style={Styles.divider} />
           <View

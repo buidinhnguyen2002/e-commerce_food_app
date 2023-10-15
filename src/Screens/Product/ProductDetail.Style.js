@@ -4,12 +4,18 @@ import { Colors } from "../../utils/Colors";
 const Styles = StyleSheet.create({
   Container: {
     backgroundColor: "#FFFFFF",
-    width: "auto",
+    // width: "auto",
     height: 280,
     marginLeft: 20,
     marginTop: 20,
     borderRadius: 20,
-    maxWidth: "50%",
+    // maxWidth: "50%",
+    width: 200,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   NameProduct: {
     paddingTop: 30,
@@ -35,6 +41,11 @@ const Styles = StyleSheet.create({
     alignItems: "center", // Căn giữa các phần tử trong hàng
     padding: 10,
     marginLeft: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   rowTagForYou: {
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
@@ -42,6 +53,11 @@ const Styles = StyleSheet.create({
     // padding: 10,
     justifyContent: "center",
     marginRight: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   divider: {
     height: 2, // Chiều cao của dòng ngăn cách
@@ -49,15 +65,19 @@ const Styles = StyleSheet.create({
     margin: 10,
   },
   imageForYou: {
-    width: "auto",
+    // width: "auto",
+    // resizeMode: "center",
+    alignItems: "center",
+    width: 150,
     height: 150,
     borderRadius: 20,
-    margin: 15,
+    margin: 10,
   },
   menuStyle: {
     backgroundColor: "#FFFFFF",
     width: "auto",
     height: 150,
+    // shadowColor:"Red",
 
     borderRadius: 30,
     marginTop: 20,

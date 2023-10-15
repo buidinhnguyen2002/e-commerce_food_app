@@ -99,18 +99,17 @@ const CheckoutStyles = StyleSheet.create({
   },
   buttonQuantity: {
     fontSize: 30,
-    fontWeight: "500",
-    marginTop: -10,
+    fontWeight: "700",
+
     marginRight: 10,
-    alignItems: "center",
+    // alignItems: "center",
   },
   buttonPlus: {
     fontSize: 25,
     fontWeight: "500",
-    marginTop: -5,
-    marginRight: 10,
+    textAlign: "center",
     marginLeft: 10,
-    alignItems: "center",
+    padding: 3,
   },
   modifyQuantity: {
     // width: 95,

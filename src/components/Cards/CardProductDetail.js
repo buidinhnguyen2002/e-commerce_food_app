@@ -63,7 +63,9 @@ const CardProductDetail = () => {
                 setHoveredItem(null);
               }}
             >
-              <Image style={Styles.imageForYou} source={item.imageSource} />
+              <View style={{ margin: 10 }}>
+                <Image style={Styles.imageForYou} source={item.imageSource} />
+              </View>
               <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
                 Best Seller
               </Text>

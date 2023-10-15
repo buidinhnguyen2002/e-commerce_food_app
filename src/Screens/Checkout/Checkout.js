@@ -28,20 +28,9 @@ const Checkout = () => {
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 130 }}
-      >
+      <ScrollView contentContainerStyle={{ paddingTop: 0 }}>
         <View style={{ backgroundColor: Colors.background }}>
           {/* //Deliver */}
-          <TouchableOpacity style={[CheckoutStyles.titleBack]}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon, Colors.white]}
-              source={require("../../../assets/Icons/arrowBack.png")}
-            />
-            <Text style={[TypographyStyles.big, { marginLeft: 10 }]}>
-              Checkout Orders
-            </Text>
-          </TouchableOpacity>
           <View style={CheckoutStyles.deliverTo}>
             <Text
               style={[TypographyStyles.medium, Margin.ml_20, { marginTop: 20 }]}
@@ -112,9 +101,21 @@ const Checkout = () => {
                 ]}
               >
                 <TouchableOpacity onPress={decreaseQuantity}>
-                  <Text style={CheckoutStyles.buttonQuantity}>-</Text>
+                  <Text
+                    style={[
+                      CheckoutStyles.buttonQuantity,
+                      CheckoutStyles.quantityStyles,
+                      {
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        textAlign: "center",
+                      },
+                    ]}
+                  >
+                    -
+                  </Text>
                 </TouchableOpacity>
-                <View style={CheckoutStyles.quantityStyles}>
+                <View>
                   <Text
                     style={{
                       fontWeight: "500",
@@ -126,7 +127,19 @@ const Checkout = () => {
                   </Text>
                 </View>
                 <TouchableOpacity onPress={increaseQuantity}>
-                  <Text style={CheckoutStyles.buttonPlus}>+</Text>
+                  <Text
+                    style={[
+                      CheckoutStyles.buttonPlus,
+                      CheckoutStyles.quantityStyles,
+                      {
+                        fontWeight: "700",
+                        fontSize: 16,
+                        textAlign: "center",
+                      },
+                    ]}
+                  >
+                    +
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -151,9 +164,21 @@ const Checkout = () => {
                 ]}
               >
                 <TouchableOpacity onPress={decreaseQuantity}>
-                  <Text style={CheckoutStyles.buttonQuantity}>-</Text>
+                  <Text
+                    style={[
+                      CheckoutStyles.buttonQuantity,
+                      CheckoutStyles.quantityStyles,
+                      {
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        textAlign: "center",
+                      },
+                    ]}
+                  >
+                    -
+                  </Text>
                 </TouchableOpacity>
-                <View style={CheckoutStyles.quantityStyles}>
+                <View>
                   <Text
                     style={{
                       fontWeight: "500",
@@ -165,7 +190,19 @@ const Checkout = () => {
                   </Text>
                 </View>
                 <TouchableOpacity onPress={increaseQuantity}>
-                  <Text style={CheckoutStyles.buttonPlus}>+</Text>
+                  <Text
+                    style={[
+                      CheckoutStyles.buttonPlus,
+                      CheckoutStyles.quantityStyles,
+                      {
+                        fontWeight: "700",
+                        fontSize: 16,
+                        textAlign: "center",
+                      },
+                    ]}
+                  >
+                    +
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

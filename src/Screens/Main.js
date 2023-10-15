@@ -7,9 +7,9 @@ import Home from "./Home/Home";
 import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
-import ProductDetail from "./Product/ProductDetail";
 import Checkout from "./Checkout/Checkout";
-import ProfileDetail from "./Profile/ProfileDetail";
+import Logout from "./Profile/Logout";
+
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -17,9 +17,9 @@ const Main = () => {
     return (
       <>
         {selectedTab == 0 && <Home />}
-        {selectedTab == 1 && <Checkout />}
+        {selectedTab == 1 && <Order />}
         {selectedTab == 2 && <ProductDetail />}
-        {selectedTab == 3 && <Profile />}
+        {selectedTab == 3 && <Profile/>}
         {selectedTab == 4 && <EWallet />}
       </>
     );

@@ -8,10 +8,61 @@ import Styles from "../../Screens/Product/ProductDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import OverView from "./OverView";
-import CardProductDetail from "../../components/Cards/CardProductDetail";
-import CardMenu from "../../components/Cards/CardMenu";
 
 const ProductDetail = () => {
+  const miQuangData = [
+    {
+      id: 0,
+      name: "Mi quang Ha Noi kkkkkkk",
+      price: "$12.00",
+      imageSource: require("../../../assets/Images/Foods/miquang.png"),
+    },
+    {
+      id: 1,
+      name: "Mi quang Ha Noi",
+      price: "$12.00",
+      imageSource: require("../../../assets/Images/Foods/pho2.png"),
+    },
+
+    // Thêm dữ liệu cho các mì quảng khác nếu cần
+  ];
+  const MenuData = [
+    {
+      id: 0,
+      name: "Mi quang Ha Noi kkkkkkk",
+      price: "$12.00",
+      imageSource: require("../../../assets/Images/Foods/miquang.png"),
+    },
+    {
+      id: 1,
+      name: "Mi quang Ha Noi",
+      price: "$12.00",
+      imageSource: require("../../../assets/Images/Foods/pho2.png"),
+    },
+
+    // Thêm dữ liệu cho các mì quảng khác nếu cần
+  ];
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [clickedItems, setClickedItems] = useState([]);
+
+  const rows = [];
+  for (let i = 0; i < miQuangData.length; i += 2) {
+    const row = miQuangData.slice(i, i + 2);
+    rows.push(row);
+  }
+
+  const handleItemClick = (itemIndex) => {
+    if (clickedItems.includes(itemIndex)) {
+      // Nếu item đã được nhấn, hãy bỏ nó khỏi mảng clickedItems
+      setClickedItems(clickedItems.filter((index) => index !== itemIndex));
+    } else {
+      // Nếu item chưa được nhấn, hãy thêm nó vào mảng clickedItems
+      setClickedItems([...clickedItems, itemIndex]);
+    }
+
+    console.log("clickedItems:", clickedItems); // Kiểm tra giá trị của clickedItems
+  };
+
   const navigation = useNavigation();
   const getHeaderHomeFragment = ({ name, icon, onPress }) => {
     return (
@@ -34,7 +85,9 @@ const ProductDetail = () => {
       </View>
     );
   };
-
+  const redirectSpecialOffers = () => {
+    navigation.navigate(Routers.SpecialOffers);
+  };
   const OverViewScreen = () => {
     navigation.navigate(Routers.OverView);
   };
@@ -44,6 +97,7 @@ const ProductDetail = () => {
   const OffersAreAvailable = () => {
     navigation.navigate(Routers.OffersAreAvailable);
   };
+  const [clickedMenuItems, setClickedMenuItems] = useState([]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
@@ -82,12 +136,7 @@ const ProductDetail = () => {
               <Image
                 style={[
                   CommonStyles.iconSize,
-                  {
-                    alignItems: "baseline",
-                    justifyContent: "flex-end",
-                    marginTop: 30,
-                    marginLeft: "auto",
-                  },
+                  { marginLeft: 70, marginTop: 30 },
                 ]}
                 source={require("../../../assets/Icons/arrownext.png")}
               />
@@ -109,12 +158,8 @@ const ProductDetail = () => {
                   <Image
                     style={[
                       CommonStyles.iconSize,
-
-                      {
-                        alignItems: "baseline",
-                        justifyContent: "flex-end",
-                        marginLeft: "auto",
-                      },
+                      { marginRight: 20 },
+                      { marginLeft: 150 },
                     ]}
                     source={require("../../../assets/Icons/arrownext.png")}
                   />
@@ -128,14 +173,7 @@ const ProductDetail = () => {
                 />
                 <Text style={TypographyStyles.medium}>2.4 km</Text>
                 <Image
-                  style={[
-                    CommonStyles.iconSize,
-                    {
-                      alignItems: "baseline",
-                      justifyContent: "flex-end",
-                      marginLeft: "auto",
-                    },
-                  ]}
+                  style={[CommonStyles.iconSize, { marginLeft: 230 }]}
                   source={require("../../../assets/Icons/arrownext.png")}
                 />
               </View>
@@ -173,14 +211,7 @@ const ProductDetail = () => {
                     Offers are available
                   </Text>
                   <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      {
-                        alignItems: "baseline",
-                        justifyContent: "flex-end",
-                        marginLeft: "auto",
-                      },
-                    ]}
+                    style={[CommonStyles.iconSize, { marginLeft: 100 }]}
                     source={require("../../../assets/Icons/arrownext.png")}
                   />
                 </View>
@@ -195,7 +226,49 @@ const ProductDetail = () => {
               For you
             </Text>
 
-            <CardProductDetail />
+            {rows.map((row, rowIndex) => (
+              <View key={rowIndex} style={[Styles.rowTagForYou]}>
+                {row.map((item, itemIndex) => (
+                  <TouchableOpacity
+                    key={itemIndex}
+                    style={[
+                      Styles.Container,
+                      clickedItems.includes(itemIndex) && styles.clicked,
+                    ]}
+                    onPress={() => handleItemClick(itemIndex)}
+                    onMouseEnter={() => {
+                      setHoveredItem(itemIndex);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredItem(null);
+                    }}
+                  >
+                    <Image
+                      style={Styles.imageForYou}
+                      source={item.imageSource}
+                    />
+                    <Text
+                      style={[Styles.cardTicker, TypographyStyles.tinySmall]}
+                    >
+                      Best Seller
+                    </Text>
+                    <Text
+                      style={[TypographyStyles.nameFood, { paddingLeft: 20 }]}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text
+                      style={[
+                        TypographyStyles.nameFood,
+                        { color: "#1BAC4B", marginLeft: 20 },
+                      ]}
+                    >
+                      {item.price}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            ))}
           </View>
           <View style={{ backgroundColor: Colors.background }}>
             <Text
@@ -203,7 +276,41 @@ const ProductDetail = () => {
             >
               Menu
             </Text>
-            <CardMenu />
+            {MenuData.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={[
+                  styles.menuItem, // Sử dụng một kiểu CSS mới cho các thẻ Menu
+                  clickedMenuItems.includes(item.id) && styles.clicked, // Kiểm tra trạng thái ấn
+                ]}
+                onPress={() => handleItemClick(item.id)}
+                onMouseEnter={() => {
+                  setHoveredItem(item.id);
+                }}
+                onMouseLeave={() => {
+                  setHoveredItem(null);
+                }}
+              >
+                <View style={[Styles.rowContainer, Styles.menuStyle]}>
+                  <Image
+                    style={CommonStyles.imageCart}
+                    source={item.imageSource}
+                  />
+                  <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
+                    New
+                  </Text>
+                  <View style={{ margin: 30 }}>
+                    <Text style={TypographyStyles.nameFood}>{item.name}</Text>
+                    <Text
+                      style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}
+                    >
+                      {item.price}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+
             <View style={[Styles.rowContainer, { marginTop: 20 }]}>
               <TouchableOpacity
                 style={[Styles.buttonProduct, { marginRight: 20 }]}
@@ -225,7 +332,7 @@ const ProductDetail = () => {
                     fontSize: 18,
                     fontWeight: 500,
                     color: "#FFFFFF",
-                    paddingTop: 5,
+                    paddingTop: 10,
                   }}
                 >
                   Buy Now
@@ -238,5 +345,15 @@ const ProductDetail = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  menuItem: {
+    borderWidth: 2,
+    borderColor: "transparent", // Màu viền mặc định là trong suốt
+  },
+  clicked: {
+    borderColor: Colors.green, // Màu viền khi ấn
+  },
+});
 
 export default ProductDetail;

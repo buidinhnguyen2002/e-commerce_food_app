@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Routers } from '../../utils/Constant';
 import SpecialOfferItem from '../../components/SpecialOfferItem';
 import SeparatorComponent from '../../components/SeparatorComponent';
+import MyCart from '../Cart/MyCart';
 
 const Home = () => {
     const [textSearch, setTextSearch] = useState('');
@@ -72,7 +73,7 @@ const Home = () => {
                         </View>
                         <View style={Styles.topRightContainer}>
                             <View><OutlineButton /></View>
-                            <View style={Margin.ml_15}><OutlineButton /></View>
+                            <View style={Margin.ml_15}><OutlineButton onPress={()=>redirectScreens(Routers.Cart)}/></View>
                         </View>
                     </View>
                     <View style={Margin.mb_25}>

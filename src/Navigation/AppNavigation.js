@@ -11,9 +11,11 @@ import SpecialOffers from "../Screens/SpecialOffers/SpecialOffers";
 import { StyleSheet } from "react-native";
 import ListCard from "../Screens/ListCard/ListCard";
 import CustomHeader from "../components/CustomHeader";
-import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
 import Category from "../Screens/Category/Category";
 import CategoryDetail from "../Screens/Category/CategoryDetail";
+import MyCart from "../Screens/Cart/MyCart";
+import { Image } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -83,6 +85,17 @@ const AppNavigation = () => {
                     name={Routers.CategoryDetail}
                     component={CategoryDetail}
                 />
+                <Stack.Screen
+                    options={{
+                        headerRight: ()=>(<TouchableOpacity>
+                        <Image source={require('../../assets/Icons/3cham.png')}/>
+                        </TouchableOpacity>),headerRightContainerStyle: {marginRight:20},
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.Cart}
+                    
+                    component={MyCart}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -90,7 +103,7 @@ const AppNavigation = () => {
 const Styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 24,
-    },
+    }
 });
 
 export default AppNavigation;

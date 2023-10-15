@@ -21,5 +21,6 @@ export const Routers = {
     MyFavorite: 'My Favorite',
     MoreCategory: 'More Category',
     CategoryDetail: 'Category Detail',
+    Cart:'My Cart',
 }
 

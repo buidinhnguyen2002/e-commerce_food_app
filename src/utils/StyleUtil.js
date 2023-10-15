@@ -95,6 +95,9 @@ export const Margin = StyleSheet.create({
     mt_10: {
         marginTop: 10,
     },
+    mt_20: {
+        marginTop: 20,
+    },
     mt_15: {
         marginTop: 15,
     },
@@ -116,6 +119,9 @@ export const Margin = StyleSheet.create({
     mg_horizontal_20: {
         marginHorizontal: 20,
     },
+    mg_horizontal_15: {
+        marginHorizontal: 15,
+    },
     mg_vertical_20: {
         marginVertical: 20,
     }
@@ -123,6 +129,9 @@ export const Margin = StyleSheet.create({
 export const Padding = StyleSheet.create({
     pb_5: {
         paddingBottom: 5,
+    },
+    pb_20: {
+        paddingBottom: 20,
     },
     pd_horizontal_5: {
         paddingHorizontal: 5,
@@ -165,6 +174,9 @@ export const Padding = StyleSheet.create({
     },
     pl_30: {
         paddingLeft: 30,
+    },
+    pd_vertical_30: {
+        paddingVertical: 30,
     },
     pd_vertical_20: {
         paddingVertical: 20,

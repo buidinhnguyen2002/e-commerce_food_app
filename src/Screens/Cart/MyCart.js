@@ -37,9 +37,10 @@ import { FontSize } from '../../utils/Constant'
 }
 const EmptyCart = () => {
     return (
-            <View style={Styles.container}>
-                <View style={[Styles.container, {alignItems: 'center'}]}>
-                    <Image source={require('../../../assets/Images/clipboard.png') }style={Styles.cartImage}  />
+            <View style={[Styles.container,{flex:1}]}>
+                <View style={[ CommonStyles.center]}>
+                    <View>
+                    <Image source={require('../../../assets/Images/clipboard.png') }style={Styles.cartImage}  /></View>
                     <Text style={Styles.emptyCartText}>Your cart is empty</Text>
                     <Text style={[{fontSize:18, color: Colors.black, marginTop: 10 }]}>You do not have any food in your cart.</Text>
                 </View>
@@ -57,8 +58,8 @@ const MyCart = () => {
     }
 
     return (
-        <View style={[Styles.container]}>
-            <View style={Margin.mt_20} >
+        <View style={[Styles.container, Padding.pd_horizontal_20]}>
+            <View >
                 {getBody()}
 
             </View>
@@ -69,17 +70,18 @@ const MyCart = () => {
 const Styles=StyleSheet.create({
     container:{
         backgroundColor:Colors.white,
-        paddingHorizontal:20,
-        // paddingVertical:20,
         paddingBottom:20
     },
     emptyCartContainer: {
         alignItems: 'center',
-        backgroundColor:Colors.white,
+        
       },
       cartImage: {
-        width: 300,
-        height: 300,
+        // width: 300,
+        // height: 300,
+        width:'100%',
+        height:'100%',
+        objectFit:'cover'
     }, 
     emptyCartText: {
         ...TypographyStyles.normal,

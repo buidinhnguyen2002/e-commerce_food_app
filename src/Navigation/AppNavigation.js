@@ -89,7 +89,7 @@ const AppNavigation = () => {
                     options={{
                         headerRight: ()=>(<TouchableOpacity>
                         <Image source={require('../../assets/Icons/3cham.png')}/>
-                        </TouchableOpacity>),headerRightContainerStyle: {marginRight:30},
+                        </TouchableOpacity>),headerRightContainerStyle: {marginRight:50},
                         headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
                     }}
                     name={Routers.Cart}
@@ -103,8 +103,7 @@ const AppNavigation = () => {
 const Styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: 24,
-    },
-    
+    }
 });
 
 export default AppNavigation;

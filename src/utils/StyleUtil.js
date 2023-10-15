@@ -128,7 +128,9 @@ export const Margin = StyleSheet.create({
 });
 export const Padding = StyleSheet.create({
     pb_5: {
-        marginBottom: 5,
+        paddingBottom: 5,
+    },pb_20: {
+        paddingBottom: 20,
     },
     pd_horizontal_5: {
         paddingHorizontal: 5,

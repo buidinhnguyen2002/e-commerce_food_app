@@ -18,8 +18,8 @@ const Main = () => {
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Order />}
         {selectedTab == 2 && <ProductDetail />}
-        {selectedTab == 3 && <Profile />}
-        {selectedTab == 4 && <EWallet />}
+        {selectedTab == 3 && <EWallet />}
+        {selectedTab == 4 && <Profile />}
       </>
     );
   };

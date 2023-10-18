@@ -24,7 +24,6 @@ const CategoryDetail = ({ navigation, route }) => {
                     }} />
                 )} />
             </View>
-
             <View style={[{ flex: 1 }]}>
                 <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true} style={{ paddingHorizontal: 10 }}>
                     <ListTileCard />

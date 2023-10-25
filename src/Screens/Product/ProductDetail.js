@@ -79,33 +79,33 @@ const ProductDetail = () => {
           </View>
 
           <View>
-            <View
-              style={[
-                {
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginRight: 20,
-                },
-              ]}
-            >
-              <View style={Styles.rowContainer}>
-                <TouchableOpacity onPress={OverViewScreen}>
+            <TouchableOpacity onPress={OverViewScreen}>
+              <View
+                style={[
+                  {
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginRight: 20,
+                  },
+                ]}
+              >
+                <View style={Styles.rowContainer}>
                   <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
                     Big Garden Salad
                   </Text>
-                </TouchableOpacity>
+                </View>
+                <View>
+                  <Image
+                    style={[
+                      CommonStyles.iconSize,
+                      { marginLeft: 70, marginTop: 30 },
+                    ]}
+                    source={require("../../../assets/Icons/arrownext.png")}
+                  />
+                </View>
               </View>
-              <View>
-                <Image
-                  style={[
-                    CommonStyles.iconSize,
-                    { marginLeft: 70, marginTop: 30 },
-                  ]}
-                  source={require("../../../assets/Icons/arrownext.png")}
-                />
-              </View>
-            </View>
+            </TouchableOpacity>
             <View>
               <View style={Styles.divider} />
               <TouchableOpacity onPress={RatingAndReview}>

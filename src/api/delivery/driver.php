@@ -3,7 +3,7 @@ include '../database_connect.php';
 
 $db = new dbConnect();
 $connection = $db->getConnection();
-$table = 'deliverydriver';
+$table = 'delivery_driver';
 $response = array();
 $result;
 header("Content-Type: application/json");

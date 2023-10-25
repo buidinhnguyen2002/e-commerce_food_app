@@ -28,12 +28,13 @@ import TransactionHistory from "../Screens/E-Wallet/TransactionHistory";
 import TopUp from "../Screens/E-Wallet/TopUp";
 import EnterYourPin from "../Screens/E-Wallet/EnterYourPin";
 import Checkout from "../Screens/Checkout/Checkout";
+import ProductDetail from "../Screens/Product/ProductDetail";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+        <Stack.Screen
           options={{ headerShown: false }}
           name={Routers.Login}
           component={Login}
@@ -43,7 +44,6 @@ const AppNavigation = () => {
           name={Routers.Main}
           component={Main}
         />
-        
 
         <Stack.Screen
           options={{ headerShown: false }}
@@ -213,6 +213,15 @@ const AppNavigation = () => {
           }}
           name={Routers.CheckOut}
           component={Checkout}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTitleStyle: Styles.headerTitleStyle,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+          name={Routers.ProductDetail}
+          component={ProductDetail}
         />
       </Stack.Navigator>
     </NavigationContainer>

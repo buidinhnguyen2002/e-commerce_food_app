@@ -20,7 +20,7 @@ export const Routers = {
   MyFavorite: "My Favorite",
   MoreCategory: "More Category",
   CategoryDetail: "Category Detail",
-  Cart:'My Cart',
+  Cart: "My Cart",
   OverView: " ",
   RatingAndReview: "Rating & Review",
   OffersAreAvailable: "Offers Are Available",
@@ -30,4 +30,5 @@ export const Routers = {
   TopUp: "Top Up E-Wallet",
   EnterYourPin: "Enter Your Pin",
   CheckOut: " Checkout Orders ",
+  ProductDetail: "ProductDetail",
 };

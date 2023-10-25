@@ -53,9 +53,7 @@ const ProductDetail = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
-      <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 130 }}
-      >
+      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View>
           <Image
             style={CommonStyles.imageProduct}

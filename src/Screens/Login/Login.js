@@ -7,11 +7,16 @@ import CommonButton from "../../components/Buttons/CommonButton";
 import { Colors } from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
+import ApiUrlConstants from "../../utils/api_constants";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../store/actions/userAction";
 
 const Login = () => {
   const navigation = useNavigation();
+  const dispath = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
   const [page, setPage] = useState("Login");
 
   const validate = () => {
@@ -29,8 +34,55 @@ const Login = () => {
   const goToSignIn = () => {
     setPage("Login");
   };
-  const login = () => {
-    navigation.navigate(Routers.Main);
+  const signIn = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.signIn, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_name: username,
+          password: password,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        dispath(loginSuccess());
+      }
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const signUp = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.signUp, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_name: username,
+          password: password,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        setPage("Login");
+      }
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <View style={Styles.container}>
@@ -68,7 +120,7 @@ const Login = () => {
         title={page === "Login" ? "Sign in" : "Sign up"}
         bgColor={Colors.primaryColor}
         textColor={Colors.white}
-        onPress={login}
+        onPress={page == 'Login' ? signIn : signUp}
         height={50}
         borderRadius={30}
         width={"100%"}

@@ -52,7 +52,11 @@ const Login = () => {
       }
       const data = await response.json();
       if (data['status'] == 'success') {
-        dispath(loginSuccess());
+        const dataUser = data['data'];
+        dispath(loginSuccess({
+          id: dataUser['id'], avatar: dataUser['avatar'], cartId: dataUser['cart_id']
+          , phoneNumber: dataUser['phone_number'], userName: dataUser['user_name']
+        }));
       }
       console.log(data);
     } catch (error) {

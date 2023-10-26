@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
-    echo isset($data->restaurant_id);
-    if (isset($data->restaurant_id, $data->food_name, $data->description, $data->price, $data->unit, $data->rate, $data->image_source, $data->quantity_init, $data->quantity_available)) {
+    if (isset( $data->restaurant_id, $data->food_name, $data->description, $data->price, $data->unit, $data->rate, $data->image_source, $data->quantity_init, $data->quantity_available)) {
+     
         $restaurantId = $data->restaurant_id;
         $foodName = $data->food_name;
         $description = $data->description;
@@ -51,12 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $unit = $data->unit;
         $rate = $data->rate;
         $imageSource = $data->image_source;
+ 
         $quantityInit = $data->quantity_init;
         $quantityAvailable = $data->quantity_available;
-        $query = "INSERT INTO $table(restaurant_id, food_name, description, price, unit, rate, image_source, date, quantity_init, quantity_available) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO $table(restaurant_id, food_name, description, price, unit, rate, image_source, quantity_init, quantity_available) VALUES (?,?,?,?,?,?,?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("issisissii", $restaurantId, $foodName, $description, $price, $unit, $rate, $imageSource, $date, $quantityInit, $quantityAvailable);
+            $prepareStatement->bind_param("issisisii", $restaurantId, $foodName, $description, $price, $unit, $rate, $imageSource, $quantityInit, $quantityAvailable);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
@@ -81,14 +82,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $unit = $data->unit;
         $rate = $data->rate;
         $imageSource = $data->image_source;
-        $date = $data->date;
+        $date = $data-> date;
         $quantityInit = $data->quantity_init;
         $quantityAvailable = $data->quantity_available;
         $query = "UPDATE $table SET restaurant_id = ? , food_name = ?, description = ?, price = ?, unit = ?,
         rate = ?, image_source = ?, date = ?, quantity_init = ?, quantity_available = ? WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("issisissiii", $restaurantId, $foodName, $price, $unit, $rate, $imageSource, $quantityInit, $quantityAvailable, $id);
+            $prepareStatement->bind_param("issisissiii", $restaurantId, $foodName, $description, $price, $unit, $rate, $imageSource, $date, $quantityInit, $quantityAvailable, $id);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';

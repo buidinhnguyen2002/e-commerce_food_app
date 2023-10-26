@@ -28,192 +28,199 @@ import TransactionHistory from "../Screens/E-Wallet/TransactionHistory";
 import TopUp from "../Screens/E-Wallet/TopUp";
 import EnterYourPin from "../Screens/E-Wallet/EnterYourPin";
 import Checkout from "../Screens/Checkout/Checkout";
+import { useSelector } from "react-redux";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
+  const isSignedIn = useSelector(state => state.userReducer.isSignIn);
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-          options={{ headerShown: false }}
-          name={Routers.Login}
-          component={Login}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={Routers.Main}
-          component={Main}
-        />
-        
+        {isSignedIn ? (
+          <>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.Main}
+              component={Main}
+            />
 
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={Routers.Home}
-          component={Home}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={Routers.Splash}
-          component={Splash}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.SpecialOffers}
-          component={SpecialOffers}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            headerTitle: () => (
-              <CustomHeader
-                title={Routers.Recommended}
-                imageSource={require("../../assets/Icons/emoji.png")}
-              />
-            ),
-          }}
-          name={Routers.Recommended}
-          component={ListCard}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            headerTitle: () => (
-              <CustomHeader
-                title={Routers.DiscountGuaranteed}
-                imageSource={require("../../assets/Icons/emoji.png")}
-              />
-            ),
-          }}
-          name={Routers.DiscountGuaranteed}
-          component={ListCard}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.MyFavorite}
-          component={ListCard}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.MoreCategory}
-          component={Category}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.CategoryDetail}
-          component={CategoryDetail}
-        />
-        <Stack.Screen
-          options={{
-            headerRight: () => (
-              <TouchableOpacity>
-                <Image source={require("../../assets/Icons/3cham.png")} />
-              </TouchableOpacity>
-            ),
-            headerRightContainerStyle: { marginRight: 20 },
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.Cart}
-          component={MyCart}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.OverView}
-          component={OverView}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.RatingAndReview}
-          component={RatingAndReview}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.OffersAreAvailable}
-          component={OffersAreAvailable}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.DeliverTo}
-          component={DeliverTo}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.specialOffersTitle,
-          }}
-          name={Routers.Payment}
-          component={Payment}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.TransactionHistory}
-          component={TransactionHistory}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.TopUp}
-          component={TopUp}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.EnterYourPin}
-          component={EnterYourPin}
-        />
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitleStyle: Styles.headerTitleStyle,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          name={Routers.CheckOut}
-          component={Checkout}
-        />
+
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.Home}
+              component={Home}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.Splash}
+              component={Splash}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.SpecialOffers}
+              component={SpecialOffers}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                headerTitle: () => (
+                  <CustomHeader
+                    title={Routers.Recommended}
+                    imageSource={require("../../assets/Icons/emoji.png")}
+                  />
+                ),
+              }}
+              name={Routers.Recommended}
+              component={ListCard}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                headerTitle: () => (
+                  <CustomHeader
+                    title={Routers.DiscountGuaranteed}
+                    imageSource={require("../../assets/Icons/emoji.png")}
+                  />
+                ),
+              }}
+              name={Routers.DiscountGuaranteed}
+              component={ListCard}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.MyFavorite}
+              component={ListCard}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.MoreCategory}
+              component={Category}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.CategoryDetail}
+              component={CategoryDetail}
+            />
+            <Stack.Screen
+              options={{
+                headerRight: () => (
+                  <TouchableOpacity>
+                    <Image source={require("../../assets/Icons/3cham.png")} />
+                  </TouchableOpacity>
+                ),
+                headerRightContainerStyle: { marginRight: 20 },
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.Cart}
+              component={MyCart}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.OverView}
+              component={OverView}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.RatingAndReview}
+              component={RatingAndReview}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.OffersAreAvailable}
+              component={OffersAreAvailable}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.DeliverTo}
+              component={DeliverTo}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.specialOffersTitle,
+              }}
+              name={Routers.Payment}
+              component={Payment}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.TransactionHistory}
+              component={TransactionHistory}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.TopUp}
+              component={TopUp}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.EnterYourPin}
+              component={EnterYourPin}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.CheckOut}
+              component={Checkout}
+            />
+          </>
+        ) : (<>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name={Routers.Login}
+            component={Login}
+          />
+        </>)}
       </Stack.Navigator>
     </NavigationContainer>
   );

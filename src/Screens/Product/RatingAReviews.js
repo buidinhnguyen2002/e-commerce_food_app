@@ -6,7 +6,7 @@ import {
   TypographyStyles,
   Margin,
 } from "../../utils/StyleUtil";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { Colors } from "../../utils/Colors";
 import styles from "./OverView.Styles";
 import SeparatorComponent from "../../components/SeparatorComponent";

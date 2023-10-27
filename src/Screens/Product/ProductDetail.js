@@ -4,15 +4,24 @@ import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
 import { ScrollView } from "react-native";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
-import OverView from "./OverView";
 import CardProductDetail from "../../components/Cards/CardProductDetail";
 import CardMenu from "../../components/Cards/CardMenu";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/actions/userAction";
 
-const ProductDetail = () => {
-  const navigation = useNavigation();
+const ProductDetail = ({ navigation, route }) => {
+  const productId = route.params.idProduct;
+  const product = useSelector(state => state.productsReducer.products.find(product => product.id == productId));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    navigation.setOptions({
+      title: product.food_name,
+    });
+  }, [productId]);
   const getHeaderHomeFragment = ({ name, icon, onPress }) => {
     return (
       <View style={[Styles.specialOfferHeader, Margin.mb_30]}>
@@ -34,28 +43,16 @@ const ProductDetail = () => {
       </View>
     );
   };
-  const redirectSpecialOffers = () => {
-    navigation.navigate(Routers.SpecialOffers);
-  };
-  const OverViewScreen = () => {
-    navigation.navigate(Routers.OverView);
-  };
-  const RatingAndReview = () => {
-    navigation.navigate(Routers.RatingAndReview);
-  };
-  const OffersAreAvailable = () => {
-    navigation.navigate(Routers.OffersAreAvailable);
-  };
   const CheckOutScreen = () => {
     navigation.navigate(Routers.CheckOut);
   };
-  const [clickedMenuItems, setClickedMenuItems] = useState([]);
-
+  const addProductToCart = ({ quantity }) => {
+    product.quantity = quantity ?? 1;
+    dispatch(addToCart({ product: product }));
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
-      <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 130 }}
-      >
+      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View>
           <Image
             style={CommonStyles.imageProduct}
@@ -79,36 +76,41 @@ const ProductDetail = () => {
           </View>
 
           <View>
-            <TouchableOpacity onPress={OverViewScreen}>
+            <View
+              style={[
+                {
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginRight: 20,
+                },
+              ]}
+            >
               <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginRight: 20,
-                  },
-                ]}
+                style={{ flexDirection: "column", margin: 20, marginTop: 0 }}
               >
-                <View style={Styles.rowContainer}>
-                  <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
-                    Big Garden Salad
-                  </Text>
-                </View>
-                <View>
-                  <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      { marginLeft: 70, marginTop: 30 },
-                    ]}
-                    source={require("../../../assets/Icons/arrownext.png")}
-                  />
-                </View>
+                <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
+                  {product.food_name}
+                </Text>
+                <Text
+                  style={{
+                    color: Colors.primaryColor,
+                    fontSize: 20,
+                    fontWeight: "bold",
+
+                    paddingTop: 10,
+                  }}
+                >
+                  Price : {product.price} VNĐ
+                </Text>
+                <Text style={{ paddingTop: 10 }}>
+                  {product.description}
+                </Text>
               </View>
-            </TouchableOpacity>
+            </View>
             <View>
               <View style={Styles.divider} />
-              <TouchableOpacity onPress={RatingAndReview}>
+              <TouchableOpacity >
                 <View
                   style={[
                     {
@@ -121,13 +123,16 @@ const ProductDetail = () => {
                 >
                   <View style={Styles.rowContainer}>
                     <Image
-                      style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                      style={[
+                        CommonStyles.iconSize,
+                        { marginRight: 20, backgroundColor: Colors.white },
+                      ]}
                       source={require("../../../assets/Icons/star.png")}
                     />
                     <Text
                       style={[TypographyStyles.medium, { marginRight: 20 }]}
                     >
-                      4.8
+                      {product.rate}
                     </Text>
                     <Text style={[TypographyStyles.small, Colors.grey]}>
                       (4.8k reviews)
@@ -144,147 +149,43 @@ const ProductDetail = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <View style={Styles.divider} />
-              <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginRight: 20,
-                  },
-                ]}
-              >
-                <View style={Styles.rowContainer}>
-                  <Image
-                    style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                    source={require("../../../assets/Icons/locate.png")}
-                  />
-                  <Text style={TypographyStyles.medium}>2.4 km</Text>
-                </View>
-                <View>
-                  <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      {
-                        alignItems: "baseline",
-                        justifyContent: "flex-end",
-                        marginLeft: "auto",
-                      },
-                    ]}
-                    source={require("../../../assets/Icons/arrownext.png")}
-                  />
-                </View>
-              </View>
-              <View style={Styles.rowContainer}>
-                <Text
-                  style={[
-                    Margin.mR_20,
-                    { marginLeft: 50 },
-                    TypographyStyles.small,
-                    Colors.blackGrey,
-                  ]}
-                >
-                  Delivery now
-                </Text>
-                <Text style={Margin.ml_20}>|</Text>
-                <Image
-                  style={[
-                    CommonStyles.iconSize,
-                    { marginLeft: 20, marginRight: 20 },
-                  ]}
-                  source={require("../../../assets/Icons/bike.png")}
-                />
-                <Text style={[TypographyStyles.small, Colors.blackGrey]}>
-                  $2.00
-                </Text>
-              </View>
 
               <View style={Styles.divider} />
-              <TouchableOpacity onPress={OffersAreAvailable}>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginRight: 20,
-                    },
-                  ]}
+              <View style={[Styles.rowContainer, { marginTop: 20 }]}>
+                <TouchableOpacity onPress={() => addProductToCart({ quantity: 1 })}
+                  style={[Styles.buttonProduct, { marginRight: 20 }]}
                 >
-                  <View style={Styles.rowContainer}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 500,
+                      color: "#FFFFFF",
+                      //   paddingTop: 5,
+                    }}
+                  >
                     <Image
-                      style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                      source={require("../../../assets/Icons/z.png")}
+                      style={[CommonStyles.iconSize, { padding: 10 }]}
+                      source={require("../../../assets/Icons/empty-cart.png")}
                     />
-                    <Text style={TypographyStyles.medium}>
-                      Offers are available
-                    </Text>
-                  </View>
-                  <View>
-                    <Image
-                      style={[
-                        CommonStyles.iconSize,
-                        {
-                          alignItems: "baseline",
-                          justifyContent: "flex-end",
-                          marginLeft: "auto",
-                        },
-                      ]}
-                      source={require("../../../assets/Icons/arrownext.png")}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-              <View style={Styles.divider} />
-            </View>
-          </View>
-          <View>
-            <Text
-              style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
-            >
-              For you
-            </Text>
-
-            <CardProductDetail />
-          </View>
-          <View>
-            <Text
-              style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
-            >
-              Menu
-            </Text>
-            <CardMenu />
-            <View style={[Styles.rowContainer, { marginTop: 20 }]}>
-              <TouchableOpacity
-                style={[Styles.buttonProduct, { marginRight: 20 }]}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    paddingTop: 5,
-                  }}
+                    Cart
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={CheckOutScreen}
+                  style={Styles.buttonProduct}
                 >
-                  Cart
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={CheckOutScreen}
-                style={Styles.buttonProduct}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    paddingTop: 5,
-                  }}
-                >
-                  Buy Now
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 500,
+                      color: "#FFFFFF",
+                      paddingTop: 5,
+                    }}
+                  >
+                    Buy Now
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>

@@ -10,3 +10,9 @@ export function loginSuccess({ id, userName, phoneNumber, avatar, cartId }) {
         },
     }
 }
+export function addToCart({ product }) {
+    return {
+        type: 'ADD_TO_CART',
+        payload: product,
+    }
+}

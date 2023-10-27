@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
-import Styles from "../Product/ProductDetail.Style";
+import Styles from "../Restaurant/RestaurantDetail.Style";
 import { ScrollView } from "react-native-gesture-handler";
 import CheckoutStyles from "./Checkout.Style";
 import { SafeAreaView } from "react-native";

@@ -4,7 +4,7 @@ import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
 import { ScrollView } from "react-native";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 const miQuangData = [
@@ -20,7 +20,18 @@ const miQuangData = [
     price: "$12.00",
     imageSource: require("../../../assets/Images/Foods/pho2.png"),
   },
-
+  {
+    id: 2,
+    name: "Mi quang Ha Noi",
+    price: "$12.00",
+    imageSource: require("../../../assets/Images/Foods/pho2.png"),
+  },
+  {
+    id: 3,
+    name: "Mi quang Ha Noi",
+    price: "$12.00",
+    imageSource: require("../../../assets/Images/Foods/pho2.png"),
+  },
   // Thêm dữ liệu cho các mì quảng khác nếu cần
 ];
 
@@ -44,25 +55,17 @@ const CardProductDetail = () => {
 
     console.log("clickedItems:", clickedItems); // Kiểm tra giá trị của clickedItems
   };
+  const navigation = useNavigation();
+  const changePage = () => {
+    navigation.navigate(Routers.ProductDetail);
+  };
+
   return (
     <View>
       {rows.map((row, rowIndex) => (
         <View key={rowIndex} style={[Styles.rowTagForYou]}>
           {row.map((item, itemIndex) => (
-            <TouchableOpacity
-              key={itemIndex}
-              style={[
-                Styles.Container,
-                clickedItems.includes(itemIndex) && styles.clicked,
-              ]}
-              onPress={() => handleItemClick(itemIndex)}
-              onMouseEnter={() => {
-                setHoveredItem(itemIndex);
-              }}
-              onMouseLeave={() => {
-                setHoveredItem(null);
-              }}
-            >
+            <TouchableOpacity onPress={changePage} style={[Styles.Container]}>
               <View style={{ margin: 10 }}>
                 <Image style={Styles.imageForYou} source={item.imageSource} />
               </View>

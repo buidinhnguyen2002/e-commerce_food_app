@@ -80,6 +80,9 @@ const Home = () => {
   const redirectCategoryDetail = (name, titleHeader) => {
     navigation.navigate(name, { titleHeader: titleHeader });
   };
+  const redirectFoodDetailScreen = (name, { idProduct }) => {
+    navigation.navigate(name, { idProduct: idProduct });
+  }
   return (
     <SafeAreaView style={Styles.screenContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -219,7 +222,7 @@ const Home = () => {
               showsVerticalScrollIndicator={false}
               nestedScrollEnabled={true}
               style={{ paddingHorizontal: 10 }}>
-              {products.map(food => (<ListTileCard key={food.id} foodName={food.food_name} image={food.image_source} price={food.price} rate={food.rate} />))}
+              {products.map(food => (<ListTileCard onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: food.id })} key={food.id} foodName={food.food_name} image={food.image_source} price={food.price} rate={food.rate} />))}
             </ScrollView>
           </View>
         </View>
@@ -252,8 +255,6 @@ const Styles = StyleSheet.create({
   categoryContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    rowGap: 40,
-    columnGap: 20,
   },
   recommendContainer: {
     flex: 1,

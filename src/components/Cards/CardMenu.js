@@ -4,14 +4,14 @@ import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
 import { ScrollView } from "react-native";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 
 const MenuData = [
   {
     id: 0,
-    name: "Mi quang Ha Noi kkkkkkk",
+    name: "Mi quang Ha Noi kkkk",
     price: "$12.00",
     imageSource: require("../../../assets/Images/Foods/miquang.png"),
   },

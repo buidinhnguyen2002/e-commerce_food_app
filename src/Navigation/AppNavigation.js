@@ -39,6 +39,11 @@ const AppNavigation = () => {
           <>
             <Stack.Screen
               options={{ headerShown: false }}
+              name={Routers.Splash}
+              component={Splash}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
               name={Routers.Main}
               component={Main}
             />
@@ -46,11 +51,6 @@ const AppNavigation = () => {
               options={{ headerShown: false }}
               name={Routers.Home}
               component={Home}
-            />
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name={Routers.Splash}
-              component={Splash}
             />
             <Stack.Screen
               options={{

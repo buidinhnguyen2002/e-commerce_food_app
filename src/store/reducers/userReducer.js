@@ -1,5 +1,5 @@
 const initialState = {
-    isSignIn: false,
+    isSignIn: true,
     id: null,
     userName: '',
     phoneNumber: '',

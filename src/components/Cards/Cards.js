@@ -106,7 +106,7 @@ export const CardDiscount = () => {
     </View>
   );
 };
-export const ListTileCard = ({ isDiscount }) => {
+export const ListTileCard = ({ foodName, price, image, rate, isDiscount }) => {
   return (
     <View
       style={[
@@ -133,7 +133,7 @@ export const ListTileCard = ({ isDiscount }) => {
           { justifyContent: "space-between", flex: 1 },
         ]}
       >
-        <Text style={TypographyStyles.medium}>Vegetarian Noodles</Text>
+        <Text style={TypographyStyles.medium}>{foodName}</Text>
         <View style={CommonStyles.horizontal_direction}>
           <Text style={[TypographyStyles.normal, { color: Colors.grey_02 }]}>
             800 m
@@ -159,7 +159,7 @@ export const ListTileCard = ({ isDiscount }) => {
               size={20}
             />
             <Text style={[TypographyStyles.normal, { color: Colors.grey_02 }]}>
-              4.8 (1.2k)
+              {rate} (1.2k)
             </Text>
           </View>
         </View>
@@ -180,7 +180,7 @@ export const ListTileCard = ({ isDiscount }) => {
               source={require("../../../assets/Images/bike.png")}
             />
             <Text style={[TypographyStyles.normal, { color: Colors.grey_02 }]}>
-              $2.00
+              {price} VNĐ
             </Text>
           </View>
           <Image
@@ -270,7 +270,7 @@ export const CardOrder = () => {
         <CommonButton
           size={20}
           bgColor={Colors.white}
-          onPress={() => {}}
+          onPress={() => { }}
           textColor={Colors.primaryColor}
           title={"Cancel Order"}
           width={"49%"}
@@ -281,7 +281,7 @@ export const CardOrder = () => {
         <CommonButton
           size={20}
           bgColor={Colors.primaryColor}
-          onPress={() => {}}
+          onPress={() => { }}
           textColor={Colors.white}
           title={"Cancel Order"}
           width={"49%"}
@@ -370,7 +370,7 @@ export const CardOrderCompleted = () => {
         <CommonButton
           size={20}
           bgColor={Colors.white}
-          onPress={() => {}}
+          onPress={() => { }}
           textColor={Colors.primaryColor}
           title={"Leave a Review"}
           width={"49%"}
@@ -381,7 +381,7 @@ export const CardOrderCompleted = () => {
         <CommonButton
           size={20}
           bgColor={Colors.primaryColor}
-          onPress={() => {}}
+          onPress={() => { }}
           textColor={Colors.white}
           title={"Order Again"}
           width={"49%"}

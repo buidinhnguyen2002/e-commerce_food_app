@@ -1,14 +1,13 @@
 import {
   View,
   Text,
-  SafeAreaView,
   Image,
   ScrollView,
   FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import { Avatar, Badge } from "@rneui/themed";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CommonButton, {
   OutlineButton,
@@ -32,11 +31,13 @@ import { Routers } from "../../utils/Constant";
 import SpecialOfferItem from "../../components/SpecialOfferItem";
 import SeparatorComponent from "../../components/SeparatorComponent";
 import MyCart from "../Cart/MyCart";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [textSearch, setTextSearch] = useState("");
   const [chip, setChip] = useState(0);
   const navigation = useNavigation();
+  const products = useSelector((state) => state.productsReducer.products);
   const dummyChip = [
     { text: "All", source: "" },
     { text: "Hamburger", source: "" },
@@ -217,17 +218,8 @@ const Home = () => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               nestedScrollEnabled={true}
-              style={{ paddingHorizontal: 10 }}
-            >
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
-              <ListTileCard />
+              style={{ paddingHorizontal: 10 }}>
+              {products.map(food => (<ListTileCard key={food.id} foodName={food.food_name} image={food.image_source} price={food.price} rate={food.rate} />))}
             </ScrollView>
           </View>
         </View>

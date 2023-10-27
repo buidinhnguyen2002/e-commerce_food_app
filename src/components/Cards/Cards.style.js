@@ -25,7 +25,7 @@ export const Styles = StyleSheet.create({
   imageListTile: {
     width: "100%",
     objectFit: "cover",
-    height: 160,
+    height: 120,
     borderRadius: 30,
   },
 
@@ -33,7 +33,7 @@ export const Styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     backgroundColor: Colors.primaryColor,
-    position: 'absolute',
+    position: "absolute",
     borderRadius: 10,
     textTransform: "uppercase",
     color: Colors.white,
@@ -43,12 +43,12 @@ export const Styles = StyleSheet.create({
   imageBike: {
     width: 20,
     height: 20,
-    objectFit: "contain"
+    objectFit: "contain",
   },
   imageHeart: {
-    width: 25,
-    height: 25,
-    objectFit: 'contain',
+    width: 20,
+    height: 20,
+    objectFit: "contain",
   },
   labelCard: {
     backgroundColor: Colors.primaryColor,
@@ -57,8 +57,5 @@ export const Styles = StyleSheet.create({
   labelCardCancelled: {
     backgroundColor: Colors.red,
     borderRadius: 10,
-
-  }
-
-
+  },
 });

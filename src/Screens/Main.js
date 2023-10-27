@@ -7,8 +7,8 @@ import Home from "./Home/Home";
 import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
-import ProductDetail from "./Product/ProductDetail";
 import Checkout from "./Checkout/Checkout";
+import Restaurant from "./Restaurant/Restaurant";
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -17,7 +17,7 @@ const Main = () => {
       <>
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Order />}
-        {selectedTab == 2 && <ProductDetail />}
+        {selectedTab == 2 && <Restaurant />}
         {selectedTab == 3 && <EWallet />}
         {selectedTab == 4 && <Profile />}
       </>

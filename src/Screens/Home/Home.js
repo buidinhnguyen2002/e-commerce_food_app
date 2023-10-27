@@ -260,8 +260,6 @@ const Styles = StyleSheet.create({
   categoryContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    rowGap: 40,
-    columnGap: 20,
   },
   recommendContainer: {
     flex: 1,

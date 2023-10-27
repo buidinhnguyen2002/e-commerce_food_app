@@ -43,7 +43,6 @@ const AppNavigation = () => {
               name={Routers.Main}
               component={Main}
             />
-
             <Stack.Screen
               options={{ headerShown: false }}
               name={Routers.Home}

@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { Colors } from "../../utils/Colors";
 import styles from "./OverView.Styles";
 import { SafeAreaView } from "react-native";

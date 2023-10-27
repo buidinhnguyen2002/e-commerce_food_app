@@ -29,6 +29,7 @@ import TopUp from "../Screens/E-Wallet/TopUp";
 import EnterYourPin from "../Screens/E-Wallet/EnterYourPin";
 import Checkout from "../Screens/Checkout/Checkout";
 import { useSelector } from "react-redux";
+import RestaurantDetail from "../Screens/Restaurant/RestaurantDetail";
 import ProductDetail from "../Screens/Product/ProductDetail";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -211,6 +212,15 @@ const AppNavigation = () => {
               }}
               name={Routers.CheckOut}
               component={Checkout}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.RestaurantDetail}
+              component={RestaurantDetail}
             />
             <Stack.Screen
               options={{

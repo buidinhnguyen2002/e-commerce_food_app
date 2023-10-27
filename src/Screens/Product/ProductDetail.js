@@ -4,10 +4,9 @@ import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
 import { ScrollView } from "react-native";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
-import OverView from "./OverView";
 import CardProductDetail from "../../components/Cards/CardProductDetail";
 import CardMenu from "../../components/Cards/CardMenu";
 
@@ -77,33 +76,39 @@ const ProductDetail = () => {
           </View>
 
           <View>
-            <TouchableOpacity onPress={OverViewScreen}>
+            <View
+              style={[
+                {
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginRight: 20,
+                },
+              ]}
+            >
               <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginRight: 20,
-                  },
-                ]}
+                style={{ flexDirection: "column", margin: 20, marginTop: 0 }}
               >
-                <View style={Styles.rowContainer}>
-                  <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
-                    Big Garden Salad
-                  </Text>
-                </View>
-                <View>
-                  <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      { marginLeft: 70, marginTop: 30 },
-                    ]}
-                    source={require("../../../assets/Icons/arrownext.png")}
-                  />
-                </View>
+                <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
+                  Big Garden Salad
+                </Text>
+                <Text
+                  style={{
+                    color: Colors.primaryColor,
+                    fontSize: 20,
+                    fontWeight: "bold",
+
+                    paddingTop: 10,
+                  }}
+                >
+                  Price : 50.000 $
+                </Text>
+                <Text style={{ paddingTop: 10 }}>
+                  Bún bò Huế là một món ăn truyền thống của Việt Nam. Với sự kết
+                  hợp giữa sợi mì dai dai, lát thịt bò thơm ngon.
+                </Text>
               </View>
-            </TouchableOpacity>
+            </View>
             <View>
               <View style={Styles.divider} />
               <TouchableOpacity onPress={RatingAndReview}>
@@ -119,7 +124,10 @@ const ProductDetail = () => {
                 >
                   <View style={Styles.rowContainer}>
                     <Image
-                      style={[CommonStyles.iconSize, { marginRight: 20 }]}
+                      style={[
+                        CommonStyles.iconSize,
+                        { marginRight: 20, backgroundColor: Colors.white },
+                      ]}
                       source={require("../../../assets/Icons/star.png")}
                     />
                     <Text
@@ -142,147 +150,43 @@ const ProductDetail = () => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <View style={Styles.divider} />
-              <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginRight: 20,
-                  },
-                ]}
-              >
-                <View style={Styles.rowContainer}>
-                  <Image
-                    style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                    source={require("../../../assets/Icons/locate.png")}
-                  />
-                  <Text style={TypographyStyles.medium}>2.4 km</Text>
-                </View>
-                <View>
-                  <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      {
-                        alignItems: "baseline",
-                        justifyContent: "flex-end",
-                        marginLeft: "auto",
-                      },
-                    ]}
-                    source={require("../../../assets/Icons/arrownext.png")}
-                  />
-                </View>
-              </View>
-              <View style={Styles.rowContainer}>
-                <Text
-                  style={[
-                    Margin.mR_20,
-                    { marginLeft: 50 },
-                    TypographyStyles.small,
-                    Colors.blackGrey,
-                  ]}
-                >
-                  Delivery now
-                </Text>
-                <Text style={Margin.ml_20}>|</Text>
-                <Image
-                  style={[
-                    CommonStyles.iconSize,
-                    { marginLeft: 20, marginRight: 20 },
-                  ]}
-                  source={require("../../../assets/Icons/bike.png")}
-                />
-                <Text style={[TypographyStyles.small, Colors.blackGrey]}>
-                  $2.00
-                </Text>
-              </View>
 
               <View style={Styles.divider} />
-              <TouchableOpacity onPress={OffersAreAvailable}>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginRight: 20,
-                    },
-                  ]}
+              <View style={[Styles.rowContainer, { marginTop: 20 }]}>
+                <TouchableOpacity
+                  style={[Styles.buttonProduct, { marginRight: 20 }]}
                 >
-                  <View style={Styles.rowContainer}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 500,
+                      color: "#FFFFFF",
+                      //   paddingTop: 5,
+                    }}
+                  >
                     <Image
-                      style={[CommonStyles.iconSize, { marginRight: 20 }]}
-                      source={require("../../../assets/Icons/z.png")}
+                      style={[CommonStyles.iconSize, { padding: 10 }]}
+                      source={require("../../../assets/Icons/empty-cart.png")}
                     />
-                    <Text style={TypographyStyles.medium}>
-                      Offers are available
-                    </Text>
-                  </View>
-                  <View>
-                    <Image
-                      style={[
-                        CommonStyles.iconSize,
-                        {
-                          alignItems: "baseline",
-                          justifyContent: "flex-end",
-                          marginLeft: "auto",
-                        },
-                      ]}
-                      source={require("../../../assets/Icons/arrownext.png")}
-                    />
-                  </View>
-                </View>
-              </TouchableOpacity>
-              <View style={Styles.divider} />
-            </View>
-          </View>
-          <View>
-            <Text
-              style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
-            >
-              For you
-            </Text>
-
-            <CardProductDetail />
-          </View>
-          <View>
-            <Text
-              style={[TypographyStyles.big, { marginLeft: 20, marginTop: 10 }]}
-            >
-              Menu
-            </Text>
-            <CardMenu />
-            <View style={[Styles.rowContainer, { marginTop: 20 }]}>
-              <TouchableOpacity
-                style={[Styles.buttonProduct, { marginRight: 20 }]}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    paddingTop: 5,
-                  }}
+                    Cart
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={CheckOutScreen}
+                  style={Styles.buttonProduct}
                 >
-                  Cart
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={CheckOutScreen}
-                style={Styles.buttonProduct}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    paddingTop: 5,
-                  }}
-                >
-                  Buy Now
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 500,
+                      color: "#FFFFFF",
+                      paddingTop: 5,
+                    }}
+                  >
+                    Buy Now
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>

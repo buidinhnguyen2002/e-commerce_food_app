@@ -7,7 +7,6 @@ import Home from "./Home/Home";
 import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
-import ProductDetail from "./Product/ProductDetail";
 import Checkout from "./Checkout/Checkout";
 import Restaurant from "./Restaurant/Restaurant";
 

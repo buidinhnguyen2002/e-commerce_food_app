@@ -4,7 +4,7 @@ import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
 import { ScrollView } from "react-native";
-import Styles from "../../Screens/Product/ProductDetail.Style";
+import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -47,7 +47,7 @@ const restaurantsData = [
 const Restaurant = () => {
   const navigation = useNavigation();
   const changePage = () => {
-    navigation.navigate(Routers.ProductDetail);
+    navigation.navigate(Routers.RestaurantDetail);
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>

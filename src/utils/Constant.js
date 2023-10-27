@@ -31,4 +31,5 @@ export const Routers = {
   EnterYourPin: "Enter Your Pin",
   CheckOut: " Checkout Orders ",
   ProductDetail: "ProductDetail",
+  RestaurantDetail: "RestaurantDetail",
 };

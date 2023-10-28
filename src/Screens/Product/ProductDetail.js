@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
@@ -9,9 +16,23 @@ import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import CardProductDetail from "../../components/Cards/CardProductDetail";
 import CardMenu from "../../components/Cards/CardMenu";
+import CheckoutStyles from "../Checkout/Checkout.Style";
 
 const ProductDetail = () => {
   const navigation = useNavigation();
+  const [quantity, setQuantity] = useState(1);
+  const [quantityText, setQuantityText] = useState("1"); // Use state for TextInput value
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+      setQuantityText((quantity - 1).toString());
+    }
+  };
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+    setQuantityText((quantity + 1).toString());
+  };
   const getHeaderHomeFragment = ({ name, icon, onPress }) => {
     return (
       <View style={[Styles.specialOfferHeader, Margin.mb_30]}>
@@ -52,28 +73,12 @@ const ProductDetail = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
+      <ScrollView contentContainerStyle={{}}>
         <View>
           <Image
             style={CommonStyles.imageProduct}
             source={require("../../../assets/Images/Foods/banhmi.png")}
           />
-          <View style={Styles.iconsLeft}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon, Colors.white]}
-              source={require("../../../assets/Icons/arrow.png")}
-            />
-          </View>
-          <View style={Styles.iconContainer}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon]}
-              source={require("../../../assets/Icons/heart.png")}
-            />
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon]}
-              source={require("../../../assets/Icons/share.png")}
-            />
-          </View>
 
           <View>
             <View
@@ -87,7 +92,12 @@ const ProductDetail = () => {
               ]}
             >
               <View
-                style={{ flexDirection: "column", margin: 20, marginTop: 0 }}
+                style={{
+                  flexDirection: "column",
+                  margin: 20,
+                  marginTop: 0,
+                  marginBottom: 0,
+                }}
               >
                 <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
                   Big Garden Salad
@@ -103,9 +113,13 @@ const ProductDetail = () => {
                 >
                   Price : 50.000 $
                 </Text>
+
                 <Text style={{ paddingTop: 10 }}>
                   Bún bò Huế là một món ăn truyền thống của Việt Nam. Với sự kết
                   hợp giữa sợi mì dai dai, lát thịt bò thơm ngon.
+                </Text>
+                <Text style={{ paddingTop: 10, color: Colors.red }}>
+                  Sold out
                 </Text>
               </View>
             </View>
@@ -122,7 +136,12 @@ const ProductDetail = () => {
                     },
                   ]}
                 >
-                  <View style={Styles.rowContainer}>
+                  <View
+                    style={[
+                      Styles.rowContainer,
+                      { marginBottom: -5, marginTop: -5 },
+                    ]}
+                  >
                     <Image
                       style={[
                         CommonStyles.iconSize,
@@ -152,40 +171,123 @@ const ProductDetail = () => {
               </TouchableOpacity>
 
               <View style={Styles.divider} />
-              <View style={[Styles.rowContainer, { marginTop: 20 }]}>
-                <TouchableOpacity
-                  style={[Styles.buttonProduct, { marginRight: 20 }]}
+              <View style={{}}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    margin: 10,
+                  }}
                 >
                   <Text
                     style={{
-                      fontSize: 18,
-                      fontWeight: 500,
-                      color: "#FFFFFF",
-                      //   paddingTop: 5,
+                      color: Colors.primaryColor,
+                      fontSize: 20,
+                      fontWeight: "bold",
+                      padding: 10,
                     }}
                   >
-                    <Image
-                      style={[CommonStyles.iconSize, { padding: 10 }]}
-                      source={require("../../../assets/Icons/empty-cart.png")}
-                    />
-                    Cart
+                    Total: 50.000 $
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={CheckOutScreen}
-                  style={Styles.buttonProduct}
-                >
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 500,
-                      color: "#FFFFFF",
-                      paddingTop: 5,
-                    }}
+                  <View
+                    style={[
+                      {
+                        flexDirection: "row",
+                        alignItems: "center",
+                        padding: 10,
+                        // marginBottom: 10,
+                        // marginLeft: 10,
+                      },
+                    ]}
                   >
-                    Buy Now
-                  </Text>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={decreaseQuantity}>
+                      <Text
+                        style={[
+                          CheckoutStyles.buttonQuantity,
+                          CheckoutStyles.quantityStyles,
+                          {
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            textAlign: "center",
+                          },
+                        ]}
+                      >
+                        -
+                      </Text>
+                    </TouchableOpacity>
+                    <View>
+                      <TextInput
+                        style={[
+                          {
+                            fontWeight: "500",
+                            fontSize: 16,
+                            textAlign: "center",
+                            // width: 30,
+                          },
+                        ]}
+                        value={quantityText}
+                        onChangeText={(text) => {
+                          setQuantityText(text);
+                          const parsedQuantity = parseInt(text, 10);
+                          if (!isNaN(parsedQuantity)) {
+                            setQuantity(parsedQuantity);
+                          }
+                        }}
+                      />
+                    </View>
+                    <TouchableOpacity onPress={increaseQuantity}>
+                      <Text
+                        style={[
+                          CheckoutStyles.buttonPlus,
+                          CheckoutStyles.quantityStyles,
+                          {
+                            fontWeight: "700",
+                            fontSize: 16,
+                            textAlign: "center",
+                          },
+                        ]}
+                      >
+                        +
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={[Styles.rowContainer]}>
+                  <TouchableOpacity
+                    style={[Styles.buttonProduct, { marginRight: 20 }]}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 500,
+                        color: "#FFFFFF",
+                        //   paddingTop: 5,
+                      }}
+                    >
+                      <Image
+                        style={[CommonStyles.iconSize, { padding: 10 }]}
+                        source={require("../../../assets/Icons/empty-cart2.png")}
+                      />
+                      Cart
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={CheckOutScreen}
+                    style={Styles.buttonProduct}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 500,
+                        color: "#FFFFFF",
+                        paddingTop: 5,
+                      }}
+                    >
+                      Buy Now
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>

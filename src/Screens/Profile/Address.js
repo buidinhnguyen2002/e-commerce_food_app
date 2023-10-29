@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import styles from './StylesProfile';
 import { Colors } from '../../utils/Colors';
 import { EditButton } from './ButtonProfile';
+import { Margin } from '../../utils/StyleUtil';
+
 
 
     const cardData = [
@@ -11,11 +13,12 @@ import { EditButton } from './ButtonProfile';
         { title: 'My Apartment', content: '21833 Cycle Gallagher, PC 4662',status:'Defaul'},
         { title: 'Parent House', content: '21833 Cycle Gallagher, PC 4662',status:'Defaul'},
         { title: 'My Villa', content: 'v21833 Cycle Gallagher, PC 4662',status:'Defaul'},
+        
       ];
       
 
 const listAddress = (card) => (
-  <View style={[styles.buttonContainer, { backgroundColor: Colors.white, marginVertical: 5, borderRadius: 30 }]}>
+  <View style={[styles.buttonContainer,Colors.white, Margin.mg_vertical_5,{ borderRadius: 30 }]}>
         <Image source={require('../../../assets/Icons/locate.png')} style={[styles.topLeftLogo, { marginLeft: 20 }]} />
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20 }}>
         <View>
@@ -33,9 +36,9 @@ const listAddress = (card) => (
 const Address = () => {
   return (
     <View style={styles.page}>
-      <View style={{ height: '50%' }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {cardData.map((card) => listAddress(card))}
-      </View>
+      </ScrollView>
       <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: 20 }}>
         <TouchableOpacity style={[styles.button, { marginTop: 16 }]}>
           <Text style={[styles.text, { color: Colors.white, fontWeight: 'bold' }]}>Add New Address</Text>

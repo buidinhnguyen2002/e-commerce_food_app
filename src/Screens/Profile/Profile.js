@@ -16,19 +16,18 @@ import Logout from './Logout'
 
 const Profile = () => {
   const buttons = [
-    { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
     { id: 'myFavRes', iconSource: require('../../../assets/Icons/lich.png'), label: 'My favorite restaurants' },
     { id: 'specOfPro', iconSource: require('../../../assets/Icons/ma.png'), label: 'Special Offer & Promo' },
     { id: 'payMed', iconSource: require('../../../assets/Icons/wallet.png'), label: 'Payment Methods' },
     { id: 'profile', iconSource: require('../../../assets/Icons/user.png'), label: 'Profile' },
-    { id: 'adress', iconSource: require('../../../assets/Icons/address.png'), label: 'Address' },
+    { id: 'address', iconSource: require('../../../assets/Icons/address.png'), label: 'Address' },
     { id: 'noti', iconSource: require('../../../assets/Icons/notification-light_mode.png'), label: 'Notification' },
     { id: 'security', iconSource: require('../../../assets/Icons/secu.png'), label: 'Security' },
     { id: 'language', iconSource: require('../../../assets/Icons/language.png'), label: 'Language' },
     { id: 'darkMode', iconSource: require('../../../assets/Icons/darkmode.png'), label: 'Dark Mode' },
     { id: 'help', iconSource: require('../../../assets/Icons/help.png'), label: 'Help Center' },
     { id: 'invite', iconSource: require('../../../assets/Icons/friend.png'), label: 'Invite Friends' },
-    
+    { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
   ];
  
 const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
@@ -87,7 +86,7 @@ const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
         // Handle 'Profile' button click
         navigateToProfileDetail();
         break;
-      case 'adress':
+      case 'address':
         // Handle 'Address' button click
         navigateToAddress();
         break;

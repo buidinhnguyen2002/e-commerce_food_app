@@ -156,6 +156,9 @@ export const Margin = StyleSheet.create({
     },
     mg_vertical_20: {
         marginVertical: 20,
+    },
+    mg_vertical_5: {
+        marginVertical: 5,
     }
 });
 export const Padding = StyleSheet.create({

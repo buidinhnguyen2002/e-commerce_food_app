@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'rea
 import styles from './Profile.Styles';
 import { Colors } from '../../utils/Colors';
 import { EditButton } from './ButtonProfile';
+import { Margin } from '../../utils/StyleUtil';
+
 
 
     const cardData = [

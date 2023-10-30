@@ -1,5 +1,5 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native'
-import styles from './StylesProfile'
+import styles from './Profile.Styles'
 import { useState } from 'react'
 import { color } from '@rneui/base'
 

@@ -16,7 +16,7 @@
 // }  
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, Button, StyleSheet } from 'react-native';
-import styles from './StylesProfile';
+import styles from './Profile.Styles';
 import { Colors } from '../../utils/Colors';
 import { color } from '@rneui/base';
 

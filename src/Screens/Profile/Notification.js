@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { ToggleButton } from './ButtonProfile';
-import styles from './StylesProfile';
+import styles from './Profile.Styles';
 
 const noti = [
   { title: 'General Notification' },

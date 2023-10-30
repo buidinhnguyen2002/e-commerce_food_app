@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import styles from './StylesProfile'; // Import styles from your existing profile page
+import styles from './Profile.Styles'; // Import styles from your existing profile page
 import { Avatar } from '@rneui/base';
 import { EditButton, EditButton2 } from './ButtonProfile';
 
@@ -22,7 +22,9 @@ const ProfileDetail = (navigation) => {
                     />
                     <View style = {[styles.editbutton,{marginTop: 50,marginLeft:-15,justifyContent:'flex-start'}]}><EditButton/></View>
                 </View>
-                <View style = {{flex: 80}}></View>
+                <View style = {{flex: 80}}>
+                    
+                </View>
                  {/* <View style = {{flex: 25, borderBottomWidth: 1, borderColor: Colors.grey_01}}>
                     {buttons.slice(0, 3).map((button) => (
                     <ButtonWithIcon

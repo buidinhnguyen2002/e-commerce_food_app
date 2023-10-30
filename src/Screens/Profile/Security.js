@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
 import { ChangPass, ChangPin, ToggleButton } from './ButtonProfile';
-import styles from './StylesProfile';
+import styles from './Profile.Styles';
 
 
 const Security = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import styles from './StylesProfile';
+import styles from './Profile.Styles';
 import { useNavigateToProfile } from './CustomNavigationHook';
 import { CommonStyles, Margin, TypographyStyles } from '../../utils/StyleUtil';
 
@@ -47,7 +47,7 @@ const Language = () => {
             </TouchableOpacity>
             <Text style = {TypographyStyles.big} >Language</Text>
         </View> */}
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* <View style={styles.suggestedSection}> */}
           <Text style={styles.sectionTitle}>Suggested</Text>
           {suggestedLanguages.map((language) => (

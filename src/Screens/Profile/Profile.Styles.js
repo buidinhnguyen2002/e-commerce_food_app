@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../utils/Colors";
 import { FontSize } from "../../utils/Constant";
+import { Padding } from "../../utils/StyleUtil";
 
 const  styles = StyleSheet.create({
     page:{
         paddingTop: 20,
         flex: 100,
-        paddingHorizontal: 20,
+        paddingHorizontal:20,
         backgroundColor: Colors.white
     },
     icon:{

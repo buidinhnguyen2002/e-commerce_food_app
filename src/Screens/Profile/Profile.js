@@ -1,6 +1,6 @@
 import { View, Text, Image, SafeAreaViewComponent, TouchableOpacity } from 'react-native'
 import React from 'react'
-import styles from './StylesProfile'
+import styles from './Profile.Styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Styles } from '../../components/Inputs/CustomTextInput.style'
 import { FontSize } from '../../utils/Constant'

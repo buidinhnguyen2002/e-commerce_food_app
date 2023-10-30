@@ -227,5 +227,8 @@ export const Padding = StyleSheet.create({
     },
     pd_vertical_5: {
         paddingVertical: 5,
+    },
+    pt_20:{
+        paddingTop: 20
     }
 });

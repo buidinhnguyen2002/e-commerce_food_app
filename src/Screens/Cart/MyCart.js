@@ -8,20 +8,48 @@ import { FlatList } from 'react-native'
 import SeparatorComponent from '../../components/SeparatorComponent'
 import { DummyCart } from '../../Data/DummyData'
 import { FontSize } from '../../utils/Constant'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Swipeable } from 'react-native-gesture-handler'
+import { deleteProductInCart } from '../../store/actions/userAction'
+import ApiUrlConstants from '../../utils/api_constants'
 
 
 
-const CartItem = ({ foodName, quantity, price }) => {
+const CartItem = ({ foodName, quantity, price, id, image }) => {
+    const dispatch = useDispatch();
+    const cartId = useSelector(state => state.userReducer.cart.cartId);
     const rightSwipe = () => {
         return (
             <View style={[Styles.swipe, CommonStyles.center]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => deleteProduct(id)}>
                     <Image source={require('../../../assets/Icons/delete.png')} />
                 </TouchableOpacity>
             </View>
         )
+    }
+    const deleteProduct = async (id) => {
+        try {
+            const response = await fetch(ApiUrlConstants.cart, {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    food_id: id,
+                    cart_id: cartId,
+                })
+            });
+            if (!response.ok) {
+                throw new Error('Lỗi mạng');
+            }
+            const data = await response.json();
+            if (data['status'] == 'success') {
+                dispatch(deleteProductInCart({ id: id }));
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
     return (
         <>
@@ -29,9 +57,9 @@ const CartItem = ({ foodName, quantity, price }) => {
                 <View style={[Styles.cardContainer]}>
                     <View style={[CommonStyles.horizontal_direction, { ...Padding.pd_horizontal_10 }]}>
                         <View style={[Styles.imageStack, { marginVertical: 10 }]}>
-                            <Image source={require('../../../assets/Images/food.png')} style={Styles.foodImage} />
-                            <Image source={require('../../../assets/Images/food.png')} style={Styles.foodImage} />
-                            <Image source={require('../../../assets/Images/food.png')} style={Styles.foodImage} />
+                            <Image source={{ uri: image }} style={Styles.foodImage} />
+                            <Image source={{ uri: image }} style={Styles.foodImage} />
+                            <Image source={{ uri: image }} style={Styles.foodImage} />
                         </View>
                         <View style={{ justifyContent: 'space-between', ...Padding.pd_vertical_20, ...Padding.pd_horizontal_30, marginLeft: 80 }}>
                             <Text style={TypographyStyles.medium}>{foodName}</Text>
@@ -66,12 +94,11 @@ const EmptyCart = () => {
 
 const MyCart = () => {
     const myCart = useSelector(state => state.userReducer.cart.products);
-    console.log(myCart);
     const getBody = () => {
         if (myCart.length == 0) return (<EmptyCart />)
         return (
             <FlatList contentContainerStyle={[{ paddingRight: 2 }]} data={myCart}
-                renderItem={({ item }) => (<CartItem foodName={item.food_name} quantity={item.quantity} price={item.price} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />
+                renderItem={({ item }) => (<CartItem image={item.image_source} foodName={item.food_name} quantity={item.quantity} price={item.price} id={item.id} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />
         )
     }
     return (

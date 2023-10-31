@@ -119,7 +119,7 @@ export const ListTileCard = ({ foodName, price, image, rate, isDiscount, onPress
         <View style={[{ width: "35%" }, Margin.mr_25]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
           {isDiscount && (
             <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>

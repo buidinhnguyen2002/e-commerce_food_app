@@ -12,10 +12,13 @@ import CardMenu from "../../components/Cards/CardMenu";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/userAction";
+import ApiUrlConstants from "../../utils/api_constants";
 
 const ProductDetail = ({ navigation, route }) => {
   const productId = route.params.idProduct;
   const product = useSelector(state => state.productsReducer.products.find(product => product.id == productId));
+  const cartId = useSelector(state => state.userReducer.cart.cartId);
+  const productsInCart = useSelector(state => state.userReducer.cart.products);
   const dispatch = useDispatch();
   useEffect(() => {
     navigation.setOptions({
@@ -46,9 +49,34 @@ const ProductDetail = ({ navigation, route }) => {
   const CheckOutScreen = () => {
     navigation.navigate(Routers.CheckOut);
   };
-  const addProductToCart = ({ quantity }) => {
+  const addProductToCart = async ({ quantity }) => {
     product.quantity = quantity ?? 1;
-    dispatch(addToCart({ product: product }));
+    const productInCart = productsInCart.find((product) => product.id == productId);
+    const method = productInCart ? "PUT" : "POST";
+    const quantityUpdateDb = productInCart != null ? quantity + productInCart.quantity : quantity;
+    try {
+      const response = await fetch(ApiUrlConstants.cart, {
+        method: method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          food_id: productId,
+          cart_id: cartId,
+          quantity: quantityUpdateDb,
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        dispatch(addToCart({ product: product }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
@@ -56,7 +84,7 @@ const ProductDetail = ({ navigation, route }) => {
         <View>
           <Image
             style={CommonStyles.imageProduct}
-            source={require("../../../assets/Images/Foods/banhmi.png")}
+            source={{ uri: product.image_source }}
           />
           <View style={Styles.iconsLeft}>
             <Image

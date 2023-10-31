@@ -16,35 +16,7 @@ import Restaurant from "./Restaurant/Restaurant";
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const dispath = useDispatch();
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-  const getAllProducts = async () => {
-    try {
-      const response = await fetch(ApiUrlConstants.getAllFoods, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Lỗi mạng');
-      }
-      const data = await response.json();
-      if (data['status'] == 'success') {
-        const productsObj = data['data'];
-        // const products = [];
-        // productsObj.forEach(food => {
-        //   products.push(food);
-        // });
-        dispath(saveAllProducts({ products: productsObj }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   const getBody = () => {
     return (
       <>

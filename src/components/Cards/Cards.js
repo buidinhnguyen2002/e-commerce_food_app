@@ -192,7 +192,7 @@ export const ListTileCard = ({ isDiscount }) => {
     </View>
   );
 };
-export const CardOrder = () => {
+export const CardOrderActive = () => {
   const Label = ({ text }) => {
     return (
       <View
@@ -283,7 +283,7 @@ export const CardOrder = () => {
           bgColor={Colors.primaryColor}
           onPress={() => {}}
           textColor={Colors.white}
-          title={"Cancel Order"}
+          title={"Track Drive"}
           width={"49%"}
           height={40}
           borderRadius={30}

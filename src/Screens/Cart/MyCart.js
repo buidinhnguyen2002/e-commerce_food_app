@@ -8,31 +8,76 @@ import { FlatList } from 'react-native'
 import SeparatorComponent from '../../components/SeparatorComponent'
 import { DummyCart } from '../../Data/DummyData'
 import { FontSize } from '../../utils/Constant'
+import { useDispatch, useSelector } from 'react-redux'
+import { Swipeable } from 'react-native-gesture-handler'
+import { deleteProductInCart } from '../../store/actions/userAction'
+import ApiUrlConstants from '../../utils/api_constants'
 
 
 
-const CartItem = () => {
-    return (
-        <View style={[Styles.cardContainer]}>
-            <View style={[CommonStyles.horizontal_direction, { ...Padding.pd_horizontal_10 }]}>
-                <View style={[Styles.imageStack, { marginVertical: 10 }]}>
-                    <Image source={require('../../../assets/Images/food.png')} style={Styles.foodImage} />
-                    <Image source={require('../../../assets/Images/food.png')} style={Styles.foodImage} />
-                    <Image source={require('../../../assets/Images/food.png')} style={Styles.foodImage} />
-                </View>
-                <View style={{ justifyContent: 'space-between', ...Padding.pd_vertical_20, ...Padding.pd_horizontal_30, marginLeft: 80 }}>
-                    <Text style={TypographyStyles.medium}>Big Garden Salad</Text>
-                    <View style={[CommonStyles.horizontal_direction, { alignItems: 'center' }]}>
-                        <Text style={{ color: Colors.grey_02, ...TypographyStyles.small }}>3 items</Text>
-                        <Text style={{ color: Colors.grey_02, ...TypographyStyles.small, ...Margin.mg_horizontal_10 }}>|</Text>
-                        <Text style={{ color: Colors.grey_02, ...TypographyStyles.small }}>2.4km</Text>
-                    </View>
-                    <View style={[CommonStyles.horizontal_direction, { alignItems: 'center' }]}>
-                        <Text style={{ ...TypographyStyles.big, ...Margin.mr_20, color: Colors.primaryColor }}>$21.20</Text>
-                    </View>
-                </View>
+const CartItem = ({ foodName, quantity, price, id, image }) => {
+    const dispatch = useDispatch();
+    const cartId = useSelector(state => state.userReducer.cart.cartId);
+    const rightSwipe = () => {
+        return (
+            <View style={[Styles.swipe, CommonStyles.center]}>
+                <TouchableOpacity onPress={() => deleteProduct(id)}>
+                    <Image source={require('../../../assets/Icons/delete.png')} />
+                </TouchableOpacity>
             </View>
-        </View>
+        )
+    }
+    const deleteProduct = async (id) => {
+        try {
+            const response = await fetch(ApiUrlConstants.cart, {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    food_id: id,
+                    cart_id: cartId,
+                })
+            });
+            if (!response.ok) {
+                throw new Error('Lỗi mạng');
+            }
+            const data = await response.json();
+            if (data['status'] == 'success') {
+                dispatch(deleteProductInCart({ id: id }));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    return (
+        <>
+            <Swipeable containerStyle={{ paddingTop: 2, paddingLeft: 2, paddingBottom: 2, marginRight: 1 }} renderRightActions={rightSwipe} friction={2}>
+                <View style={[Styles.cardContainer]}>
+                    <View style={[CommonStyles.horizontal_direction, { ...Padding.pd_horizontal_10 }]}>
+                        <View style={[Styles.imageStack, { marginVertical: 10 }]}>
+                            <Image source={{ uri: image }} style={Styles.foodImage} />
+                            <Image source={{ uri: image }} style={Styles.foodImage} />
+                            <Image source={{ uri: image }} style={Styles.foodImage} />
+                        </View>
+                        <View style={{ justifyContent: 'space-between', ...Padding.pd_vertical_20, ...Padding.pd_horizontal_30, marginLeft: 80 }}>
+                            <Text style={TypographyStyles.medium}>{foodName}</Text>
+                            <View style={[CommonStyles.horizontal_direction, { alignItems: 'center' }]}>
+                                <Text style={{ color: Colors.grey_02, ...TypographyStyles.small }}>{quantity} items</Text>
+                                <Text style={{ color: Colors.grey_02, ...TypographyStyles.small, ...Margin.mg_horizontal_10 }}>|</Text>
+                                <Text style={{ color: Colors.grey_02, ...TypographyStyles.small }}>2.4km</Text>
+                            </View>
+                            <View style={[CommonStyles.horizontal_direction, { alignItems: 'center' }]}>
+                                <Text style={{ ...TypographyStyles.big, ...Margin.mr_20, color: Colors.primaryColor }}>{quantity * price} VNĐ</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Swipeable>
+            <View style={[Styles.cardHolder]}></View>
+        </>
+
     )
 }
 const EmptyCart = () => {
@@ -48,20 +93,17 @@ const EmptyCart = () => {
 }
 
 const MyCart = () => {
-
+    const myCart = useSelector(state => state.userReducer.cart.products);
     const getBody = () => {
-        if (DummyCart.length == 0) return (<EmptyCart />)
+        if (myCart.length == 0) return (<EmptyCart />)
         return (
-            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={DummyCart} renderItem={() => (<CartItem />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />
+            <FlatList contentContainerStyle={[{ paddingRight: 2 }]} data={myCart}
+                renderItem={({ item }) => (<CartItem image={item.image_source} foodName={item.food_name} quantity={item.quantity} price={item.price} id={item.id} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />
         )
     }
-
     return (
         <View style={[Styles.container, Padding.pd_horizontal_20, Padding.pb]}>
-            {/* <View > */}
             {getBody()}
-
-            {/* </View> */}
         </View>
     )
 }
@@ -108,8 +150,20 @@ const Styles = StyleSheet.create({
         marginRight: -85, // Để chúng xếp chồng lên nhau
         borderWidth: 3, // Độ rộng của border
         borderColor: Colors.white, // Màu của border
+    },
+    cardHolder: {
+        backgroundColor: Colors.red,
+        position: 'absolute',
+        zIndex: -1,
+        width: '100%',
+        height: 123.5,
+        borderRadius: 24,
+        left: 2,
+        top: 2,
+    },
+    swipe: {
+        width: 100,
     }
-
 })
 
 export default MyCart

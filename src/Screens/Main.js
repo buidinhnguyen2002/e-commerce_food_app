@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNavigation from "../Navigation/BottomNavigation";
 import { StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
@@ -8,10 +8,15 @@ import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
 import Checkout from "./Checkout/Checkout";
+import ApiUrlConstants from "../utils/api_constants";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAllProducts } from "../store/actions/productsAction";
 import Restaurant from "./Restaurant/Restaurant";
+
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+
   const getBody = () => {
     return (
       <>

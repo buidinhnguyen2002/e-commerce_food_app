@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNavigation from "../Navigation/BottomNavigation";
 import { StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
@@ -8,19 +8,23 @@ import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
 import Checkout from "./Checkout/Checkout";
-import FAQ from "./Profile/FAQ";
+import ApiUrlConstants from "../utils/api_constants";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAllProducts } from "../store/actions/productsAction";
+import Restaurant from "./Restaurant/Restaurant";
 
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+
   const getBody = () => {
     return (
       <>
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Order />}
-        {selectedTab == 2 && <Checkout />}
-        {selectedTab == 3 && <Profile/>}
-        {selectedTab == 4 && <EWallet />}
+        {selectedTab == 2 && <Restaurant />}
+        {selectedTab == 3 && <EWallet />}
+        {selectedTab == 4 && <Profile />}
       </>
     );
   };

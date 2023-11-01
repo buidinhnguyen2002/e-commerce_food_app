@@ -112,9 +112,6 @@ const CheckoutStyles = StyleSheet.create({
     padding: 3,
   },
   modifyQuantity: {
-    // width: 95,
-    // height: 40,
-    // marginLeft: -10,
     alignItems: "center",
     marginTop: 50,
   },

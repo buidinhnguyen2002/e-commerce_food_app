@@ -7,42 +7,9 @@ import { ScrollView } from "react-native";
 import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
-const miQuangData = [
-  {
-    id: 0,
-    name: "Mi quang Ha Noi kkkkkkk",
-    price: "$12.00",
-    imageSource: require("../../../assets/Images/Foods/miquang.png"),
-  },
-  {
-    id: 1,
-    name: "Mi quang Ha Noi",
-    price: "$12.00",
-    imageSource: require("../../../assets/Images/Foods/pho2.png"),
-  },
-  {
-    id: 2,
-    name: "Mi quang Ha Noi",
-    price: "$12.00",
-    imageSource: require("../../../assets/Images/Foods/pho2.png"),
-  },
-  {
-    id: 3,
-    name: "Mi quang Ha Noi",
-    price: "$12.00",
-    imageSource: require("../../../assets/Images/Foods/pho2.png"),
-  },
-  // Thêm dữ liệu cho các mì quảng khác nếu cần
-];
 
-const rows = [];
-for (let i = 0; i < miQuangData.length; i += 2) {
-  const row = miQuangData.slice(i, i + 2);
-  rows.push(row);
-}
-
-const CardProductDetail = ({ image, name, price }) => {
-  console.log(image);
+const CardProductDetail = ({ image, name, price, idProduct }) => {
+  console.log(idProduct + "IDĐ");
   const [clickedItems, setClickedItems] = useState([]);
   const [hoveredItem, setHoveredItem] = useState(null);
   const handleItemClick = (itemIndex) => {
@@ -57,13 +24,16 @@ const CardProductDetail = ({ image, name, price }) => {
     console.log("clickedItems:", clickedItems); // Kiểm tra giá trị của clickedItems
   };
   const navigation = useNavigation();
-  const changePage = () => {
-    navigation.navigate(Routers.ProductDetail);
+  const changePage = ({ idProduct }) => {
+    navigation.navigate(Routers.ProductDetail, { idProduct: idProduct });
   };
 
   return (
     <View style={[Styles.rowTagForYou]}>
-      <TouchableOpacity onPress={changePage} style={[Styles.Container]}>
+      <TouchableOpacity
+        onPress={() => changePage({ idProduct: idProduct })}
+        style={[Styles.Container]}
+      >
         <View style={{ margin: 10 }}>
           <Image style={Styles.imageForYou} source={{ uri: image }} />
         </View>

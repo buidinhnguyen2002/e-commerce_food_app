@@ -8,63 +8,66 @@ import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import Icon from "react-native-vector-icons/MaterialIcons";
-
-const restaurantsData = [
-  {
-    id: 1,
-    image: require("../../../assets/Images/Foods/banhmi.png"),
-    name: "Tiệm nhà dâu - Tôn Đức Thắng",
-    rating: "4.5 (800)",
-    distance: "1.5 km",
-    openingHours: "Open 8:00 - 22:00",
-  },
-  {
-    id: 2,
-    image: require("../../../assets/Images/food.png"),
-    name: "Hamburger - Ăn là mê",
-    rating: "4.2 (950)",
-    distance: "2.0 km",
-    openingHours: "Open 9:00 - 23:00",
-  },
-  {
-    id: 3,
-    image: require("../../../assets/Images/food.png"),
-    name: "Restaurant 2",
-    rating: "4.2 (950)",
-    distance: "2.0 km",
-    openingHours: "Open 9:00 - 23:00",
-  },
-  {
-    id: 4,
-    image: require("../../../assets/Images/food.png"),
-    name: "Restaurant 2",
-    rating: "4.2 (950)",
-    distance: "2.0 km",
-    openingHours: "Open 9:00 - 23:00",
-  },
-];
+import restaurantsReducer from "../../store/reducers/restaurantReducer";
+import { useSelector } from "react-redux";
 
 const Restaurant = () => {
+  const restaurants = useSelector(
+    (state) => state.restaurantsReducer.restaurant
+  );
   const navigation = useNavigation();
-  const changePage = () => {
-    navigation.navigate(Routers.RestaurantDetail);
+  const changePage = ({ idRestaurant }) => {
+    navigation.navigate(Routers.RestaurantDetail, {
+      idRestaurant: idRestaurant,
+    });
+    // console.log(id);
   };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 130 }}
+        contentContainerStyle={{ paddingTop: 20, paddingBottom: 100 }}
       >
         <View>
-          <TouchableOpacity onPress={changePage}>
-            <View style={{ margin: 20 }}>
-              <Text style={[TypographyStyles.big, { marginBottom: 10 }]}>
-                Restaurant List
+          <View style={{ margin: 20 }}>
+            <View
+              style={[
+                {
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginLeft: 20,
+                  marginRight: 20,
+                },
+              ]}
+            >
+              <Image
+                style={[
+                  { width: 35, height: 35, resizeMode: "contain" },
+                  Margin.mr_25,
+                ]}
+                source={require("../../../assets/Icons/logo.png")}
+              ></Image>
+              <Text style={[{ marginRight: "auto" }, TypographyStyles.big]}>
+                Restaurant
               </Text>
-              {restaurantsData.map((restaurant) => (
+              <Image
+                style={[CommonStyles.iconSize, Margin.mr_25]}
+                source={require("../../../assets/Icons/search.png")}
+              ></Image>
+              <Image
+                style={CommonStyles.iconSize}
+                source={require("../../../assets/Icons/3cham.png")}
+              ></Image>
+            </View>
+            {restaurants.map((restaurant) => (
+              <TouchableOpacity
+                key={restaurant.id}
+                onPress={() => changePage({ idRestaurant: restaurant.id })}
+              >
                 <View style={styles.restaurantContainer} key={restaurant.id}>
                   <Image
                     style={styles.restaurantImage}
-                    source={restaurant.image}
+                    source={{ uri: restaurant.image }}
                   />
                   <View style={styles.restaurantDetails}>
                     <Text style={styles.restaurantName}>{restaurant.name}</Text>
@@ -74,7 +77,7 @@ const Restaurant = () => {
                         source={require("../../../assets/Images/bike.png")}
                       />
                       <Text style={styles.restaurantDistance}>
-                        {restaurant.distance}
+                        {/* {restaurant.distance} */}
                       </Text>
                       <Text style={styles.restaurantSeparator}>|</Text>
                       <View style={styles.restaurantRatingContainer}>
@@ -85,20 +88,20 @@ const Restaurant = () => {
                           color={Colors.yellow}
                         />
                         <Text style={styles.restaurantRating}>
-                          {restaurant.rating}
+                          {restaurant.rate}
                         </Text>
                       </View>
                     </View>
                     <View style={styles.restaurantPriceContainer}>
                       <Text style={styles.restaurantPrice}>
-                        {restaurant.openingHours}
+                        {restaurant.join_day}
                       </Text>
                     </View>
                   </View>
                 </View>
-              ))}
-            </View>
-          </TouchableOpacity>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -111,6 +114,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     marginRight: 10,
+    marginTop: 10,
   },
   restaurantImage: {
     width: "50%",

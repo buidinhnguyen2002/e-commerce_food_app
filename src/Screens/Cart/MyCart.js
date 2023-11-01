@@ -97,11 +97,11 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                 justifyContent: "space-between",
                 ...Padding.pd_vertical_20,
                 ...Padding.pd_horizontal_30,
-                marginLeft: 50,
+                marginLeft: 70,
                 flexDirection: "row",
               }}
             >
-              <View>
+              <View style={{ width: 100, marginRight: 30 }}>
                 <Text style={TypographyStyles.medium}>{foodName}</Text>
                 <View
                   style={[
@@ -110,10 +110,7 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                   ]}
                 >
                   <Image
-                    style={[
-                      CommonStyles.iconSize,
-                      { marginLeft: 20, marginRight: 20 },
-                    ]}
+                    style={[CommonStyles.iconSize, { marginRight: 20 }]}
                     source={require("../../../assets/Icons/bike.png")}
                   ></Image>
                   <Text
@@ -133,12 +130,13 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                 >
                   <Text
                     style={{
-                      ...TypographyStyles.medium,
+                      fontSize: 18,
+                      fontWeight: "bold",
                       ...Margin.mr_20,
                       color: Colors.primaryColor,
                     }}
                   >
-                    {quantity * price} VNĐ
+                    {quantity * price} Đ
                   </Text>
                 </View>
               </View>
@@ -146,9 +144,10 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                 style={[
                   {
                     flexDirection: "row",
-                    alignItems: "flex-end",
+                    alignItems: "center",
                     // padding: 10,
                     paddingLeft: 10,
+                    // paddingRight: 10,
                   },
                 ]}
               >

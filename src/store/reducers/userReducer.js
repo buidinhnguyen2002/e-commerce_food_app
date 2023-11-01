@@ -76,6 +76,15 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 order: orderUpdate,
             }
+        case "CLEAR_CART": {
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    products: [],
+                }
+            }
+        }
         default:
             return state;
     }

@@ -43,3 +43,9 @@ export function updateStatusOrder({ id, status }) {
         },
     }
 }
+export function clearCart() {
+    return {
+        type: 'CLEAR_CART',
+        payload: "",
+    }
+}

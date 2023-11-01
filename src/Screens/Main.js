@@ -16,7 +16,6 @@ import Restaurant from "./Restaurant/Restaurant";
 
 const Main = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-
   const getBody = () => {
     return (
       <>

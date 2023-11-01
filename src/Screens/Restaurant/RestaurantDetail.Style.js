@@ -46,6 +46,7 @@ const Styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+    marginBottom: 10,
   },
   rowTagForYou: {
     flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang

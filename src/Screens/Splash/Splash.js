@@ -9,7 +9,7 @@ import { saveAllProducts } from '../../store/actions/productsAction';
 import { loadCart, loadOrder } from '../../store/actions/userAction'
 import ApiUrlConstants from '../../utils/api_constants';
 import { useNavigation } from "@react-navigation/native";
-import { Routers } from '../../utils/Constant'
+import { Routers } from "../../utils/Constant";
 
 const Splash = () => {
   const dispatch = useDispatch();
@@ -28,18 +28,18 @@ const Splash = () => {
   const getAllProducts = async () => {
     try {
       const response = await fetch(ApiUrlConstants.getAllFoods, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
       });
       if (!response.ok) {
-        throw new Error('Lỗi mạng');
+        throw new Error("Lỗi mạng");
       }
       const data = await response.json();
-      if (data['status'] == 'success') {
-        const productsObj = data['data'];
+      if (data["status"] == "success") {
+        const productsObj = data["data"];
         dispatch(saveAllProducts({ products: productsObj }));
       }
     } catch (error) {
@@ -49,18 +49,18 @@ const Splash = () => {
   const loadInitCart = async (id) => {
     try {
       const response = await fetch(ApiUrlConstants.cart + "?id=" + id, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
       });
       if (!response.ok) {
-        throw new Error('Lỗi mạng');
+        throw new Error("Lỗi mạng");
       }
       const data = await response.json();
-      if (data['status'] == 'success') {
-        const productsObj = data['data'];
+      if (data["status"] == "success") {
+        const productsObj = data["data"];
         dispatch(loadCart({ products: productsObj }));
       }
     } catch (error) {
@@ -91,12 +91,12 @@ const Splash = () => {
   return (
     <SafeAreaView style={[CommonStyles.center, { flex: 1 }]}>
       <View style={[CommonStyles.horizontal_direction, CommonStyles.center]}>
-        <Image source={require('../../../assets/Images/foodu.png')} />
+        <Image source={require("../../../assets/Images/foodu.png")} />
         <Text style={[TypographyStyles.soBig, Margin.ml_10]}>Foodu</Text>
         <ActivityIndicator />
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Splash
+export default Splash;

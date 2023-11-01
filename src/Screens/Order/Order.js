@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { StyleSheet } from 'react-native'
 import { CommonStyles, Margin, Padding, TypographyStyles } from '../../utils/StyleUtil'
@@ -19,6 +19,9 @@ const Order = () => {
     const myOrderCompleted = myOrder.filter(order => order.status === "completed");
     const myOrderCancelled = myOrder.filter(order => order.status === "cancelled");
     const dispatch = useDispatch();
+    useEffect(() => {
+        loadMyOrder(userId);
+    }, []);
     const TabOrder = ({ title, isActive, onPress }) => {
         return (
             <View style={[Styles.tabOrderItem, CommonStyles.center]}>
@@ -36,6 +39,28 @@ const Order = () => {
         if (tabIndex == 2) return (
             <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderCancelled} renderItem={({ item }) => (<CardOrderCancelled totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
     }
+
+    const loadMyOrder = async (userId) => {
+        try {
+            const response = await fetch(ApiUrlConstants.order + "?id=" + userId, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Lỗi mạng');
+            }
+            const data = await response.json();
+            if (data['status'] == 'success') {
+                const orderObj = data['data'];
+                dispatch(loadOrder({ orders: orderObj }));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     const onPressCancelOrder = async (orderId) => {
         console.log(orderId);
         try {

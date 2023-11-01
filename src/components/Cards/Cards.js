@@ -465,5 +465,4 @@ export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityIt
     </View>
   );
 };
-
 export default CardDiscount;

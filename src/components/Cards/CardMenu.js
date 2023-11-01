@@ -8,23 +8,7 @@ import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 
-const MenuData = [
-  {
-    id: 0,
-    name: "Mi quang Ha Noi kkkk",
-    price: "$12.00",
-    imageSource: require("../../../assets/Images/Foods/miquang.png"),
-  },
-  {
-    id: 1,
-    name: "Mi quang Ha Noi",
-    price: "$12.00",
-    imageSource: require("../../../assets/Images/Foods/pho2.png"),
-  },
-
-  // Thêm dữ liệu cho các mì quảng khác nếu cần
-];
-const CardMenu = () => {
+const CardMenu = ({ image, name, price, id }) => {
   const [clickedItems, setClickedItems] = useState([]);
   const [clickedMenuItems, setClickedMenuItems] = useState([]);
 
@@ -41,35 +25,25 @@ const CardMenu = () => {
   };
   return (
     <View>
-      {MenuData.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          style={[
-            styles.menuItem, // Sử dụng một kiểu CSS mới cho các thẻ Menu
-            clickedMenuItems.includes(item.id) && styles.clicked, // Kiểm tra trạng thái ấn
-          ]}
-          onPress={() => handleItemClick(item.id)}
-          onMouseEnter={() => {
-            setHoveredItem(item.id);
-          }}
-          onMouseLeave={() => {
-            setHoveredItem(null);
-          }}
-        >
-          <View style={[Styles.rowContainer, Styles.menuStyle]}>
-            <Image style={CommonStyles.imageCart} source={item.imageSource} />
-            <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
-              New
+      <TouchableOpacity
+        key={id}
+        style={[
+          styles.menuItem, // Sử dụng một kiểu CSS mới cho các thẻ Menu
+        ]}
+      >
+        <View style={[Styles.rowContainer, Styles.menuStyle]}>
+          <Image style={CommonStyles.imageCart} source={{ uri: image }} />
+          <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
+            New
+          </Text>
+          <View style={{ margin: 30 }}>
+            <Text style={TypographyStyles.nameFood}>{name}</Text>
+            <Text style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}>
+              {price} VNĐ
             </Text>
-            <View style={{ margin: 30 }}>
-              <Text style={TypographyStyles.nameFood}>{item.name}</Text>
-              <Text style={[{ color: "#1BAC4B" }, TypographyStyles.nameFood]}>
-                {item.price}
-              </Text>
-            </View>
           </View>
-        </TouchableOpacity>
-      ))}
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

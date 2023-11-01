@@ -13,7 +13,7 @@ export const Colors = {
     paleGray: '#EFEFED',
     grey_01: '#BDBDBB',
     grey_02: '#626162',
-    red:    '#ff0000',
+    red: '#F75555',
     green: "#1BAC4B",
     background: "#EEEEEF",
 }

@@ -9,9 +9,22 @@ import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import CardProductDetail from "../../components/Cards/CardProductDetail";
 import CardMenu from "../../components/Cards/CardMenu";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/actions/userAction";
+import ApiUrlConstants from "../../utils/api_constants";
 
-const ProductDetail = () => {
-  const navigation = useNavigation();
+const ProductDetail = ({ navigation, route }) => {
+  const productId = route.params.idProduct;
+  const product = useSelector(state => state.productsReducer.products.find(product => product.id == productId));
+  const cartId = useSelector(state => state.userReducer.cart.cartId);
+  const productsInCart = useSelector(state => state.userReducer.cart.products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    navigation.setOptions({
+      title: product.food_name,
+    });
+  }, [productId]);
   const getHeaderHomeFragment = ({ name, icon, onPress }) => {
     return (
       <View style={[Styles.specialOfferHeader, Margin.mb_30]}>
@@ -33,30 +46,45 @@ const ProductDetail = () => {
       </View>
     );
   };
-  const redirectSpecialOffers = () => {
-    navigation.navigate(Routers.SpecialOffers);
-  };
-  const OverViewScreen = () => {
-    navigation.navigate(Routers.OverView);
-  };
-  const RatingAndReview = () => {
-    navigation.navigate(Routers.RatingAndReview);
-  };
-  const OffersAreAvailable = () => {
-    navigation.navigate(Routers.OffersAreAvailable);
-  };
   const CheckOutScreen = () => {
     navigation.navigate(Routers.CheckOut);
   };
-  const [clickedMenuItems, setClickedMenuItems] = useState([]);
-
+  const addProductToCart = async ({ quantity }) => {
+    product.quantity = quantity ?? 1;
+    const productInCart = productsInCart.find((product) => product.id == productId);
+    const method = productInCart ? "PUT" : "POST";
+    const quantityUpdateDb = productInCart != null ? quantity + productInCart.quantity : quantity;
+    try {
+      const response = await fetch(ApiUrlConstants.cart, {
+        method: method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          food_id: productId,
+          cart_id: cartId,
+          quantity: quantityUpdateDb,
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        dispatch(addToCart({ product: product }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View>
           <Image
             style={CommonStyles.imageProduct}
-            source={require("../../../assets/Images/Foods/banhmi.png")}
+            source={{ uri: product.image_source }}
           />
           <View style={Styles.iconsLeft}>
             <Image
@@ -90,7 +118,7 @@ const ProductDetail = () => {
                 style={{ flexDirection: "column", margin: 20, marginTop: 0 }}
               >
                 <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
-                  Big Garden Salad
+                  {product.food_name}
                 </Text>
                 <Text
                   style={{
@@ -101,17 +129,16 @@ const ProductDetail = () => {
                     paddingTop: 10,
                   }}
                 >
-                  Price : 50.000 $
+                  Price : {product.price} VNĐ
                 </Text>
                 <Text style={{ paddingTop: 10 }}>
-                  Bún bò Huế là một món ăn truyền thống của Việt Nam. Với sự kết
-                  hợp giữa sợi mì dai dai, lát thịt bò thơm ngon.
+                  {product.description}
                 </Text>
               </View>
             </View>
             <View>
               <View style={Styles.divider} />
-              <TouchableOpacity onPress={RatingAndReview}>
+              <TouchableOpacity >
                 <View
                   style={[
                     {
@@ -133,7 +160,7 @@ const ProductDetail = () => {
                     <Text
                       style={[TypographyStyles.medium, { marginRight: 20 }]}
                     >
-                      4.8
+                      {product.rate}
                     </Text>
                     <Text style={[TypographyStyles.small, Colors.grey]}>
                       (4.8k reviews)
@@ -153,7 +180,7 @@ const ProductDetail = () => {
 
               <View style={Styles.divider} />
               <View style={[Styles.rowContainer, { marginTop: 20 }]}>
-                <TouchableOpacity
+                <TouchableOpacity onPress={() => addProductToCart({ quantity: 1 })}
                   style={[Styles.buttonProduct, { marginRight: 20 }]}
                 >
                   <Text

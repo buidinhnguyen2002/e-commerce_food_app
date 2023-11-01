@@ -202,11 +202,11 @@ const Home = () => {
             ]}
             ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
             showsHorizontalScrollIndicator={false}
-            data={dummyChip}
+            data={categorys.map(category => category.name)}
             horizontal={true}
             renderItem={({ item, index }) => (
               <ChipCustom
-                text={item.text}
+                text={item}
                 isChoose={chip == index}
                 onPress={() => {
                   setChip(index);

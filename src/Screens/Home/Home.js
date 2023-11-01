@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { View, Text, Image, ScrollView, FlatList } from "react-native";
 import React, { useState } from "react";
 import { Avatar, Badge } from "@rneui/themed";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -82,7 +76,7 @@ const Home = () => {
   };
   const redirectFoodDetailScreen = (name, { idProduct }) => {
     navigation.navigate(name, { idProduct: idProduct });
-  }
+  };
   return (
     <SafeAreaView style={Styles.screenContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -111,10 +105,15 @@ const Home = () => {
             </View>
             <View style={Styles.topRightContainer}>
               <View>
-                <OutlineButton />
+                <OutlineButton
+                  image={require("../../../assets/Icons/notification-light_mode.png")}
+                />
               </View>
               <View style={Margin.ml_15}>
-                <OutlineButton onPress={() => redirectScreens(Routers.Cart)} />
+                <OutlineButton
+                  image={require("../../../assets/Icons/empty-cart.png")}
+                  onPress={() => redirectScreens(Routers.Cart)}
+                />
               </View>
             </View>
           </View>
@@ -221,8 +220,22 @@ const Home = () => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               nestedScrollEnabled={true}
-              style={{ paddingHorizontal: 10 }}>
-              {products.map(food => (<ListTileCard onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: food.id })} key={food.id} foodName={food.food_name} image={food.image_source} price={food.price} rate={food.rate} />))}
+              style={{ paddingHorizontal: 10 }}
+            >
+              {products.map((food) => (
+                <ListTileCard
+                  onPress={() =>
+                    redirectFoodDetailScreen(Routers.ProductDetail, {
+                      idProduct: food.id,
+                    })
+                  }
+                  key={food.id}
+                  foodName={food.food_name}
+                  image={food.image_source}
+                  price={food.price}
+                  rate={food.rate}
+                />
+              ))}
             </ScrollView>
           </View>
         </View>

@@ -7,7 +7,7 @@ const CategoryItem = ({ source, name, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={Styles.categoryItemContainer}>
       <View style={{ alignItems: "center" }}>
-        <Image source={require("../../assets/Images/sandwich.png")} />
+        <Image style={Styles.image1} source={{uri: source}} />
         <Text style={[TypographyStyles.normal, { fontWeight: 700 }]}>
           {name}
         </Text>
@@ -21,6 +21,13 @@ const Styles = StyleSheet.create({
     padding: 5,
     // width: "25%",
   },
+  image1:{
+    width: 110, 
+    height: 110, 
+    borderRadius: 15, // Bo góc ít hơn
+    resizeMode: "cover", // Để hình ảnh bám sát vào kích thước đã đặt
+  }
+
 });
 
 export default CategoryItem;

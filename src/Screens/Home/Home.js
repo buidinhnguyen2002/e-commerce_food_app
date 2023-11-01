@@ -20,7 +20,7 @@ import {
   Padding,
   TypographyStyles,
 } from "../../utils/StyleUtil";
-import { Chip, SearchBar } from "@rneui/base";
+import { Chip, SearchBar, color } from "@rneui/base";
 import { SearchInput } from "../../components/Inputs/CustomTextInput";
 import CategoryItem from "../../components/CategoryItem";
 import CardDiscount, { ListTileCard } from "../../components/Cards/Cards";
@@ -32,12 +32,16 @@ import SpecialOfferItem from "../../components/SpecialOfferItem";
 import SeparatorComponent from "../../components/SeparatorComponent";
 import MyCart from "../Cart/MyCart";
 import { useSelector } from "react-redux";
+import { Center } from "native-base";
+
 
 const Home = () => {
   const [textSearch, setTextSearch] = useState("");
   const [chip, setChip] = useState(0);
   const navigation = useNavigation();
   const products = useSelector((state) => state.productsReducer.products);
+  const categorys = useSelector((state)=> state.categorysReducer.categorys);
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const dummyChip = [
     { text: "All", source: "" },
     { text: "Hamburger", source: "" },
@@ -134,43 +138,37 @@ const Home = () => {
             })}
             <SpecialOfferItem />
             <View style={[Styles.categoryContainer, Margin.mt_15]}>
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-                onPress={() =>
-                  redirectCategoryDetail(Routers.CategoryDetail, "Sandwich")
-                }
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"More"}
-                onPress={() => redirectScreens(Routers.MoreCategory)}
-              />
-            </View>
+  {showAllCategories
+    ? categorys.map((category) => (
+        <CategoryItem
+          onPress={() =>
+            redirectCategoryDetail(Routers.CategoryDetail, {
+              idCategory: category.id,
+            })
+          }
+          key={category.id}
+          source={category.image_category}
+          name={category.name}
+        />
+      ))
+    : categorys.slice(0, 6).map((category) => (
+        <CategoryItem
+          onPress={() =>
+            redirectCategoryDetail(Routers.CategoryDetail, {
+              idCategory: category.id,
+            })
+          }
+          key={category.id}
+          source={category.image_category}
+          name={category.name}
+        />
+      ))}
+
+  {!showAllCategories && (
+    <Text style={[TypographyStyles.normal,Margin.ml_15, { fontWeight: 500 },{color: Colors.green}]} onPress={() => redirectScreens(Routers.MoreCategory)}>More</Text>     
+  )}
+</View>
+
           </View>
         </View>
         <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { Colors } from "../../utils/Colors";
 import { SafeAreaView } from "react-native";
 import { CommonStyles, TypographyStyles, Margin } from "../../utils/StyleUtil";
@@ -13,13 +20,31 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/userAction";
 import ApiUrlConstants from "../../utils/api_constants";
+import CheckoutStyles from "../Checkout/Checkout.Style";
 
 const ProductDetail = ({ navigation, route }) => {
   const productId = route.params.idProduct;
-  const product = useSelector(state => state.productsReducer.products.find(product => product.id == productId));
-  const cartId = useSelector(state => state.userReducer.cart.cartId);
-  const productsInCart = useSelector(state => state.userReducer.cart.products);
+  const product = useSelector((state) =>
+    state.productsReducer.products.find((product) => product.id == productId)
+  );
+  const cartId = useSelector((state) => state.userReducer.cart.cartId);
+  const productsInCart = useSelector(
+    (state) => state.userReducer.cart.products
+  );
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
+  const [quantityText, setQuantityText] = useState("1"); // Use state for TextInput value
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+      setQuantityText((quantity - 1).toString());
+    }
+  };
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+    setQuantityText((quantity + 1).toString());
+  };
   useEffect(() => {
     navigation.setOptions({
       title: product.food_name,
@@ -51,57 +76,46 @@ const ProductDetail = ({ navigation, route }) => {
   };
   const addProductToCart = async ({ quantity }) => {
     product.quantity = quantity ?? 1;
-    const productInCart = productsInCart.find((product) => product.id == productId);
+    const productInCart = productsInCart.find(
+      (product) => product.id == productId
+    );
     const method = productInCart ? "PUT" : "POST";
-    const quantityUpdateDb = productInCart != null ? quantity + productInCart.quantity : quantity;
+    const quantityUpdateDb =
+      productInCart != null ? quantity + productInCart.quantity : quantity;
+
+    console.log(productId, cartId);
     try {
       const response = await fetch(ApiUrlConstants.cart, {
         method: method,
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           food_id: productId,
           cart_id: cartId,
           quantity: quantityUpdateDb,
-        })
+        }),
       });
       if (!response.ok) {
-        throw new Error('Lỗi mạng');
+        throw new Error("Lỗi mạng");
       }
       const data = await response.json();
-      if (data['status'] == 'success') {
+      if (data["status"] == "success") {
         dispatch(addToCart({ product: product }));
       }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
+      <ScrollView>
         <View>
           <Image
             style={CommonStyles.imageProduct}
             source={{ uri: product.image_source }}
           />
-          <View style={Styles.iconsLeft}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon, Colors.white]}
-              source={require("../../../assets/Icons/arrow.png")}
-            />
-          </View>
-          <View style={Styles.iconContainer}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon]}
-              source={require("../../../assets/Icons/heart.png")}
-            />
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon]}
-              source={require("../../../assets/Icons/share.png")}
-            />
-          </View>
 
           <View>
             <View
@@ -111,6 +125,7 @@ const ProductDetail = ({ navigation, route }) => {
                   alignItems: "center",
                   justifyContent: "space-between",
                   marginRight: 20,
+                  marginBottom: -10,
                 },
               ]}
             >
@@ -125,20 +140,20 @@ const ProductDetail = ({ navigation, route }) => {
                     color: Colors.primaryColor,
                     fontSize: 20,
                     fontWeight: "bold",
-
                     paddingTop: 10,
                   }}
                 >
                   Price : {product.price} VNĐ
                 </Text>
-                <Text style={{ paddingTop: 10 }}>
+                <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
                   {product.description}
                 </Text>
+                <Text style={{ color: Colors.red }}>Sold out</Text>
               </View>
             </View>
             <View>
               <View style={Styles.divider} />
-              <TouchableOpacity >
+              <TouchableOpacity>
                 <View
                   style={[
                     {
@@ -146,6 +161,8 @@ const ProductDetail = ({ navigation, route }) => {
                       alignItems: "center",
                       justifyContent: "space-between",
                       marginRight: 20,
+                      marginTop: -10,
+                      marginBottom: -10,
                     },
                   ]}
                 >
@@ -179,40 +196,128 @@ const ProductDetail = ({ navigation, route }) => {
               </TouchableOpacity>
 
               <View style={Styles.divider} />
-              <View style={[Styles.rowContainer, { marginTop: 20 }]}>
-                <TouchableOpacity onPress={() => addProductToCart({ quantity: 1 })}
-                  style={[Styles.buttonProduct, { marginRight: 20 }]}
+              <View
+                style={{
+                  shadowColor: "black",
+                  shadowOffset: { width: 0.5, height: 8 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 20,
+                  elevation: 10,
+                  backgroundColor: "#ffffff",
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                  marginTop: 20,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    margin: 10,
+                    padding: 10,
+                  }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 500,
-                      color: "#FFFFFF",
-                      //   paddingTop: 5,
-                    }}
-                  >
-                    <Image
-                      style={[CommonStyles.iconSize, { padding: 10 }]}
-                      source={require("../../../assets/Icons/empty-cart.png")}
-                    />
-                    Cart
+                  <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                    Total: 15.000$
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={CheckOutScreen}
-                  style={Styles.buttonProduct}
-                >
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 500,
-                      color: "#FFFFFF",
-                      paddingTop: 5,
-                    }}
+                  <View
+                    style={[
+                      {
+                        flexDirection: "row",
+                        alignItems: "center",
+                        padding: 10,
+                      },
+                    ]}
                   >
-                    Buy Now
-                  </Text>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={decreaseQuantity}>
+                      <Text
+                        style={[
+                          CheckoutStyles.buttonQuantity,
+                          CheckoutStyles.quantityStyles,
+                          {
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            textAlign: "center",
+                          },
+                        ]}
+                      >
+                        -
+                      </Text>
+                    </TouchableOpacity>
+                    <View>
+                      <TextInput
+                        style={[
+                          {
+                            fontWeight: "500",
+                            fontSize: 16,
+                            textAlign: "center",
+                            // width: 30,
+                          },
+                        ]}
+                        value={quantityText}
+                        onChangeText={(text) => {
+                          setQuantityText(text);
+                          const parsedQuantity = parseInt(text, 10);
+                          if (!isNaN(parsedQuantity)) {
+                            setQuantity(parsedQuantity);
+                          }
+                        }}
+                      />
+                    </View>
+                    <TouchableOpacity onPress={increaseQuantity}>
+                      <Text
+                        style={[
+                          CheckoutStyles.buttonPlus,
+                          CheckoutStyles.quantityStyles,
+                          {
+                            fontWeight: "700",
+                            fontSize: 16,
+                            textAlign: "center",
+                          },
+                        ]}
+                      >
+                        +
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={[Styles.rowContainer]}>
+                  <TouchableOpacity
+                    onPress={() => addProductToCart({ quantity: 1 })}
+                    style={[Styles.buttonProduct, { marginRight: 20 }]}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 500,
+                        color: "#FFFFFF",
+                        //   paddingTop: 5,
+                      }}
+                    >
+                      <Image
+                        style={[CommonStyles.iconSize, { padding: 10 }]}
+                        source={require("../../../assets/Icons/empty-cart.png")}
+                      />
+                      Cart
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={CheckOutScreen}
+                    style={Styles.buttonProduct}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 500,
+                        color: "#FFFFFF",
+                        paddingTop: 5,
+                      }}
+                    >
+                      Buy Now
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>

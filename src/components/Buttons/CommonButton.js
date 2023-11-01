@@ -47,26 +47,28 @@ const CommonButton = ({
     </TouchableOpacity>
   );
 };
-export const NavigationButton = ({ onPress, index }) => {
+
+export const NavigationButton = ({ onPress, index, image }) => {
   return (
     <TouchableOpacity
       onPress={() => onPress(index)}
       style={ButtonStyles.navigationButton}
     >
-      <Image source={require("../../../assets/Icons/home-filled.png")}></Image>
+      <Image
+        style={{ height: 35, width: 35, objectFit: "contain" }}
+        source={image}
+      ></Image>
     </TouchableOpacity>
   );
 };
-export const OutlineButton = ({ onPress }) => {
+
+export const OutlineButton = ({ onPress, image }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[ButtonStyles.outlineButton, CommonStyles.center]}
     >
-      <Image
-        source={require("../../../assets/Icons/notification-light_mode.png")}
-        style={[CommonStyles.iconSize]}
-      ></Image>
+      <Image source={image} style={[CommonStyles.iconSize]}></Image>
     </TouchableOpacity>
   );
 };

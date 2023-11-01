@@ -6,11 +6,15 @@ import CheckoutStyles from "./Checkout.Style";
 import { SafeAreaView } from "react-native";
 import { Colors } from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routers } from "../../utils/Constant";
 
-const Checkout = () => {
+const Checkout = ({ navigation, route }) => {
   const [quantity, setQuantity] = useState(1);
+  const products = route.params.products;
+  const [deliverFee, setDeliverFee] = useState("10000");
+  const subTotal = route.params.totalCost;
+  console.log(products);
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -19,13 +23,79 @@ const Checkout = () => {
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
-  const navigation = useNavigation();
   const DeliverTo = () => {
     navigation.navigate(Routers.DeliverTo);
   };
   const Payment = () => {
     navigation.navigate(Routers.Payment);
   };
+  const cardOrder = ({ id, name, price, quantity, image }) => {
+    return (<View key={id}>
+      <View style={Styles.divider} />
+      <View style={CheckoutStyles.rowContainer}>
+        <Image
+          style={[CommonStyles.imageCart, CheckoutStyles.imageCart]}
+          source={{ uri: image }}
+        ></Image>
+        <View style={{ flex: 1, marginLeft: 20 }}>
+          <Text style={[TypographyStyles.nameFood]}>
+            {name}
+          </Text>
+          <Text style={[TypographyStyles.nameFood, { color: "#1BAC4B" }]}>
+            {price} VNĐ
+          </Text>
+        </View>
+        <View
+          style={[
+            CheckoutStyles.rowContainer,
+            CheckoutStyles.modifyQuantity,
+          ]}
+        >
+          <TouchableOpacity onPress={decreaseQuantity}>
+            <Text
+              style={[
+                CheckoutStyles.buttonQuantity,
+                CheckoutStyles.quantityStyles,
+                {
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  textAlign: "center",
+                },
+              ]}
+            >
+              -
+            </Text>
+          </TouchableOpacity>
+          <View>
+            <Text
+              style={{
+                fontWeight: "500",
+                fontSize: 16,
+                textAlign: "center",
+              }}
+            >
+              {quantity}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={increaseQuantity}>
+            <Text
+              style={[
+                CheckoutStyles.buttonPlus,
+                CheckoutStyles.quantityStyles,
+                {
+                  fontWeight: "700",
+                  fontSize: 16,
+                  textAlign: "center",
+                },
+              ]}
+            >
+              +
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>)
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView contentContainerStyle={{ paddingTop: 0 }}>
@@ -80,132 +150,7 @@ const Checkout = () => {
             >
               Order Summary
             </Text>
-            <View style={Styles.divider} />
-            <View style={CheckoutStyles.rowContainer}>
-              <Image
-                style={[CommonStyles.imageCart, CheckoutStyles.imageCart]}
-                source={require("../../../assets/Images/Foods/miquang.png")}
-              ></Image>
-              <View style={{ flex: 1, marginLeft: 20 }}>
-                <Text style={[TypographyStyles.nameFood]}>
-                  Mì quảng Hà Nội kkkkk
-                </Text>
-                <Text style={[TypographyStyles.nameFood, { color: "#1BAC4B" }]}>
-                  $12.00
-                </Text>
-              </View>
-              <View
-                style={[
-                  CheckoutStyles.rowContainer,
-                  CheckoutStyles.modifyQuantity,
-                ]}
-              >
-                <TouchableOpacity onPress={decreaseQuantity}>
-                  <Text
-                    style={[
-                      CheckoutStyles.buttonQuantity,
-                      CheckoutStyles.quantityStyles,
-                      {
-                        fontWeight: "bold",
-                        fontSize: 20,
-                        textAlign: "center",
-                      },
-                    ]}
-                  >
-                    -
-                  </Text>
-                </TouchableOpacity>
-                <View>
-                  <Text
-                    style={{
-                      fontWeight: "500",
-                      fontSize: 16,
-                      textAlign: "center",
-                    }}
-                  >
-                    {quantity}
-                  </Text>
-                </View>
-                <TouchableOpacity onPress={increaseQuantity}>
-                  <Text
-                    style={[
-                      CheckoutStyles.buttonPlus,
-                      CheckoutStyles.quantityStyles,
-                      {
-                        fontWeight: "700",
-                        fontSize: 16,
-                        textAlign: "center",
-                      },
-                    ]}
-                  >
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={Styles.divider} />
-            <View style={CheckoutStyles.rowContainer}>
-              <Image
-                style={[CommonStyles.imageCart, CheckoutStyles.imageCart]}
-                source={require("../../../assets/Images/Foods/miquang.png")}
-              ></Image>
-              <View style={{ flex: 1, marginLeft: 20 }}>
-                <Text style={[TypographyStyles.nameFood]}>
-                  Mì quảng Hà Nội kkkkk
-                </Text>
-                <Text style={[TypographyStyles.nameFood, { color: "#1BAC4B" }]}>
-                  $12.00
-                </Text>
-              </View>
-              <View
-                style={[
-                  CheckoutStyles.rowContainer,
-                  CheckoutStyles.modifyQuantity,
-                ]}
-              >
-                <TouchableOpacity onPress={decreaseQuantity}>
-                  <Text
-                    style={[
-                      CheckoutStyles.buttonQuantity,
-                      CheckoutStyles.quantityStyles,
-                      {
-                        fontWeight: "bold",
-                        fontSize: 20,
-                        textAlign: "center",
-                      },
-                    ]}
-                  >
-                    -
-                  </Text>
-                </TouchableOpacity>
-                <View>
-                  <Text
-                    style={{
-                      fontWeight: "500",
-                      fontSize: 16,
-                      textAlign: "center",
-                    }}
-                  >
-                    {quantity}
-                  </Text>
-                </View>
-                <TouchableOpacity onPress={increaseQuantity}>
-                  <Text
-                    style={[
-                      CheckoutStyles.buttonPlus,
-                      CheckoutStyles.quantityStyles,
-                      {
-                        fontWeight: "700",
-                        fontSize: 16,
-                        textAlign: "center",
-                      },
-                    ]}
-                  >
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            {products.map(product => cardOrder({ id: product.id, name: product.food_name, price: product.price, quantity: product.quantity, image: product.image_source }))}
           </View>
 
           <View style={CheckoutStyles.discountStyle}>
@@ -270,21 +215,21 @@ const Checkout = () => {
                   justifyContent: "flex-end",
                 }}
               >
-                $200
+                {subTotal} VNĐ
               </Text>
             </View>
             <View style={CheckoutStyles.rowTotal}>
               <Text>Deliver Free</Text>
-              <Text style={{ fontWeight: "500" }}>$20</Text>
+              <Text style={{ fontWeight: "500" }}>{deliverFee} VNĐ</Text>
             </View>
             <View style={Styles.divider} />
             <View style={CheckoutStyles.rowTotal}>
               <Text>Total</Text>
-              <Text style={{ fontWeight: "500" }}>$220</Text>
+              <Text style={{ fontWeight: "500" }}>{parseInt(subTotal) + parseInt(deliverFee)} VNĐ</Text>
             </View>
           </View>
           <TouchableOpacity
-            style={[CheckoutStyles.buttonProduct, { marginRight: 20 }]}
+            style={[CheckoutStyles.buttonProduct, { marginRight: 20 }, Margin.mb_20]}
           >
             <Text
               style={{
@@ -294,7 +239,7 @@ const Checkout = () => {
                 paddingTop: 5,
               }}
             >
-              Checkout order
+              Place Order
             </Text>
           </TouchableOpacity>
         </View>

@@ -7,11 +7,12 @@ import { CommonStyles, Margin, Padding, TypographyStyles } from '../../utils/Sty
 import { FlatList } from 'react-native'
 import SeparatorComponent from '../../components/SeparatorComponent'
 import { DummyCart } from '../../Data/DummyData'
-import { FontSize } from '../../utils/Constant'
+import { FontSize, Routers } from '../../utils/Constant'
 import { useDispatch, useSelector } from 'react-redux'
 import { Swipeable } from 'react-native-gesture-handler'
 import { deleteProductInCart } from '../../store/actions/userAction'
 import ApiUrlConstants from '../../utils/api_constants'
+import CommonButton from '../../components/Buttons/CommonButton'
 
 
 
@@ -92,13 +93,18 @@ const EmptyCart = () => {
     )
 }
 
-const MyCart = () => {
+const MyCart = ({ navigation, route }) => {
     const myCart = useSelector(state => state.userReducer.cart.products);
+    const checkOut = () => {
+        navigation.navigate(Routers.CheckOut, { products: myCart, totalCost: 100000 });
+    }
     const getBody = () => {
         if (myCart.length == 0) return (<EmptyCart />)
-        return (
+        return (<>
             <FlatList contentContainerStyle={[{ paddingRight: 2 }]} data={myCart}
                 renderItem={({ item }) => (<CartItem image={item.image_source} foodName={item.food_name} quantity={item.quantity} price={item.price} id={item.id} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />
+            <CommonButton onPress={checkOut} bgColor={Colors.primaryColor} borderRadius={40} height={60} textColor={Colors.white} title={"Check out"} fontWeight={700} size={20} />
+        </>
         )
     }
     return (

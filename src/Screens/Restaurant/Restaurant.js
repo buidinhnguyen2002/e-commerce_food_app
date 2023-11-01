@@ -61,6 +61,7 @@ const Restaurant = () => {
             </View>
             {restaurants.map((restaurant) => (
               <TouchableOpacity
+                key={restaurant.id}
                 onPress={() => changePage({ idRestaurant: restaurant.id })}
               >
                 <View style={styles.restaurantContainer} key={restaurant.id}>

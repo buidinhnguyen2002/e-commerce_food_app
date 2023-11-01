@@ -65,62 +65,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $response['message'] = 'Invalid data';
     }
     echo json_encode($response);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $data = json_decode(file_get_contents("php://input"));
-    if (isset($data-> id, $data->notification_id, $data->customer_id)) {
-        $id = $data-> id;
-        $notificationId = $data->notification_id;
-        $customerId = $data->customer_id;
+ } 
+//  elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+//     $data = json_decode(file_get_contents("php://input"));
+//     if (isset( $data->notification_id, $data->customer_id)) {
+        
+//         $notificationId = $data->notification_id;
+//         $customerId = $data->customer_id;
        
-        $query = "UPDATE $table SET notification_id = ?, customer_id = ? WHERE id = ? ";
-        $prepareStatement = $connection->prepare($query);
-        if ($prepareStatement) {
-            $prepareStatement->bind_param("iii", $notificationId, $customerId, $id);
-            $prepareStatement->execute();
-            $prepareStatement->close();
-            $response['status'] = 'success';
-            $response['message'] = 'Notification detail updated successful';
-        } else {
-            $response['status'] = 'error';
-            $response['message'] = 'Query preparation failed';
-        }
-    } else {
-        $response['status'] = 'error';
-        $response['message'] = 'Invalid data';
-    }
-    echo json_encode($response);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
-    $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->id)) {
-        $noticeId = $data->id;
-        $setFields = array();
-        if (isset($data->notification_id)) {
-            $setFields[] = "notification_id = '$data->notification_id'";
-        }
-        if (isset($data->customer_id)) {
-            $setFields[] = "customer_id = '$data->customer_id'";
-        }
+//         $query = "UPDATE $table SET notification_id = ?, customer_id = ? WHERE id = ? ";
+//         $prepareStatement = $connection->prepare($query);
+//         if ($prepareStatement) {
+//             $prepareStatement->bind_param("iii", $notificationId, $customerId, $id);
+//             $prepareStatement->execute();
+//             $prepareStatement->close();
+//             $response['status'] = 'success';
+//             $response['message'] = 'Notification detail updated successful';
+//         } else {
+//             $response['status'] = 'error';
+//             $response['message'] = 'Query preparation failed';
+//         }
+//     } else {
+//         $response['status'] = 'error';
+//         $response['message'] = 'Invalid data';
+//     }
+//     echo json_encode($response);
+// } 
+// elseif ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
+//     $data = json_decode(file_get_contents("php://input"));
+//     if (isset($data->id)) {
+//         $noticeId = $data->id;
+//         $setFields = array();
+//         if (isset($data->notification_id)) {
+//             $setFields[] = "notification_id = '$data->notification_id'";
+//         }
+//         if (isset($data->customer_id)) {
+//             $setFields[] = "customer_id = '$data->customer_id'";
+//         }
 
         
-        $setFields = implode(", ", $setFields);
-        $query = "UPDATE $table SET $setFields WHERE id = ?";
-        $prepareStatement = $connection->prepare($query);
-        if ($prepareStatement) {
-            $prepareStatement->bind_param("s", $noticeId);
-            $prepareStatement->execute();
-            $prepareStatement->close();
-            $response['status'] = 'success';
-            $response['message'] = 'Notification detail updated successfully';
-        } else {
-            $response['status'] = 'error';
-            $response['message'] = 'Query preparation failed';
-        }
-    } else {
-        $response['status'] = 'error';
-        $response['message'] = 'Invalid data';
-    }
-    echo json_encode($response);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+//         $setFields = implode(", ", $setFields);
+//         $query = "UPDATE $table SET $setFields WHERE id = ?";
+//         $prepareStatement = $connection->prepare($query);
+//         if ($prepareStatement) {
+//             $prepareStatement->bind_param("s", $noticeId);
+//             $prepareStatement->execute();
+//             $prepareStatement->close();
+//             $response['status'] = 'success';
+//             $response['message'] = 'Notification detail updated successfully';
+//         } else {
+//             $response['status'] = 'error';
+//             $response['message'] = 'Query preparation failed';
+//         }
+//     } else {
+//         $response['status'] = 'error';
+//         $response['message'] = 'Invalid data';
+//     }
+//     echo json_encode($response);
+// } 
+elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $noticeId = isset($_GET['notification_id']) ? $_GET['notification_id'] : null;
     if ($noticeId) {
         $query = "DELETE FROM $table WHERE notification_id = ?";

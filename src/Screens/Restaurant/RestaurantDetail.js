@@ -82,6 +82,7 @@ const RestaurantDetail = ({ navigation, route }) => {
 
           <View>
             <TouchableOpacity
+              key={restaurants.id}
               onPress={() => OverViewScreen({ idRestaurant: restaurants.id })}
             >
               <View

@@ -41,7 +41,8 @@ for (let i = 0; i < miQuangData.length; i += 2) {
   rows.push(row);
 }
 
-const CardProductDetail = () => {
+const CardProductDetail = ({ image, name, price }) => {
+  console.log(image);
   const [clickedItems, setClickedItems] = useState([]);
   const [hoveredItem, setHoveredItem] = useState(null);
   const handleItemClick = (itemIndex) => {
@@ -61,32 +62,26 @@ const CardProductDetail = () => {
   };
 
   return (
-    <View>
-      {rows.map((row, rowIndex) => (
-        <View key={rowIndex} style={[Styles.rowTagForYou]}>
-          {row.map((item, itemIndex) => (
-            <TouchableOpacity onPress={changePage} style={[Styles.Container]}>
-              <View style={{ margin: 10 }}>
-                <Image style={Styles.imageForYou} source={item.imageSource} />
-              </View>
-              <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
-                Best Seller
-              </Text>
-              <Text style={[TypographyStyles.nameFood, { paddingLeft: 20 }]}>
-                {item.name}
-              </Text>
-              <Text
-                style={[
-                  TypographyStyles.nameFood,
-                  { color: "#1BAC4B", marginLeft: 20 },
-                ]}
-              >
-                {item.price}
-              </Text>
-            </TouchableOpacity>
-          ))}
+    <View style={[Styles.rowTagForYou]}>
+      <TouchableOpacity onPress={changePage} style={[Styles.Container]}>
+        <View style={{ margin: 10 }}>
+          <Image style={Styles.imageForYou} source={{ uri: image }} />
         </View>
-      ))}
+        <Text style={[Styles.cardTicker, TypographyStyles.tinySmall]}>
+          Best Seller
+        </Text>
+        <Text style={[TypographyStyles.nameFood, { paddingLeft: 20 }]}>
+          {name}
+        </Text>
+        <Text
+          style={[
+            TypographyStyles.nameFood,
+            { color: "#1BAC4B", marginLeft: 20 },
+          ]}
+        >
+          {price} VNĐ
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

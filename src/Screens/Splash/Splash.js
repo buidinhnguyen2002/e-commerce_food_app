@@ -10,6 +10,7 @@ import { loadCart } from "../../store/actions/userAction";
 import ApiUrlConstants from "../../utils/api_constants";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
+import { saveAllRestaurant } from "../../store/actions/restaurantAction";
 
 const Splash = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Splash = () => {
   useEffect(() => {
     getAllProducts();
     loadInitCart(cartId);
+    getAllRestaurant();
     const timer = setTimeout(() => {
       navigation.navigate(Routers.Main);
     }, 1000);
@@ -39,6 +41,27 @@ const Splash = () => {
       if (data["status"] == "success") {
         const productsObj = data["data"];
         dispatch(saveAllProducts({ products: productsObj }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getAllRestaurant = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.getAllRestaurants, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Lỗi mạng");
+      }
+      const data = await response.json();
+      if (data["status"] == "success") {
+        const restaurantsObj = data["data"];
+        dispatch(saveAllRestaurant({ restaurant: restaurantsObj }));
       }
     } catch (error) {
       console.error(error);

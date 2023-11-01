@@ -9,6 +9,7 @@ const initialState = {
         cartId: '',
         products: [],
     },
+    order: [],
 }
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -37,7 +38,6 @@ export default function userReducer(state = initialState, action) {
         case 'ADD_TO_CART':
             let init = true;
             const updateProducts = state.cart.products.map((product) => {
-                console.log(product.id);
                 if (product.id == action.payload.id) {
                     init = false;
                     return { ...product, quantity: product.quantity + action.payload.quantity }
@@ -59,6 +59,22 @@ export default function userReducer(state = initialState, action) {
                     ...state.cart,
                     products: state.cart.products.filter(product => product.id !== action.payload),
                 }
+            }
+        case 'LOAD_ORDER':
+            return {
+                ...state,
+                order: action.payload,
+            }
+        case "UPDATE_STATUS_ORDER":
+            const orderUpdate = state.order.map(order => {
+                if (order.id == action.payload.id) {
+                    return { ...order, status: action.payload.status }
+                }
+                return order;
+            })
+            return {
+                ...state,
+                order: orderUpdate,
             }
         default:
             return state;

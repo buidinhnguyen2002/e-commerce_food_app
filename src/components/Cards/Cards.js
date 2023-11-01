@@ -193,7 +193,7 @@ export const ListTileCard = ({ foodName, price, image, rate, isDiscount, onPress
     </Pressable>
   );
 };
-export const CardOrder = () => {
+export const CardOrder = ({ onPressCancel, title, totalCost, isPaid, image, quantityItem }) => {
   const Label = ({ text }) => {
     return (
       <View
@@ -225,10 +225,10 @@ export const CardOrder = () => {
             Padding.pd_horizontal_30,
           ]}
         >
-          <Text style={TypographyStyles.medium}>Big Garden Salad</Text>
+          <Text style={TypographyStyles.medium}>{title}</Text>
           <View style={CommonStyles.horizontal_direction}>
             <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>
-              3 items
+              {quantityItem} items
             </Text>
             <Text
               style={[
@@ -256,9 +256,9 @@ export const CardOrder = () => {
                 { color: Colors.primaryColor },
               ]}
             >
-              $21.20
+              {totalCost} VNĐ
             </Text>
-            <Label text={"Paid"} />
+            <Label text={isPaid == 0 ? "Postpaid" : "Paid"} />
           </View>
         </View>
       </View>
@@ -271,7 +271,7 @@ export const CardOrder = () => {
         <CommonButton
           size={20}
           bgColor={Colors.white}
-          onPress={() => { }}
+          onPress={onPressCancel}
           textColor={Colors.primaryColor}
           title={"Cancel Order"}
           width={"49%"}
@@ -284,7 +284,7 @@ export const CardOrder = () => {
           bgColor={Colors.primaryColor}
           onPress={() => { }}
           textColor={Colors.white}
-          title={"Cancel Order"}
+          title={"Track Driver"}
           width={"49%"}
           height={40}
           borderRadius={30}
@@ -293,7 +293,7 @@ export const CardOrder = () => {
     </View>
   );
 };
-export const CardOrderCompleted = () => {
+export const CardOrderCompleted = ({ title, totalCost, isPaid, image, quantityItem }) => {
   const Label = ({ text }) => {
     return (
       <View
@@ -393,7 +393,7 @@ export const CardOrderCompleted = () => {
     </View>
   );
 };
-export const CardOrderCancelled = () => {
+export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityItem }) => {
   const Label = ({ text }) => {
     return (
       <View

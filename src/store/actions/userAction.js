@@ -28,3 +28,18 @@ export function deleteProductInCart({ id }) {
         payload: id,
     }
 }
+export function loadOrder({ orders }) {
+    return {
+        type: 'LOAD_ORDER',
+        payload: orders,
+    }
+}
+export function updateStatusOrder({ id, status }) {
+    return {
+        type: 'UPDATE_STATUS_ORDER',
+        payload: {
+            id: id,
+            status: status,
+        },
+    }
+}

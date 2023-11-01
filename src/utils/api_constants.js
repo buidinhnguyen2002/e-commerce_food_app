@@ -4,4 +4,5 @@ export default ApiUrlConstants = {
   signUp: baseURL + "/authentication/sign-up.php",
   getAllFoods: baseURL + "/food/food.php",
   cart: baseURL + "/cart/cart.php",
+  order: baseURL + "/order/order.php",
 };

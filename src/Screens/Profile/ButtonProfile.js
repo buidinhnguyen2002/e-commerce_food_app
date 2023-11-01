@@ -53,4 +53,31 @@ export const ToggleButton = () => {
       </TouchableOpacity>
     )
   }
-  
+export const ButtonWithIcon = ({ id, iconSource, label, onPress,iconButton }) => (
+  <TouchableOpacity style={styles.buttonContainer} onPress={() => onPress(id)}>
+      {/* Icon */}
+      <Image source={iconSource} style={styles.icon} />
+      {/* Button name */}
+      <Text style={[styles.label, id === 'logOut' ? { color: 'red' } : null]}>
+       {label}
+       </Text>
+      {/* <Text style={styles.label}>{label}</Text> */}
+      <View style = {styles.editbutton}>
+      {id === 'language' && (
+        // Add text to show current language (e.g., "English")
+        <Text style={[styles.label,{paddingRight:10}]}>English(US)</Text>
+      )}
+      {id === 'darkMode' ? (
+
+         <ToggleButton/>
+    ) : (
+      // Default arrow icon for other buttons
+      // <Image source={require('../../../assets/Icons/arrownext.png')} style={styles.profileIconButton} />
+      <Image source={iconButton} style={styles.profileIconButton} />
+    )}
+     
+      </View>
+     
+  </TouchableOpacity>
+);
+

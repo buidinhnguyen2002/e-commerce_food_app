@@ -100,8 +100,8 @@ const  styles = StyleSheet.create({
         backgroundColor: Colors.green,
       },
       toggleCircle: {
-        width: 20,
-        height: 20,
+        width: 18,
+        height: 18,
         borderRadius: 10, // Để tạo hình tròn
         backgroundColor: Colors.white,
       },
@@ -143,6 +143,12 @@ const  styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal:10,
         alignItems:'center'
+    },
+    iconActive: {
+        transform: [{ rotate: '180deg' }],
+    },
+    buttonContent:{
+        backgroundColor: Colors.green,
     }
   })
 

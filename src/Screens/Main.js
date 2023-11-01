@@ -8,6 +8,7 @@ import Order from "./Order/Order";
 import EWallet from "./E-Wallet/EWallet";
 import Profile from "./Profile/Profile";
 import Checkout from "./Checkout/Checkout";
+import FAQ from "./Profile/FAQ";
 
 
 const Main = () => {

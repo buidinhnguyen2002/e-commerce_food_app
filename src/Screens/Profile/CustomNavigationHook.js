@@ -72,7 +72,7 @@ export const useNavigateToHelpCenter = () => {
     const navigation = useNavigation();
   
     const navigate = () => {
-      navigation.navigate('HelpCenter');
+      navigation.navigate(Routers.HelpCenter);
     };
     return { navigate };
 };

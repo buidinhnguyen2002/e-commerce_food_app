@@ -7,9 +7,9 @@ import { FontSize } from '../../utils/Constant'
 import { Avatar } from '@rneui/themed'
 import { CommonStyles, Margin, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
-import { EditButton, MoreButton, ToggleButton} from './ButtonProfile'
+import { ButtonWithIcon, EditButton, MoreButton, ToggleButton} from './ButtonProfile'
 import { useNavigation } from '@react-navigation/native'
-import { useNavigateToAddress, useNavigateToInviteFriends, useNavigateToLanguage, useNavigateToMyFavoriteRestaurants, useNavigateToNotification, useNavigateToPayment, useNavigateToProfileDetail, useNavigateToSecurity } from './CustomNavigationHook';
+import { useNavigateToAddress, useNavigateToHelpCenter, useNavigateToInviteFriends, useNavigateToLanguage, useNavigateToMyFavoriteRestaurants, useNavigateToNotification, useNavigateToPayment, useNavigateToProfileDetail, useNavigateToSecurity } from './CustomNavigationHook';
 import Logout from './Logout'
 
 
@@ -30,32 +30,6 @@ const Profile = () => {
     { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
   ];
  
-const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
-    <TouchableOpacity style={styles.buttonContainer} onPress={() => onPress(id)}>
-        {/* Icon */}
-        <Image source={iconSource} style={styles.icon} />
-        {/* Button name */}
-        <Text style={[styles.label, id === 'logOut' ? { color: 'red' } : null]}>
-         {label}
-         </Text>
-        {/* <Text style={styles.label}>{label}</Text> */}
-        <View style = {styles.editbutton}>
-        {id === 'language' && (
-          // Add text to show current language (e.g., "English")
-          <Text style={[styles.label,{paddingRight:10}]}>English(US)</Text>
-        )}
-        {id === 'darkMode' ? (
-
-           <ToggleButton/>
-      ) : (
-        // Default arrow icon for other buttons
-        <Image source={require('../../../assets/Icons/arrownext.png')} style={styles.profileIconButton} />
-      )}
-       
-        </View>
-       
-    </TouchableOpacity>
-  );
   const { navigate : navigateToMyFavoriteRestaurants} = useNavigateToMyFavoriteRestaurants();
   // const { navigate: useNavigateToSpecialOffer } = useNavigateToSpecialOffer();
   const { navigate: navigateToPayMethod } = useNavigateToPayment();
@@ -64,7 +38,7 @@ const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
   const { navigate: navigateToAddress } = useNavigateToAddress();
   const { navigate: naivigateToNotifications } = useNavigateToNotification();
   const { navigate: navigateToSecurity} = useNavigateToSecurity();
-  // const { navigate: useNavigateToHelpCenter } = useNavigateToHelpCenter();
+  const { navigate: navigateToHelpCenter } = useNavigateToHelpCenter();
   const { navigate: navigateToLanguage } = useNavigateToLanguage();
   const handleLogout = () => {
     setShowLogoutDialog(false);
@@ -107,6 +81,7 @@ const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
         break;
       case 'help':
         // Handle 'Help Center' button click
+        navigateToHelpCenter();
         break;
       case 'invite':
         // Handle 'Invite Friends' button click
@@ -155,6 +130,7 @@ const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
                     id={button.id}
                     iconSource={button.iconSource}
                     label={button.label}
+                    iconButton={require('../../../assets/Icons/arrownext.png')}
                     onPress={handleButtonClick}
                     />
                      ))}
@@ -167,6 +143,7 @@ const ButtonWithIcon = ({ id, iconSource, label, onPress }) => (
                     id={button.id}
                     iconSource={button.iconSource}
                     label={button.label}
+                    iconButton={require('../../../assets/Icons/arrownext.png')}
                     onPress={handleButtonClick}
                     />
                      ))}

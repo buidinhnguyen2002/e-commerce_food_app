@@ -39,6 +39,7 @@ import Notification from "../Screens/Profile/Notification";
 import Security from "../Screens/Profile/Security";
 import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
+import HelpCenter from "../Screens/Profile/HelpCenter";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -244,6 +245,7 @@ const AppNavigation = () => {
                     name={Routers.Security}
                     component={Security}
                 />
+                 
                 <Stack.Screen
                     options={{
                         headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -259,6 +261,14 @@ const AppNavigation = () => {
                     }}
                     name={Routers.Address}
                     component={Address}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.HelpCenter} />)
+                    }}
+                    name={Routers.HelpCenter}
+                    component={HelpCenter}
                 />
             </Stack.Navigator>
         </NavigationContainer>

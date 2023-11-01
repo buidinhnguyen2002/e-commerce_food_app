@@ -10,6 +10,7 @@ import { loadCart, loadOrder } from '../../store/actions/userAction'
 import ApiUrlConstants from '../../utils/api_constants';
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
+import { saveAllCategorys } from '../../store/actions/categorysAction'
 
 const Splash = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Splash = () => {
   const userId = useSelector(state => state.userReducer.id);
   useEffect(() => {
     getAllProducts();
+    getAllCategory();
     loadInitCart(cartId);
     loadMyOrder(userId);
     const timer = setTimeout(() => {
@@ -62,6 +64,27 @@ const Splash = () => {
       if (data["status"] == "success") {
         const productsObj = data["data"];
         dispatch(loadCart({ products: productsObj }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getAllCategory = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.getAllCategorys, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        const categoryObj = data['data'];
+        dispatch(saveAllCategorys({ categorys: categoryObj }));
       }
     } catch (error) {
       console.error(error);

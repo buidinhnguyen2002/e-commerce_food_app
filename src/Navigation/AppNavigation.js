@@ -16,6 +16,8 @@ import { StyleSheet } from "react-native";
 import ListCard from "../Screens/ListCard/ListCard";
 import CustomHeader from "../components/CustomHeader";
 import MyCart from "../Screens/Cart/MyCart";
+import Category from "../Screens/Category/Category";
+import CategoryDetail from "../Screens/Category/CategoryDetail";
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import RatingAndReview from "../Screens/Product/RatingAReviews";
@@ -32,7 +34,6 @@ import ProductDetail from "../Screens/Product/ProductDetail";
 import Profile from "../Screens/Profile/Profile";
 import ProfileDetail from "../Screens/Profile/ProfileDetail";
 import MyFavoriteRestaurants from "../Screens/Profile/MyFavoriteRestaurants";
-import InviteFriend from "../Screens/Profile/InviteFriends";
 import InviteFriends from "../Screens/Profile/InviteFriends";
 import Language from "../Screens/Profile/Language";
 import Notification from "../Screens/Profile/Notification";
@@ -40,6 +41,7 @@ import Security from "../Screens/Profile/Security";
 import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
 import HelpCenter from "../Screens/Profile/HelpCenter";
+
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {

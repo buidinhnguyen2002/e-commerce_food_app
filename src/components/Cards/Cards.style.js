@@ -58,4 +58,11 @@ export const Styles = StyleSheet.create({
     backgroundColor: Colors.red,
     borderRadius: 10,
   },
+  rowContainer: {
+    flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
+    alignItems: "center", // Căn giữa các phần tử trong hàng
+    padding: 10,
+    marginBottom: 10,
+    marginLeft: 10,
+  },
 });

@@ -8,13 +8,28 @@ import { Colors } from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Routers } from "../../utils/Constant";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../../store/actions/userAction";
 
 const Checkout = ({ navigation, route }) => {
+  const userId = useSelector(state => state.userReducer.id);
   const [quantity, setQuantity] = useState(1);
   const products = route.params.products;
   const [deliverFee, setDeliverFee] = useState("10000");
+  const [paymentMethod, setPaymentMethod] = "Payment on delivery";
   const subTotal = route.params.totalCost;
-  console.log(products);
+  const [restaurants, setRestaurants] = useState([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const restaurantArray = {};
+    products.forEach(product => {
+      if (!restaurantArray[product.restaurant_id]) {
+        restaurantArray[product.restaurant_id] = [];
+      }
+      restaurantArray[product.restaurant_id].push(product);
+    });
+    setRestaurants(Object.values(restaurantArray));
+  }, []);
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -96,6 +111,60 @@ const Checkout = ({ navigation, route }) => {
       </View>
     </View>)
   }
+  const getSummaryOrderOfRestaurant = ({ productRestaurants }) => {
+    return (<View key={productRestaurants[0].id} style={CheckoutStyles.orderSummary}>
+      <Text
+        style={[TypographyStyles.medium, { margin: 20 }, Margin.mb_10]}
+      >
+        Order Summary
+      </Text>
+      {productRestaurants.map(product => cardOrder({ id: product.id, name: product.food_name, price: product.price, quantity: product.quantity, image: product.image_source }))}
+    </View>)
+  }
+  const handelPlaceOder = () => {
+    restaurants.forEach(foodRestaurant => {
+      const totalAmount = foodRestaurant.reduce((total, food) => total + food.price * food.quantity, 0);
+      placeOrder({ foods: foodRestaurant, totalAmount: totalAmount });
+    });
+    dispatch(clearCart());
+    navigation.navigate(Routers.Main, { selectedTab: 1 });
+  }
+  const placeOrder = async ({ foods, totalAmount }) => {
+    try {
+      const response = await fetch(ApiUrlConstants.order, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          restaurant_id: foods[0].restaurant_id,
+          customer_id: userId,
+          customer_address_id: 1,
+          deliveryDriver_id: 1,
+          delivery_fee: 10000,
+          unit: "VNĐ",
+          total_amount: totalAmount,
+          is_paid: "Unpaid",
+          driver_rating_of_customer: 5,
+          restaurant_rating_of_customer: 5,
+          status: "active",
+          foods: foods,
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        const orderObj = data['data'];
+        console.log("Thanh toan thanh cong");
+        console.log(foods);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView contentContainerStyle={{ paddingTop: 0 }}>
@@ -144,14 +213,9 @@ const Checkout = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
           {/* //order summary */}
-          <View style={CheckoutStyles.orderSummary}>
-            <Text
-              style={[TypographyStyles.medium, { margin: 20 }, Margin.mb_10]}
-            >
-              Order Summary
-            </Text>
-            {products.map(product => cardOrder({ id: product.id, name: product.food_name, price: product.price, quantity: product.quantity, image: product.image_source }))}
-          </View>
+          {restaurants.map((restaurant) => (
+            getSummaryOrderOfRestaurant({ productRestaurants: restaurant })
+          ))}
 
           <View style={CheckoutStyles.discountStyle}>
             {/* /payment */}
@@ -229,8 +293,7 @@ const Checkout = ({ navigation, route }) => {
             </View>
           </View>
           <TouchableOpacity
-            style={[CheckoutStyles.buttonProduct, { marginRight: 20 }, Margin.mb_20]}
-          >
+            style={[CheckoutStyles.buttonProduct, { marginRight: 20 }, Margin.mb_20]} onPress={handelPlaceOder}>
             <Text
               style={{
                 fontSize: 18,

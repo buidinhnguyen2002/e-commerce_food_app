@@ -65,4 +65,8 @@ export const Styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 10,
   },
+  modifyQuantity: {
+    alignItems: "center",
+    marginTop: 50,
+  },
 });

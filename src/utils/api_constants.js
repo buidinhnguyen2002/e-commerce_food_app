@@ -1,4 +1,4 @@
-const baseURL = "http://192.168.1.11:80/food_app";
+const baseURL = "http://172.20.10.8:80/food_app";
 export default ApiUrlConstants = {
   signIn: baseURL + "/authentication/sign-in.php",
   signUp: baseURL + "/authentication/sign-up.php",

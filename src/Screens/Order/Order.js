@@ -16,6 +16,7 @@ const Order = () => {
     const myOrder = useSelector(state => state.userReducer.order);
     const userId = useSelector(state => state.userReducer.id);
     const myOrderActive = myOrder.filter(order => order.status === "active");
+    console.log(myOrderActive);
     const myOrderCompleted = myOrder.filter(order => order.status === "completed");
     const myOrderCancelled = myOrder.filter(order => order.status === "cancelled");
     const dispatch = useDispatch();
@@ -33,11 +34,11 @@ const Order = () => {
     }
     const GetBody = () => {
         if (tabIndex == 0) return (
-            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderActive} renderItem={({ item }) => (<CardOrder onPressCancel={() => onPressCancelOrder(item.id)} totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
+            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderActive} renderItem={({ item }) => (<CardOrder onPressCancel={() => onPressCancelOrder(item.id)} totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} image={item.image} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
         if (tabIndex == 1) return (
-            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderCompleted} renderItem={({ item }) => (<CardOrderCompleted totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
+            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderCompleted} renderItem={({ item }) => (<CardOrderCompleted totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} image={item.image} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
         if (tabIndex == 2) return (
-            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderCancelled} renderItem={({ item }) => (<CardOrderCancelled totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
+            <FlatList contentContainerStyle={[Padding.pd_vertical_5, { paddingHorizontal: 2 }]} style={[{ paddingHorizontal: 2 }]} data={myOrderCancelled} renderItem={({ item }) => (<CardOrderCancelled totalCost={item.total_amount} title={item.name} isPaid={item.is_paid} quantityItem={item.quantity_item} image={item.image} />)} showsVerticalScrollIndicator={false} ItemSeparatorComponent={() => (<SeparatorComponent height={30} />)} />)
     }
 
     const loadMyOrder = async (userId) => {

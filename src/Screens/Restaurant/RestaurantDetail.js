@@ -256,7 +256,7 @@ const RestaurantDetail = ({ navigation, route }) => {
                   image={item.image_source}
                   name={item.food_name}
                   price={item.price}
-                  idProduct={item.id}
+                  idProduct={item.id} key={item.id}
                 />
               ))}
             </View>
@@ -272,6 +272,7 @@ const RestaurantDetail = ({ navigation, route }) => {
                 image={item.image_source}
                 name={item.food_name}
                 price={item.price}
+                key={item.id}
               />
             ))}
             <View style={[Styles.rowContainer, { marginTop: 20 }]}>

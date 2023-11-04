@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import { saveAllCategorys } from '../../store/actions/categorysAction'
 import { saveAllRestaurant } from "../../store/actions/restaurantAction";
+import { StyleSheet } from 'react-native'
 const Splash = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -138,10 +139,18 @@ const Splash = () => {
       <View style={[CommonStyles.horizontal_direction, CommonStyles.center]}>
         <Image source={require("../../../assets/Images/foodu.png")} />
         <Text style={[TypographyStyles.soBig, Margin.ml_10]}>Foodu</Text>
-        <ActivityIndicator />
       </View>
+      <ActivityIndicator style={Styles.indicator} size={50} color={Colors.primaryColor} />
     </SafeAreaView>
   );
 };
+const Styles = StyleSheet.create({
+  indicator: {
+    position: 'absolute',
+    bottom: 30,
+    left: "50%",
+    transform: [{ translateX: -25 }],
+  },
+});
 
 export default Splash;

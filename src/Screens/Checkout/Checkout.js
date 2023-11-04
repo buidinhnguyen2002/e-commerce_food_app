@@ -127,6 +127,7 @@ const Checkout = ({ navigation, route }) => {
       placeOrder({ foods: foodRestaurant, totalAmount: totalAmount });
     });
     dispatch(clearCart());
+    navigation.navigate(Routers.Main, { selectedTab: 1 });
   }
   const placeOrder = async ({ foods, totalAmount }) => {
     try {

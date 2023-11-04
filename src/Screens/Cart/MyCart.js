@@ -101,7 +101,7 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                 flexDirection: "row",
               }}
             >
-              <View style={{ width: 100, marginRight: 30 }}>
+              <View style={{}}>
                 <Text style={TypographyStyles.medium}>{foodName}</Text>
                 <View
                   style={[
@@ -176,7 +176,7 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                         // width: 30,
                       },
                     ]}
-                    value={quantityText}
+                    value={quantity + ""}
                     onChangeText={(text) => {
                       setQuantityText(text);
                       const parsedQuantity = parseInt(text, 10);
@@ -231,10 +231,11 @@ const EmptyCart = () => {
 
 const MyCart = ({ navigation, route }) => {
   const myCart = useSelector((state) => state.userReducer.cart.products);
+  const totalCost = myCart.reduce((total, product) => total + product.price * product.quantity, 0);
   const checkOut = () => {
     navigation.navigate(Routers.CheckOut, {
       products: myCart,
-      totalCost: 100000,
+      totalCost: totalCost,
     });
   };
   const getBody = () => {
@@ -282,7 +283,7 @@ const MyCart = ({ navigation, route }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Total</Text>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>35.000 VND</Text>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>{totalCost} VND</Text>
           </View>
           <CommonButton
             onPress={checkOut}
@@ -349,7 +350,7 @@ const Styles = StyleSheet.create({
     position: "absolute",
     zIndex: -1,
     width: "100%",
-    height: 123.5,
+    height: 120,
     borderRadius: 24,
     left: 2,
     top: 2,

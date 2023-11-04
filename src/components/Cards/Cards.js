@@ -215,7 +215,7 @@ export const CardOrder = ({ onPressCancel, title, totalCost, isPaid, image, quan
         <View style={[{ width: "30%" }]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -256,7 +256,7 @@ export const CardOrder = ({ onPressCancel, title, totalCost, isPaid, image, quan
                 { color: Colors.primaryColor },
               ]}
             >
-              {totalCost} VNĐ
+              {totalCost} Đ
             </Text>
             <Label text={isPaid == 0 ? "Postpaid" : "Paid"} />
           </View>
@@ -315,7 +315,7 @@ export const CardOrderCompleted = ({ title, totalCost, isPaid, image, quantityIt
         <View style={[{ width: "30%" }]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -325,10 +325,10 @@ export const CardOrderCompleted = ({ title, totalCost, isPaid, image, quantityIt
             Padding.pd_horizontal_30,
           ]}
         >
-          <Text style={TypographyStyles.medium}>Zero zero Noodles</Text>
+          <Text style={TypographyStyles.medium}>{title}</Text>
           <View style={CommonStyles.horizontal_direction}>
             <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>
-              4 items
+              {quantityItem} items
             </Text>
             <Text
               style={[
@@ -356,7 +356,7 @@ export const CardOrderCompleted = ({ title, totalCost, isPaid, image, quantityIt
                 { color: Colors.primaryColor },
               ]}
             >
-              $22.00
+              {totalCost} Đ
             </Text>
             <Label text={"Completed"} />
           </View>
@@ -415,7 +415,7 @@ export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityIt
         <View style={[{ width: "30%" }]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -425,10 +425,10 @@ export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityIt
             Padding.pd_horizontal_30,
           ]}
         >
-          <Text style={TypographyStyles.medium}>Bite Me Sandwiches</Text>
+          <Text style={TypographyStyles.medium}>{title}</Text>
           <View style={CommonStyles.horizontal_direction}>
             <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>
-              3 items
+              {quantityItem} items
             </Text>
             <Text
               style={[
@@ -456,7 +456,7 @@ export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityIt
                 { color: Colors.primaryColor },
               ]}
             >
-              $32.00
+              {totalCost} Đ
             </Text>
             <Label text={"Cancelled"} />
           </View>

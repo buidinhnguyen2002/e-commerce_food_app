@@ -34,7 +34,9 @@ const Home = () => {
   const [chip, setChip] = useState(0);
   const navigation = useNavigation();
   const products = useSelector((state) => state.productsReducer.products);
-  const categorys = useSelector((state)=> state.categorysReducer.categorys);
+  const categorys = useSelector((state) => state.categorysReducer.categorys);
+  const cart = useSelector((state => state.userReducer.cart.products));
+  const quantityProductsInCart = cart.reduce((total, item) => total + item.quantity, 0);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const dummyChip = [
     { text: "All", source: "" },
@@ -110,13 +112,13 @@ const Home = () => {
             <View style={Styles.topRightContainer}>
               <View>
                 <OutlineButton
-                  image={require("../../../assets/Icons/notification-light_mode.png")}
+                  image={require("../../../assets/Icons/notification-light_mode.png")} quantity={0}
                 />
               </View>
               <View style={Margin.ml_15}>
                 <OutlineButton
                   image={require("../../../assets/Icons/empty-cart.png")}
-                  onPress={() => redirectScreens(Routers.Cart)}
+                  onPress={() => redirectScreens(Routers.Cart)} quantity={quantityProductsInCart}
                 />
               </View>
             </View>
@@ -137,36 +139,36 @@ const Home = () => {
             })}
             <SpecialOfferItem />
             <View style={[Styles.categoryContainer, Margin.mt_15]}>
-  {showAllCategories
-    ? categorys.map((category) => (
-        <CategoryItem
-          onPress={() =>
-            redirectCategoryDetail(Routers.CategoryDetail, {
-              idCategory: category.id,
-            })
-          }
-          key={category.id}
-          source={category.image_category}
-          name={category.name}
-        />
-      ))
-    : categorys.slice(0, 6).map((category) => (
-        <CategoryItem
-          onPress={() =>
-            redirectCategoryDetail(Routers.CategoryDetail, {
-              idCategory: category.id,
-            })
-          }
-          key={category.id}
-          source={category.image_category}
-          name={category.name}
-        />
-      ))}
+              {showAllCategories
+                ? categorys.map((category) => (
+                  <CategoryItem
+                    onPress={() =>
+                      redirectCategoryDetail(Routers.CategoryDetail, {
+                        idCategory: category.id,
+                      })
+                    }
+                    key={category.id}
+                    source={category.image_category}
+                    name={category.name}
+                  />
+                ))
+                : categorys.slice(0, 6).map((category) => (
+                  <CategoryItem
+                    onPress={() =>
+                      redirectCategoryDetail(Routers.CategoryDetail, {
+                        idCategory: category.id,
+                      })
+                    }
+                    key={category.id}
+                    source={category.image_category}
+                    name={category.name}
+                  />
+                ))}
 
-  {!showAllCategories && (
-    <Text style={[TypographyStyles.normal,Margin.ml_15, { fontWeight: 500 },{color: Colors.green}]} onPress={() => redirectScreens(Routers.MoreCategory)}>More</Text>     
-  )}
-</View>
+              {!showAllCategories && (
+                <Text style={[TypographyStyles.normal, Margin.ml_15, { fontWeight: 500 }, { color: Colors.green }]} onPress={() => redirectScreens(Routers.MoreCategory)}>More</Text>
+              )}
+            </View>
 
           </View>
         </View>

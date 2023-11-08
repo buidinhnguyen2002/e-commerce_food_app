@@ -29,14 +29,21 @@ import TopUp from "../Screens/E-Wallet/TopUp";
 import EnterYourPin from "../Screens/E-Wallet/EnterYourPin";
 import Checkout from "../Screens/Checkout/Checkout";
 import { useSelector } from "react-redux";
+import RestaurantDetail from "../Screens/Restaurant/RestaurantDetail";
+import ProductDetail from "../Screens/Product/ProductDetail";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
-  const isSignedIn = useSelector(state => state.userReducer.isSignIn);
+  const isSignedIn = useSelector((state) => state.userReducer.isSignIn);
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {isSignedIn ? (
           <>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.Splash}
+              component={Splash}
+            />
             <Stack.Screen
               options={{ headerShown: false }}
               name={Routers.Main}
@@ -46,11 +53,6 @@ const AppNavigation = () => {
               options={{ headerShown: false }}
               name={Routers.Home}
               component={Home}
-            />
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name={Routers.Splash}
-              component={Splash}
             />
             <Stack.Screen
               options={{
@@ -211,14 +213,34 @@ const AppNavigation = () => {
               name={Routers.CheckOut}
               component={Checkout}
             />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.RestaurantDetail}
+              component={RestaurantDetail}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.ProductDetail}
+              component={ProductDetail}
+            />
           </>
-        ) : (<>
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={Routers.Login}
-            component={Login}
-          />
-        </>)}
+        ) : (
+          <>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.Login}
+              component={Login}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,31 +11,31 @@ import AddressDeliver from "../../components/AddressDeliver";
 
 const DeliverTo = () => {
   const dataDiscount = [
-    {
-      imageUrl: require("../../../assets/Icons/locate.png"),
-      text: "Home",
-      textDetail: "Time Square NYC, Manhattan, 27",
-    },
-    {
-      imageUrl: require("../../../assets/Icons/locate.png"),
-      text: "My Office",
-      textDetail: "5259 Blue Bill Park, PC 4327",
-    },
-    {
-      imageUrl: require("../../../assets/Icons/locate.png"),
-      text: "My Apartment",
-      textDetail: "21883 Clyde Gallagher, PC 4662",
-    },
-    {
-      imageUrl: require("../../../assets/Icons/locate.png"),
-      text: "Parent's House",
-      textDetail: "6993 Meadow Valley Terra, PC 36",
-    },
-    {
-      imageUrl: require("../../../assets/Icons/locate.png"),
-      text: "My Villa",
-      textDetail: "61480 Sunbrook Park, PC 5679",
-    },
+    // {
+    //   imageUrl: require("../../../assets/Icons/locate.png"),
+    //   text: "Home",
+    //   textDetail: "Time Square NYC, Manhattan, 27",
+    // },
+    // {
+    //   imageUrl: require("../../../assets/Icons/locate.png"),
+    //   text: "My Office",
+    //   textDetail: "5259 Blue Bill Park, PC 4327",
+    // },
+    // {
+    //   imageUrl: require("../../../assets/Icons/locate.png"),
+    //   text: "My Apartment",
+    //   textDetail: "21883 Clyde Gallagher, PC 4662",
+    // },
+    // {
+    //   imageUrl: require("../../../assets/Icons/locate.png"),
+    //   text: "Parent's House",
+    //   textDetail: "6993 Meadow Valley Terra, PC 36",
+    // },
+    // {
+    //   imageUrl: require("../../../assets/Icons/locate.png"),
+    //   text: "My Villa",
+    //   textDetail: "61480 Sunbrook Park, PC 5679",
+    // },
   ];
 
   return (

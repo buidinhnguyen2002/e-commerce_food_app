@@ -9,7 +9,8 @@ const initialState = {
         cartId: '',
         products: [],
     },
-    order: [],
+    order: [], 
+    address: [],
 }
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -83,6 +84,12 @@ export default function userReducer(state = initialState, action) {
                     ...state.cart,
                     products: [],
                 }
+            }
+        }
+        case "SAVE_USER_ADDRESS": {
+            return {
+                ...state,
+                address: action.payload,
             }
         }
         default:

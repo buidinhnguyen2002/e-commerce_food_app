@@ -49,3 +49,9 @@ export function clearCart() {
         payload: "",
     }
 }
+export function saveUserAddress(address) {
+    return {
+        type: 'SAVE_USER_ADDRESS',
+        payload: address,
+    }
+}

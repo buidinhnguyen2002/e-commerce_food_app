@@ -1,12 +1,11 @@
 import { View, Text, Image, ActivityIndicator } from 'react-native'
 import React, { useEffect } from 'react'
-import { Center } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CommonStyles, Margin, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveAllProducts } from '../../store/actions/productsAction';
-import { loadCart, loadOrder } from '../../store/actions/userAction'
+import { getUserAddress, loadCart, loadOrder, saveUserAddress } from '../../store/actions/userAction'
 import ApiUrlConstants from '../../utils/api_constants';
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
@@ -24,6 +23,8 @@ const Splash = () => {
     loadInitCart(cartId);
     loadMyOrder(userId);
     getAllRestaurant();
+    getUserAddress();
+    
     const timer = setTimeout(() => {
       navigation.navigate(Routers.Main);
     }, 1000);
@@ -129,6 +130,27 @@ const Splash = () => {
       if (data['status'] == 'success') {
         const orderObj = data['data'];
         dispatch(loadOrder({ orders: orderObj }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getUserAddress = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.address, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Lỗi mạng");
+      }
+      const data = await response.json();
+      if (data["status"] == "success") {
+        const addressObj = data["data"];
+        dispatch(saveUserAddress(addressObj));
       }
     } catch (error) {
       console.error(error);

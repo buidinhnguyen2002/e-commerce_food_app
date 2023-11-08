@@ -46,18 +46,18 @@ const Styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+    marginBottom: 10,
   },
   rowTagForYou: {
-    flexDirection: "row", // Sắp xếp các hình ảnh và văn bản theo chiều ngang
-    alignItems: "center", // Căn giữa các phần tử trong hàng
-    // padding: 10,
-    justifyContent: "center",
+    flexDirection: "row",
+    // justifyContent: "space-between",
     marginRight: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
+    width: "45%",
   },
   divider: {
     height: 2, // Chiều cao của dòng ngăn cách

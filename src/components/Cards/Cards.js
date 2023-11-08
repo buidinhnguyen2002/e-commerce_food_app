@@ -193,7 +193,7 @@ export const ListTileCard = ({ foodName, price, image, rate, isDiscount, onPress
     </Pressable>
   );
 };
-export const CardOrderActive = () => {
+export const CardOrder = ({ onPressCancel, title, totalCost, isPaid, image, quantityItem }) => {
   const Label = ({ text }) => {
     return (
       <View
@@ -215,7 +215,7 @@ export const CardOrderActive = () => {
         <View style={[{ width: "30%" }]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -225,10 +225,10 @@ export const CardOrderActive = () => {
             Padding.pd_horizontal_30,
           ]}
         >
-          <Text style={TypographyStyles.medium}>Big Garden Salad</Text>
+          <Text style={TypographyStyles.medium}>{title}</Text>
           <View style={CommonStyles.horizontal_direction}>
             <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>
-              3 items
+              {quantityItem} items
             </Text>
             <Text
               style={[
@@ -256,9 +256,9 @@ export const CardOrderActive = () => {
                 { color: Colors.primaryColor },
               ]}
             >
-              $21.20
+              {totalCost} Đ
             </Text>
-            <Label text={"Paid"} />
+            <Label text={isPaid == 0 ? "Postpaid" : "Paid"} />
           </View>
         </View>
       </View>
@@ -271,7 +271,7 @@ export const CardOrderActive = () => {
         <CommonButton
           size={20}
           bgColor={Colors.white}
-          onPress={() => { }}
+          onPress={onPressCancel}
           textColor={Colors.primaryColor}
           title={"Cancel Order"}
           width={"49%"}
@@ -284,7 +284,7 @@ export const CardOrderActive = () => {
           bgColor={Colors.primaryColor}
           onPress={() => { }}
           textColor={Colors.white}
-          title={"Track Drive"}
+          title={"Track Driver"}
           width={"49%"}
           height={40}
           borderRadius={30}
@@ -293,7 +293,7 @@ export const CardOrderActive = () => {
     </View>
   );
 };
-export const CardOrderCompleted = () => {
+export const CardOrderCompleted = ({ title, totalCost, isPaid, image, quantityItem }) => {
   const Label = ({ text }) => {
     return (
       <View
@@ -315,7 +315,7 @@ export const CardOrderCompleted = () => {
         <View style={[{ width: "30%" }]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -325,10 +325,10 @@ export const CardOrderCompleted = () => {
             Padding.pd_horizontal_30,
           ]}
         >
-          <Text style={TypographyStyles.medium}>Zero zero Noodles</Text>
+          <Text style={TypographyStyles.medium}>{title}</Text>
           <View style={CommonStyles.horizontal_direction}>
             <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>
-              4 items
+              {quantityItem} items
             </Text>
             <Text
               style={[
@@ -356,7 +356,7 @@ export const CardOrderCompleted = () => {
                 { color: Colors.primaryColor },
               ]}
             >
-              $22.00
+              {totalCost} Đ
             </Text>
             <Label text={"Completed"} />
           </View>
@@ -393,7 +393,7 @@ export const CardOrderCompleted = () => {
     </View>
   );
 };
-export const CardOrderCancelled = () => {
+export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityItem }) => {
   const Label = ({ text }) => {
     return (
       <View
@@ -415,7 +415,7 @@ export const CardOrderCancelled = () => {
         <View style={[{ width: "30%" }]}>
           <Image
             style={[Styles.imageListTile]}
-            source={require("../../../assets/Images/food.png")}
+            source={{ uri: image }}
           />
         </View>
         <View
@@ -425,10 +425,10 @@ export const CardOrderCancelled = () => {
             Padding.pd_horizontal_30,
           ]}
         >
-          <Text style={TypographyStyles.medium}>Bite Me Sandwiches</Text>
+          <Text style={TypographyStyles.medium}>{title}</Text>
           <View style={CommonStyles.horizontal_direction}>
             <Text style={[{ color: Colors.grey_02 }, TypographyStyles.small]}>
-              3 items
+              {quantityItem} items
             </Text>
             <Text
               style={[
@@ -456,7 +456,7 @@ export const CardOrderCancelled = () => {
                 { color: Colors.primaryColor },
               ]}
             >
-              $32.00
+              {totalCost} Đ
             </Text>
             <Label text={"Cancelled"} />
           </View>
@@ -465,5 +465,4 @@ export const CardOrderCancelled = () => {
     </View>
   );
 };
-
 export default CardDiscount;

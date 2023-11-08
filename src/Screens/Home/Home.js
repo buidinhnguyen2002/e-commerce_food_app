@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { View, Text, Image, ScrollView, FlatList } from "react-native";
 import React, { useState } from "react";
 import { Avatar, Badge } from "@rneui/themed";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -20,7 +14,7 @@ import {
   Padding,
   TypographyStyles,
 } from "../../utils/StyleUtil";
-import { Chip, SearchBar } from "@rneui/base";
+import { Chip, SearchBar, color } from "@rneui/base";
 import { SearchInput } from "../../components/Inputs/CustomTextInput";
 import CategoryItem from "../../components/CategoryItem";
 import CardDiscount, { ListTileCard } from "../../components/Cards/Cards";
@@ -32,12 +26,18 @@ import SpecialOfferItem from "../../components/SpecialOfferItem";
 import SeparatorComponent from "../../components/SeparatorComponent";
 import MyCart from "../Cart/MyCart";
 import { useSelector } from "react-redux";
+import { Center } from "native-base";
+
 
 const Home = () => {
   const [textSearch, setTextSearch] = useState("");
   const [chip, setChip] = useState(0);
   const navigation = useNavigation();
   const products = useSelector((state) => state.productsReducer.products);
+  const categorys = useSelector((state) => state.categorysReducer.categorys);
+  const cart = useSelector((state => state.userReducer.cart.products));
+  const quantityProductsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const dummyChip = [
     { text: "All", source: "" },
     { text: "Hamburger", source: "" },
@@ -82,7 +82,7 @@ const Home = () => {
   };
   const redirectFoodDetailScreen = (name, { idProduct }) => {
     navigation.navigate(name, { idProduct: idProduct });
-  }
+  };
   return (
     <SafeAreaView style={Styles.screenContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -111,10 +111,15 @@ const Home = () => {
             </View>
             <View style={Styles.topRightContainer}>
               <View>
-                <OutlineButton />
+                <OutlineButton
+                  image={require("../../../assets/Icons/notification-light_mode.png")} quantity={0}
+                />
               </View>
               <View style={Margin.ml_15}>
-                <OutlineButton onPress={() => redirectScreens(Routers.Cart)} />
+                <OutlineButton
+                  image={require("../../../assets/Icons/empty-cart.png")}
+                  onPress={() => redirectScreens(Routers.Cart)} quantity={quantityProductsInCart}
+                />
               </View>
             </View>
           </View>
@@ -134,43 +139,37 @@ const Home = () => {
             })}
             <SpecialOfferItem />
             <View style={[Styles.categoryContainer, Margin.mt_15]}>
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-                onPress={() =>
-                  redirectCategoryDetail(Routers.CategoryDetail, "Sandwich")
-                }
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"Sandwich"}
-              />
-              <CategoryItem
-                source={"../../assets/Images/sandwich.png"}
-                name={"More"}
-                onPress={() => redirectScreens(Routers.MoreCategory)}
-              />
+              {showAllCategories
+                ? categorys.map((category) => (
+                  <CategoryItem
+                    onPress={() =>
+                      redirectCategoryDetail(Routers.CategoryDetail, {
+                        idCategory: category.id,
+                      })
+                    }
+                    key={category.id}
+                    source={category.image_category}
+                    name={category.name}
+                  />
+                ))
+                : categorys.slice(0, 6).map((category) => (
+                  <CategoryItem
+                    onPress={() =>
+                      redirectCategoryDetail(Routers.CategoryDetail, {
+                        idCategory: category.id,
+                      })
+                    }
+                    key={category.id}
+                    source={category.image_category}
+                    name={category.name}
+                  />
+                ))}
+
+              {!showAllCategories && (
+                <Text style={[TypographyStyles.normal, Margin.ml_15, { fontWeight: 500 }, { color: Colors.green }]} onPress={() => redirectScreens(Routers.MoreCategory)}>More</Text>
+              )}
             </View>
+
           </View>
         </View>
         <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
@@ -205,11 +204,11 @@ const Home = () => {
             ]}
             ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
             showsHorizontalScrollIndicator={false}
-            data={dummyChip}
+            data={categorys.map(category => category.name)}
             horizontal={true}
             renderItem={({ item, index }) => (
               <ChipCustom
-                text={item.text}
+                text={item}
                 isChoose={chip == index}
                 onPress={() => {
                   setChip(index);
@@ -221,8 +220,22 @@ const Home = () => {
             <ScrollView
               showsVerticalScrollIndicator={false}
               nestedScrollEnabled={true}
-              style={{ paddingHorizontal: 10 }}>
-              {products.map(food => (<ListTileCard onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: food.id })} key={food.id} foodName={food.food_name} image={food.image_source} price={food.price} rate={food.rate} />))}
+              style={{ paddingHorizontal: 10 }}
+            >
+              {products.map((food) => (
+                <ListTileCard
+                  onPress={() =>
+                    redirectFoodDetailScreen(Routers.ProductDetail, {
+                      idProduct: food.id,
+                    })
+                  }
+                  key={food.id}
+                  foodName={food.food_name}
+                  image={food.image_source}
+                  price={food.price}
+                  rate={food.rate}
+                />
+              ))}
             </ScrollView>
           </View>
         </View>

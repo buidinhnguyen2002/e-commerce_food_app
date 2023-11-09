@@ -137,7 +137,7 @@ const Splash = () => {
   };
   const getUserAddress = async () => {
     try {
-      const response = await fetch(ApiUrlConstants.address, {
+      const response = await fetch(ApiUrlConstants.address+"?customer_id="+userId, {
         method: "GET",
         headers: {
           Accept: "application/json",

@@ -1,6 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { StyleSheet } from 'react-native'
 import { CommonStyles, Margin, Padding, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
@@ -9,11 +9,13 @@ import FAQ from './FAQ'
 import ContactUs from './ContactUs'
 const HelpCenter = () => {
     const [tabIndex, setTabIndex] = useState(0);
+    const [currentPage, setCurrentPage] = useState(null);
+
     const TabHelpCenter = ({ title, isActive, onPress }) => {
         return (
             <View style={[Styles.tabHelpCenterItem, CommonStyles.center]}>
                 <TouchableOpacity onPress={onPress}>
-                    <Text style={[TypographyStyles.normal, { color: isActive ? Colors.primaryColor : Colors.grey_02, fontSize: 22, fontWeight: 600 }]}>{title}</Text>
+                    <Text style={[TypographyStyles.normal, { color: isActive ? Colors.primaryColor : Colors.grey_02, fontSize: 22, fontWeight: '600' }]}>{title}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -31,7 +33,7 @@ const HelpCenter = () => {
             <View style={[CommonStyles.horizontal_direction, { justifyContent: 'space-between', alignItems: 'center' }]}>
                 <View style={[CommonStyles.horizontal_direction, Styles.topLeft]}>
                     <Image style={[Styles.topLeftLogo, Margin.mr_20]} source={require('../../../assets/Images/foodu.png')} />
-                    <Text style={TypographyStyles.big}>Orders</Text>
+                    <Text style={TypographyStyles.big}>HelpCenter</Text>
                 </View>
                 <View>
                     <TouchableOpacity>
@@ -67,12 +69,12 @@ const Styles = StyleSheet.create({
         height: 25,
         resizeMode: 'contain',
     },
-    tabOrder: {
-        borderColor: Colors.paleGray,
+    tabHelpCenter: {
+        bHelpCenterColor: Colors.paleGray,
         borderBottomWidth: 2,
         justifyContent: 'space-between',
     },
-    tabOrderItem: {
+    tabHelpCenterItem: {
         width: '33%',
 
     }

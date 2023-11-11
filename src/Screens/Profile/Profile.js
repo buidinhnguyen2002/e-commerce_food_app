@@ -1,5 +1,5 @@
-import { View, Text, Image, SafeAreaViewComponent, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Image, SafeAreaViewComponent, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useRef, useState } from 'react'
 import styles from './Profile.Styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Styles } from '../../components/Inputs/CustomTextInput.style'
@@ -11,6 +11,7 @@ import { ButtonWithIcon, EditButton, MoreButton, ToggleButton} from './ButtonPro
 import { useNavigation } from '@react-navigation/native'
 import { useNavigateToAddress, useNavigateToHelpCenter, useNavigateToInviteFriends, useNavigateToLanguage, useNavigateToMyFavoriteRestaurants, useNavigateToNotification, useNavigateToPayment, useNavigateToProfileDetail, useNavigateToSecurity } from './CustomNavigationHook';
 import Logout from './Logout'
+import LogoutDialog from './Logout'
 
 
 
@@ -40,9 +41,21 @@ const Profile = () => {
   const { navigate: navigateToSecurity} = useNavigateToSecurity();
   const { navigate: navigateToHelpCenter } = useNavigateToHelpCenter();
   const { navigate: navigateToLanguage } = useNavigateToLanguage();
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const LogoutDialogRef = useRef(null);
   const handleLogout = () => {
+    // Thực hiện đăng xuất ở đây
+    // Sau khi đăng xuất, có thể đóng dialog và overlay
     setShowLogoutDialog(false);
+    setShowOverlay(false);
   };
+ 
+  const openDialog = () => {
+    setShowLogoutDialog(true);
+    setShowOverlay(true);
+  };
+
   const handleButtonClick = (buttonId) => {
     switch (buttonId) {
       case 'myFavRes':
@@ -88,7 +101,7 @@ const Profile = () => {
         navigateToInvitedFriends();
         break;
       case 'logOut':
-        Logout.handleLogout();
+        openDialog();
         break;
       default:
         // Handle default case or unrecognized button
@@ -98,58 +111,74 @@ const Profile = () => {
   
   
     return (
-      <View style = {styles.page}>      
-        <View style = {[CommonStyles.horizontal_direction, { justifyContent: 'space-between', alignItems: 'center' }]}>
-            <Image source = {require('../../../assets/Images/foodu.png')} 
-                style = {[styles.topLeftLogo,Margin.mr_20]}
-            />
-            <Text style = {TypographyStyles.big} >Profile</Text>
-            <View style = {{flex: 1,flexDirection:'row', justifyContent: 'flex-end', alignSelf:'center'}}>
-                <MoreButton/>
-            </View>
-        </View>
-        <View style = {styles.content}>
-                <View style={[styles.avatar,{borderColor: Colors.grey_01,}]}>
-                    <Avatar
-                        size={55}
-                        rounded
-                        source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
-                    />
-                    <View style={Margin.ml_25}>
-                        <Text style={[TypographyStyles.normal, Margin.mb_5]}>Andrew Ainsley</Text>
-                        <Text style={[TypographyStyles.normal, { color: Colors.grey_01 }]}>+1 111 467 378 399</Text>
+      <SafeAreaView style = {styles.page}> 
+          <View style = {[CommonStyles.horizontal_direction, { justifyContent: 'space-between', alignItems: 'center'}]}>
+              <Image source = {require('../../../assets/Images/foodu.png')} 
+                  style = {[styles.topLeftLogo,Margin.mr_20]}
+              />
+              <Text style = {TypographyStyles.big} >Profile</Text>
+              <View style = {{flex: 1,flexDirection:'row', justifyContent: 'flex-end', alignSelf:'center'}}>
+                  <MoreButton/>
+              </View>
+          </View>
+          <ScrollView showsVerticalScrollIndicator = {false} >
+            <View  style = {[styles.content, Margin.mt_10]}>
+                    <View style={[styles.avatar,{borderColor: Colors.grey_01,}]}>
+                        <Avatar
+                            size={55}
+                            rounded
+                            source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
+                        />
+                        <View style={Margin.ml_25}>
+                            <Text style={[TypographyStyles.normal, Margin.mb_5]}>Andrew Ainsley</Text>
+                            <Text style={[TypographyStyles.normal, Colors.grey_01 ]}>+1 111 467 378 399</Text>
+                        </View>
+                        
+                        <View style = {styles.editbutton}><EditButton/></View>
+                    </View>
+                     <View style={[styles.separator]} />
+                    <View style = {styles.contentProfileDetail}>
+                      {/* <View style = {{flex: 25, borderBottomWidth: 1, borderColor: Colors.grey_01}}> */}
+                        {buttons.slice(0, 3).map((button) => (
+                        <ButtonWithIcon
+                        key={button.id}
+                        id={button.id}
+                        iconSource={button.iconSource}
+                        label={button.label}
+                        iconButton={require('../../../assets/Icons/arrownext.png')}
+                        onPress={handleButtonClick}
+                        />
+                        ))}
+                        <View style={[styles.separator,{marginTop: -6}]} />
+                          {/* </View> */}
+                        {/* <View style = {{flex: 60}}> */}
+                        {buttons.slice(3).map((button) => (
+                        <ButtonWithIcon
+                        key={button.id}
+                        id={button.id}
+                        iconSource={button.iconSource}
+                        label={button.label}
+                        iconButton={require('../../../assets/Icons/arrownext.png')}
+                        onPress={handleButtonClick}
+                        />
+                        ))}
                     </View>
                     
-                    <View style = {styles.editbutton}><EditButton/></View>
-                </View>
-                <View style = {styles.contentProfileDetail}>
-                   {/* <View style = {{flex: 25, borderBottomWidth: 1, borderColor: Colors.grey_01}}> */}
-                    {buttons.slice(0, 3).map((button) => (
-                    <ButtonWithIcon
-                    key={button.id}
-                    id={button.id}
-                    iconSource={button.iconSource}
-                    label={button.label}
-                    iconButton={require('../../../assets/Icons/arrownext.png')}
-                    onPress={handleButtonClick}
-                    />
-                     ))}
-                    <View style={styles.separator} />
-                      {/* </View> */}
-                    {/* <View style = {{flex: 60}}> */}
-                    {buttons.slice(3).map((button) => (
-                    <ButtonWithIcon
-                    key={button.id}
-                    id={button.id}
-                    iconSource={button.iconSource}
-                    label={button.label}
-                    iconButton={require('../../../assets/Icons/arrownext.png')}
-                    onPress={handleButtonClick}
-                    />
-                     ))}
-                </View>
-        </View>
-    </View>
+            </View>
+        </ScrollView>
+        {showOverlay && (
+                      <View style={styles.overlay}>
+                        <LogoutDialog
+                          visible={showLogoutDialog}
+                          onCancel={() => {
+                            setShowLogoutDialog(false);
+                            setShowOverlay(false);
+                          }}
+                          onLogout={handleLogout}
+                        />
+                      </View>
+                    )}
+    </SafeAreaView>
 
     )
 }  

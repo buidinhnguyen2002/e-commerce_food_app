@@ -1,24 +1,9 @@
-// const PayMethod = () => {
-//     const buttons = [
-//       { id: 'paypal', , label: 'Paypal' },
-//       { id: 'googlePay', label: 'Google Pay' },
-//       { id: 'apple', label: 'Apple Pay' },
-//       { id: 'masterCard', label: 'Special Offer & Promo' },
-//       { id: 'payMed', iconSource: require('../../../assets/Icons/wallet.png'), label: 'Payment Methods' },
-//       { id: 'profile', iconSource: require('../../../assets/Icons/user.png'), label: 'Profile' },
-//       { id: 'adress', iconSource: require('../../../assets/Icons/address.png'), label: 'Address' },
-//       { id: 'noti', iconSource: require('../../../assets/Icons/notification-light_mode.png'), label: 'Notification' },
-//       { id: 'security', iconSource: require('../../../assets/Icons/secu.png'), label: 'Security' },
-//       { id: 'language', iconSource: require('../../../assets/Icons/language.png'), label: 'Language' },
-//       { id: 'help', iconSource: require('../../../assets/Icons/help.png'), label: 'Help Center' },
-//       { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
-//     ];
-// }  
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, Button, StyleSheet } from 'react-native';
 import styles from './Profile.Styles';
 import { Colors } from '../../utils/Colors';
 import { color } from '@rneui/base';
+import { ButtonBottom } from './ButtonProfile';
 
 const cardData = [
   { title: 'PayPal', status: 'Connected',icon: require('../../../assets/Icons/paypal.png') },
@@ -43,11 +28,14 @@ const PayMethod = () => {
             <View style = {{height: '50%'}}> 
                 {cardData.map((card) => renderCard(card))}
             </View>
-          <View style = {{flex: 1, flexDirection: 'column', justifyContent:'flex-end', paddingBottom:20}}>
+          {/* <View style = {{flex: 1, flexDirection: 'column', justifyContent:'flex-end', paddingBottom:20}}>
             <TouchableOpacity style={[styles.button,{marginTop:16}]}>
                 <Text style={[styles.text,{color: Colors.white, fontWeight:'bold'}]}>Add New Card</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
+          <ButtonBottom
+            buttonText="Add New Card"
+          />
         </View>
       );s
     };

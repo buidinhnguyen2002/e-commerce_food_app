@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../utils/Colors";
 import { FontSize } from "../../utils/Constant";
-import { Padding } from "../../utils/StyleUtil";
+import { Margin, Padding, TypographyStyles } from "../../utils/StyleUtil";
 
 const  styles = StyleSheet.create({
     page:{
         paddingTop: 20,
         flex: 100,
         paddingHorizontal:20,
-        backgroundColor: Colors.white
+        backgroundColor: Colors.white,
+        paddingBottom: 20
     },
     icon:{
         width:20,
@@ -59,11 +60,11 @@ const  styles = StyleSheet.create({
         // shadowOpacity: 0.3,
         // shadowRadius: 3,
     },
-    label: {
-        fontSize: 15,
-        fontWeight: "normal",
-        paddingLeft: 20
-    },
+    // label: {
+    //     // TypographyStyles.normal,
+    //     // fontWeight: "normal",
+    //     paddingLeft: 20
+    // },
     profileIconButton: {
         width:20, height: 20, alignSelf:'center', resizeMode:'contain'
     },
@@ -71,6 +72,7 @@ const  styles = StyleSheet.create({
         flex: 80,
         flexDirection: 'column',
         justifyContent: 'space-between', 
+        // paddingTop: 20
     }, 
     avatarEdit:{
         flex: 15,
@@ -149,6 +151,27 @@ const  styles = StyleSheet.create({
     },
     buttonContent:{
         backgroundColor: Colors.green,
+    },
+    //logout
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    tabContainer: {
+        borderRadius: 30,
+        borderColor: Colors.primaryColor,
+        borderWidth: 2,
+    },
+    tabChoose: {
+        backgroundColor: Colors.primaryColor,
+    },
+    dropdownContent:{
+        backgroundColor: Colors.white,
+        height: 'auto',
+        borderBottomLeftRadius:30,
+        borderBottomLeftRadius:30
     }
   })
 

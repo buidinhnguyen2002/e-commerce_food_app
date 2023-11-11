@@ -34,19 +34,6 @@ const Language = () => {
   const { navigate : navigateToProfile} = useNavigateToProfile();
   return (
     <View style={styles.page}>
-      {/* <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-         <Image source = {require('../../../assets/Icons/arrowBack.png')} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Language</Text>
-      </View> */}
-      {/* <View style = {[CommonStyles.horizontal_direction, {alignItems: 'center' }]}>
-            <TouchableOpacity onPress={() => navigateToProfile()}>
-              <Image source = {require('../../../assets/Icons/arrowBack.png')}
-               style = {[styles.topLeftLogo,Margin.mr_20]} /> 
-            </TouchableOpacity>
-            <Text style = {TypographyStyles.big} >Language</Text>
-        </View> */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <View style={styles.suggestedSection}> */}
           <Text style={styles.sectionTitle}>Suggested</Text>

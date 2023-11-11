@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
+import { Colors } from '../../utils/Colors';
+import { Margin } from '../../utils/StyleUtil';
 
-const LogoutDialog = ({ visible, onCancel, onLogout }) => {
+const LogoutDialog = forwardRef(({ visible, onCancel, onLogout }, ref) => {
+  useImperativeHandle(ref,() => ({
+    openDialog: () => {
+      if(visible) return;
+      onCancel();// đóng các dialog trước đó
+      onLogout();//Thực hiện các hành động LogOut
+    },
+  }));
   return (
     <Modal
       animationType="slide"
@@ -10,8 +19,9 @@ const LogoutDialog = ({ visible, onCancel, onLogout }) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.titleText}>Logout</Text>
-          <Text style={styles.messageText}>
+        <View style = {{height: 3,width:30,alignItems:'center',alignSelf:'center', backgroundColor: Colors.grey_01, marginBottom: 16,}}></View>
+          <Text style={[styles.titleText, Margin.mb_20]}>Logout</Text>
+          <Text style={[styles.messageText, Margin.mb_20]}>
             Are you sure you want to logout?
           </Text>
           <View style={styles.buttonContainer}>
@@ -19,7 +29,7 @@ const LogoutDialog = ({ visible, onCancel, onLogout }) => {
               onPress={onCancel}
               style={[styles.button, styles.cancelButton]}
             >
-              <Text style={styles.buttonText}>Cancel</Text>
+              <Text style={{color:Colors.green, fontWeight:'bold'}}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={onLogout}
@@ -34,47 +44,7 @@ const LogoutDialog = ({ visible, onCancel, onLogout }) => {
       </View>
     </Modal>
   );
-};
-
-const Logout = () => {
-  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(false);
-
-  const handleLogout = () => {
-    // Thực hiện đăng xuất ở đây
-    // Sau khi đăng xuất, có thể đóng dialog và overlay
-    setShowLogoutDialog(false);
-    setShowOverlay(false);
-  };
- 
-  const openDialog = () => {
-    setShowLogoutDialog(true);
-    setShowOverlay(true);
-  };
-
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={openDialog}
-        style={styles.logoutButton}
-      >
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
-      {showOverlay && (
-        <View style={styles.overlay}>
-          <LogoutDialog
-            visible={showLogoutDialog}
-            onCancel={() => {
-              setShowLogoutDialog(false);
-              setShowOverlay(false);
-            }}
-            onLogout={handleLogout}
-          />
-        </View>
-      )}
-    </View>
-  );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -91,23 +61,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'flex-end',
   },
   modalContent: {
     backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius:30,
     padding: 20,
     borderRadius: 20,
     borderTopColor: 'green',
+    height: 250
   },
   titleText: {
     fontSize: 20,
@@ -122,15 +87,17 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 20
   },
   button: {
     flex: 1,
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 30,
     alignItems: 'center',
+    marginHorizontal:10
   },
   cancelButton: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: Colors.pastelGreen,
   },
   logoutButton: {
     backgroundColor: 'green',
@@ -144,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Logout;
+export default LogoutDialog;

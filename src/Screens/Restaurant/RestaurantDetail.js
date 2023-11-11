@@ -9,9 +9,30 @@ import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import CardProductDetail from "../../components/Cards/CardProductDetail";
 import CardMenu from "../../components/Cards/CardMenu";
+import { useDispatch, useSelector } from "react-redux";
+import restaurantsReducer from "../../store/reducers/restaurantReducer";
 
-const RestaurantDetail = () => {
-  const navigation = useNavigation();
+const RestaurantDetail = ({ navigation, route }) => {
+  // const navigation = useNavigation();
+  const restaurantId = route.params.idRestaurant;
+  console.log(restaurantId);
+  const restaurants = useSelector((state) =>
+    state.restaurantsReducer.restaurant.find(
+      (restaurants) => restaurants.id == restaurantId
+    )
+  );
+  const products = useSelector((state) => state.productsReducer.products);
+  const productInRestaurants = products.filter(
+    (product) => product.restaurant_id === restaurantId
+  );
+  console.log(productInRestaurants);
+
+  // console.log(products);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     title: restaurant.name,
+  //   });
+  // }, [restaurantId]);
   const getHeaderHomeFragment = ({ name, icon, onPress }) => {
     return (
       <View style={[Styles.specialOfferHeader, Margin.mb_30]}>
@@ -36,8 +57,8 @@ const RestaurantDetail = () => {
   const redirectSpecialOffers = () => {
     navigation.navigate(Routers.SpecialOffers);
   };
-  const OverViewScreen = () => {
-    navigation.navigate(Routers.OverView);
+  const OverViewScreen = ({ idRestaurant }) => {
+    navigation.navigate(Routers.OverView, { idRestaurant: idRestaurant });
   };
   const RatingAndReview = () => {
     navigation.navigate(Routers.RatingAndReview);
@@ -56,27 +77,14 @@ const RestaurantDetail = () => {
         <View>
           <Image
             style={CommonStyles.imageProduct}
-            source={require("../../../assets/Images/Foods/banhmi.png")}
+            source={{ uri: restaurants.image }}
           />
-          <View style={Styles.iconsLeft}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon, Colors.white]}
-              source={require("../../../assets/Icons/arrow.png")}
-            />
-          </View>
-          <View style={Styles.iconContainer}>
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon]}
-              source={require("../../../assets/Icons/heart.png")}
-            />
-            <Image
-              style={[CommonStyles.iconSize, Styles.icon]}
-              source={require("../../../assets/Icons/share.png")}
-            />
-          </View>
 
           <View>
-            <TouchableOpacity onPress={OverViewScreen}>
+            <TouchableOpacity
+              key={restaurants.id}
+              onPress={() => OverViewScreen({ idRestaurant: restaurants.id })}
+            >
               <View
                 style={[
                   {
@@ -89,7 +97,7 @@ const RestaurantDetail = () => {
               >
                 <View style={Styles.rowContainer}>
                   <Text style={[TypographyStyles.soBig, Styles.NameProduct]}>
-                    Big Garden Salad
+                    {restaurants.name}
                   </Text>
                 </View>
                 <View>
@@ -124,7 +132,7 @@ const RestaurantDetail = () => {
                     <Text
                       style={[TypographyStyles.medium, { marginRight: 20 }]}
                     >
-                      4.8
+                      {restaurants.rate}
                     </Text>
                     <Text style={[TypographyStyles.small, Colors.grey]}>
                       (4.8k reviews)
@@ -242,8 +250,16 @@ const RestaurantDetail = () => {
             >
               For you
             </Text>
-
-            <CardProductDetail />
+            <View style={[CommonStyles.horizontal_direction]}>
+              {productInRestaurants.map((item) => (
+                <CardProductDetail
+                  image={item.image_source}
+                  name={item.food_name}
+                  price={item.price}
+                  idProduct={item.id} key={item.id}
+                />
+              ))}
+            </View>
           </View>
           <View>
             <Text
@@ -251,7 +267,14 @@ const RestaurantDetail = () => {
             >
               Menu
             </Text>
-            <CardMenu />
+            {productInRestaurants.map((item) => (
+              <CardMenu
+                image={item.image_source}
+                name={item.food_name}
+                price={item.price}
+                key={item.id}
+              />
+            ))}
             <View style={[Styles.rowContainer, { marginTop: 20 }]}>
               <TouchableOpacity
                 style={[Styles.buttonProduct, { marginRight: 20 }]}

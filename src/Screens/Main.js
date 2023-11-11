@@ -17,9 +17,12 @@ import HelpCenter from "./Profile/HelpCenter";
 
 
 
-const Main = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
-
+const Main = ({ navigation, route }) => {
+  const tabIndex = route.params !== undefined ? route.params.selectedTab : null;
+  const [selectedTab, setSelectedTab] = useState(route.params !== undefined ? route.params.selectedTab : 0);
+  useEffect(() => {
+    if (tabIndex != null) setSelectedTab(tabIndex);
+  }, [route]);
   const getBody = () => {
     return (
       <>
@@ -35,7 +38,7 @@ const Main = () => {
     <View style={Styles.container}>
       {getBody()}
       <BottomNavigation
-        changeBottomNavigationIndex={(index) => setSelectedTab(index)}
+        changeBottomNavigationIndex={(index) => setSelectedTab(index)} currentIndex={selectedTab}
       />
     </View>
   );

@@ -7,16 +7,24 @@ import styles from "./OverView.Styles";
 import { SafeAreaView } from "react-native";
 import { ScrollView } from "react-native";
 import ToolBar from "../../components/ToolBar";
+import { useDispatch, useSelector } from "react-redux";
 
 const stars = Array(5).fill(require("../../../assets/Icons/star.png")); // Tạo một mảng với 5 ngôi sao
 
-const OverView = () => {
+const OverView = ({ navigation, route }) => {
+  const restaurantId = route.params.idRestaurant;
+  console.log(restaurantId);
+  const restaurantsId = useSelector((state) =>
+    state.restaurantsReducer.restaurant.find(
+      (restaurants) => restaurants.id == restaurantId
+    )
+  );
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View style={{ backgroundColor: Colors.white }}>
           <Text style={[TypographyStyles.soBig, Margin.ml_15, Margin.mt_15]}>
-            Big Garden Salad
+            {restaurantsId.name}
           </Text>
           <View style={Styles.divider} />
           <View
@@ -46,10 +54,8 @@ const OverView = () => {
             <View style={Styles.divider} />
             <Text style={TypographyStyles.mediumSWe}>OrverView</Text>
             <Text style={Margin.mt_10}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore manga aliqua ut
-              enima ad.{" "}
-              <Text style={{ color: Colors.green }}>Read more...</Text>
+              {restaurantsId.description}
+              {/* <Text style={{ color: Colors.green }}>Read more...</Text> */}
             </Text>
             <View style={[Margin.mt_10, { flexDirection: "row" }]}>
               <View>
@@ -69,7 +75,7 @@ const OverView = () => {
             <View style={Styles.divider} />
             <View>
               <Text style={[Margin.ml_15, TypographyStyles.mediumSWe]}>
-                Address
+                Contact
               </Text>
               <View style={[{ flexDirection: "row", margin: 15 }]}>
                 <Image
@@ -78,6 +84,13 @@ const OverView = () => {
                 />
 
                 <Text>Grand City St.100, New York, United States</Text>
+              </View>
+              <View style={{ margin: 10, flexDirection: "row" }}>
+                <Image
+                  style={{ marginRight: 10, marginLeft: 5 }}
+                  source={require("../../../assets/Icons/phone.png")}
+                ></Image>
+                <Text>Phone number: {restaurantsId.phone_number}</Text>
               </View>
             </View>
           </View>

@@ -12,33 +12,38 @@ const iconSources = [
 ];
 const Tab = createBottomTabNavigator();
 
-export default function BottomNavigation({ changeBottomNavigationIndex }) {
+export default function BottomNavigation({ changeBottomNavigationIndex, currentIndex }) {
   return (
     <View style={Styles.container}>
       <NavigationButton
         onPress={changeBottomNavigationIndex}
         image={iconSources[0]}
         index={0}
+        currentIndex={currentIndex}
       />
       <NavigationButton
         onPress={changeBottomNavigationIndex}
         image={iconSources[1]}
         index={1}
+        currentIndex={currentIndex}
       />
       <NavigationButton
         onPress={changeBottomNavigationIndex}
         image={iconSources[2]}
         index={2}
+        currentIndex={currentIndex}
       />
       <NavigationButton
         onPress={changeBottomNavigationIndex}
         image={iconSources[3]}
         index={3}
+        currentIndex={currentIndex}
       />
       <NavigationButton
         onPress={changeBottomNavigationIndex}
         image={iconSources[4]}
         index={4}
+        currentIndex={currentIndex}
       />
     </View>
   );

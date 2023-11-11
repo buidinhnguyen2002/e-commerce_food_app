@@ -82,8 +82,6 @@ const ProductDetail = ({ navigation, route }) => {
     const method = productInCart ? "PUT" : "POST";
     const quantityUpdateDb =
       productInCart != null ? quantity + productInCart.quantity : quantity;
-
-    console.log(productId, cartId);
     try {
       const response = await fetch(ApiUrlConstants.cart, {
         method: method,

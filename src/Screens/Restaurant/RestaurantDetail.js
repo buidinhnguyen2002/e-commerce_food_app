@@ -78,30 +78,7 @@ const RestaurantDetail = ({ navigation, route }) => {
     navigation.navigate(Routers.CheckOut);
   };
   const [clickedMenuItems, setClickedMenuItems] = useState([]);
-  const getAllReviewsRestaurant = async () => {
-    try {
-      const response = await fetch(ApiUrlConstants.getReviewRestaurant, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Lỗi mạng");
-      }
-      const data = await response.json();
-      if (data["status"] == "success") {
-        const reviewResObj = data["data"];
-        dispatch(saveAllReviewRestaurant({ reviews: reviewResObj }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    getAllReviewsRestaurant();
-  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>

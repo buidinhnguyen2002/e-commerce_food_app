@@ -4,6 +4,7 @@ include '../database_connect.php';
 $db = new dbConnect();
 $connection = $db->getConnection();
 $table = 'reply_review';
+$tableReview = 'review';
 $response = array();
 $result;
 header("Content-Type: application/json");
@@ -11,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['id'])) {
         $driverId = $_GET['id'];
-        $query = "SELECT * FROM $table WHERE id= ?";
+        $query = "SELECT r.*,rep.* FROM $table rep join $tableReview r ON r.id= rep.review_id WHERE review_id= ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param('s', $replyId);
+            $prepareStatement->bind_param('s', $reviewId);
             $prepareStatement->execute();
             $result = $prepareStatement->get_result();
             $prepareStatement->close();

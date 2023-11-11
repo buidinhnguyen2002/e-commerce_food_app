@@ -4,6 +4,7 @@ include '../database_connect.php';
 $db = new dbConnect();
 $connection = $db->getConnection();
 $table = 'review';
+$tableCustomer = 'customer'
 $response = array();
 $result;
 header("Content-Type: application/json");
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['id'])) {
         $reviewId = $_GET['id'];
-        $query = "SELECT * FROM $table WHERE id= ?";
+        $query = "SELECT r.* FROM $table r WHERE r.id= ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('s', $reviewId);

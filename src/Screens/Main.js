@@ -12,8 +12,7 @@ import ApiUrlConstants from "../utils/api_constants";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAllProducts } from "../store/actions/productsAction";
 import Restaurant from "./Restaurant/Restaurant";
-import FAQ from "./Profile/FAQ";
-import HelpCenter from "./Profile/HelpCenter";
+
 
 
 
@@ -30,7 +29,7 @@ const Main = ({ navigation, route }) => {
         {selectedTab == 1 && <Order />}
         {selectedTab == 2 && <Restaurant />}
         {selectedTab == 3 && <EWallet />}
-        {selectedTab == 4 && <HelpCenter/>}
+        {selectedTab == 4 && <Profile/>}
       </>
     );
   };

@@ -4,6 +4,8 @@ include '../database_connect.php';
 $db = new dbConnect();
 $connection = $db->getConnection();
 $table = 'review';
+$tableCustomer= 'customer';
+$tableRep ='reply_review';
 $response = array();
 $result;
 header("Content-Type: application/json");
@@ -11,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['restaurant_id'])) {
         $restaurantId = $_GET['restaurant_id'];
-        $query = "SELECT * FROM $table WHERE restaurant_id= ?";
+        $query = "SELECT r.*,c.avatar,c.full_name,rep.message as MessageRep, rep.create_at as CreateAtRep,rep.id as idRep FROM $table r INNER JOIN $tableCustomer c INNER JOIN $tableRep rep ON r.customer_id = c.id and rep.review_id = r.id WHERE r.restaurant_id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('s', $restaurantId);

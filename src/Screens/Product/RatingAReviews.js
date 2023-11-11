@@ -17,6 +17,7 @@ import ToolBar from "../../components/ToolBar";
 import { Colors } from "../../utils/Colors";
 import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import styles from "./OverView.Styles";
+import ApiUrlConstants from "../../utils/api_constants";
 import {
   CommonStyles,
   Padding,
@@ -32,30 +33,16 @@ const RatingAndReview = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [chip, setChip] = useState(0);
   const [count, setCount] = useState(0);
-
-  const reviews = useSelector((state) => state.reviewRestaurantReducer.reviews);
-  const customers = useSelector((state) => state.customerReducer.customers);
-  const getAllCustomer = async () => {
-    try {
-      const response = await fetch(ApiUrlConstants.getAllCustomers, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Lỗi mạng");
-      }
-      const data = await response.json();
-      if (data["status"] == "success") {
-        const customersObj = data["data"];
-        dispatch(saveAllCustomer({ customers: customersObj }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const [showReplies, setShowReplies] = useState({});
+  const toggleReplies = (reviewId) => {
+    setShowReplies((prevShowReplies) => ({
+      ...prevShowReplies,
+      [reviewId]: !prevShowReplies[reviewId],
+    }));
   };
+  const reviews = useSelector((state) => state.reviewRestaurantReducer.reviews);
+  console.log(reviews);
+
   const getAllReply = async () => {
     try {
       const response = await fetch(ApiUrlConstants.getAllRepLy, {
@@ -78,29 +65,40 @@ const RatingAndReview = ({ navigation, route }) => {
     }
   };
 
+  const getAllReviewsRestaurant = async (restaurantId) => {
+    try {
+      const response = await fetch(
+        ApiUrlConstants.getReviewRestaurant + "?restaurant_id=" + restaurantId,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Lỗi mạng");
+      }
+      const data = await response.json();
+      if (data["status"] == "success") {
+        const reviewResObj = data["data"];
+        console.log(reviewResObj);
+        dispatch(saveAllReviewRestaurant({ reviews: reviewResObj }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    getAllCustomer();
+    // getAllCustomer();
     getAllReply();
+    getAllReviewsRestaurant(restaurantId);
   }, []);
+  const reviewId = useSelector((state) => state.reviewRestaurantReducer.id);
 
-  // Filter reviews based on the restaurantId
-  const filteredReviews = reviews.filter(
-    (review) => review.restaurant_id === restaurantId
-  );
-  console.log(filteredReviews);
-  const customerReview = filteredReviews.map((review) => {
-    // Find the corresponding customer for each review
-    const matchingCustomer = customers.find(
-      (customer) => customer.id === review.customer_id
-    );
-    return { review, customer: matchingCustomer };
-  });
   const reply = useSelector((state) => state.replyReducer.reply);
-  const repReview = filteredReviews.map((review) => {
-    const matchingRep = reply.find((repll) => repll.review_id === review.id);
-    return { review, repll: matchingRep };
-  });
-  console.log(reply);
+  const repFilter = reply.filter((rep) => rep.review_id === reviewId);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
@@ -165,8 +163,8 @@ const RatingAndReview = ({ navigation, route }) => {
           </View>
           <View style={[Styles.divider, { marginTop: -10 }]} />
         </View>
-        {customerReview.map(({ review, customer }) => (
-          <View style={Rating.commnent} key={review.id}>
+        {reviews.map((ree) => (
+          <View style={Rating.commnent} key={ree.id}>
             <View
               style={[
                 {
@@ -176,10 +174,8 @@ const RatingAndReview = ({ navigation, route }) => {
                 },
               ]}
             >
-              {/* <Avatar size={55} rounded source={{ uri: customer.avatar }} />
-              <Text style={[TypographyStyles.mediumSWe]}>
-                {customer.full_name}
-              </Text> */}
+              <Avatar size={55} rounded source={{ uri: ree.avatar }} />
+              <Text style={[TypographyStyles.mediumSWe]}>{ree.full_name}</Text>
               <View
                 style={[
                   {
@@ -206,7 +202,7 @@ const RatingAndReview = ({ navigation, route }) => {
               />
             </View>
             <Text style={[Margin.mt_10]}>
-              {review.message}
+              {ree.message}
               <Image
                 style={[CommonStyles.iconSizeSmall, Margin.ml_5]}
                 source={require("../../../assets/Icons/emoji.png")}
@@ -225,22 +221,25 @@ const RatingAndReview = ({ navigation, route }) => {
               </TouchableOpacity>
               <Text style={{ marginLeft: 10 }}>{count}</Text>
               <Text style={[{ marginLeft: 50, color: "grey" }]}>
-                {review.create_at}
+                {ree.create_at}
               </Text>
+
               <Text
                 style={{
                   marginLeft: 50,
                   color: Colors.primaryColor,
                 }}
+                onPress={() => toggleReplies(ree.id)}
               >
                 Reply
               </Text>
             </View>
-            {/* {repReview.map(({ review, repll }) => (
-              <View key={review.id} style={{ marginBottom: 20 }}>
-                <Text>{repll.message}</Text>
+            {showReplies[ree.id] && (
+              <View style={Rating.replyContainer}>
+                <Text style={Rating.replyText}>{ree.MessageRep}</Text>
+                <Text style={Rating.replyTime}>{ree.CreateAtRep}</Text>
               </View>
-            ))} */}
+            )}
           </View>
         ))}
 

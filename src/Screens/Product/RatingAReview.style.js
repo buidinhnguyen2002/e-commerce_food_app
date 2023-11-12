@@ -5,12 +5,12 @@ const Rating = StyleSheet.create({
     padding: 20,
     // alignItems: "center",
     // justifyContent: "space-between",
-    marginTop: -30,
+    // marginTop: -30,
   },
   barContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    // marginBottom: 20,
     backgroundColor: "#E1E1E1",
     borderRadius: 10,
     width: "75%",
@@ -20,7 +20,7 @@ const Rating = StyleSheet.create({
   numberContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 11,
+    // marginBottom: 11,
     marginLeft: 10,
     // paddingRight: -2,
   },

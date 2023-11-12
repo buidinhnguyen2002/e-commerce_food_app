@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['restaurant_id'])) {
         $restaurantId = $_GET['restaurant_id'];
-        $query = "SELECT r.*,c.avatar,c.full_name,rep.message as MessageRep, rep.create_at as CreateAtRep,rep.id as idRep FROM $table r INNER JOIN $tableCustomer c INNER JOIN $tableRep rep ON r.customer_id = c.id and rep.review_id = r.id WHERE r.restaurant_id = ?";
+        $query = "SELECT r.*,c.avatar,c.full_name FROM $table r INNER JOIN $tableCustomer c ON r.customer_id = c.id  WHERE r.restaurant_id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('s', $restaurantId);
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $response['message'] = 'Not found';
         echo json_encode($response);
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+}  elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
     if (isset($data->restaurant_id, $data->customer_id, $data->message)) {
         $restaurantId = $data->restaurant_id;

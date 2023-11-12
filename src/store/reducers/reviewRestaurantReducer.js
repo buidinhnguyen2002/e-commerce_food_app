@@ -8,6 +8,17 @@ export default function reviewRestaurantReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
+    case "ADD_REVIEWS":
+      const newReview = {
+        restaurant_id: action.payload.restaurant_id,
+        customer_id: action.payload.customer_id,
+        message: action.payload.message,
+      };
+
+      return {
+        ...state,
+        reviews: [...state.reviews, newReview],
+      };
     default:
       return state;
   }

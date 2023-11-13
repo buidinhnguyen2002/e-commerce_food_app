@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query = "INSERT INTO $table( restaurant_id, customer_id, message) VALUES (?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("iis", $restaurant_id, $customer_id, $message);
+            $prepareStatement->bind_param("iis", $restaurantId, $customerId, $message);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';

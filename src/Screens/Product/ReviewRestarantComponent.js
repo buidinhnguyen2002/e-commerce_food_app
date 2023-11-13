@@ -41,7 +41,7 @@ const ReviewRestarantComponent = ({
 }) => {
   const [count, setCount] = useState(0);
   return (
-    <View style={Rating.commnent} key={id}>
+    <View style={Rating.commnent}>
       <View
         style={[
           {

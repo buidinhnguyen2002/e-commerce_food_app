@@ -134,6 +134,7 @@ const RatingAndReview = ({ navigation, route }) => {
       const data = await response.json();
 
       if (data["status"] === "success") {
+        console.log("respo" + data["data"]);
         // const createReviewResObj = data["data"];
         dispatch(
           addReview({
@@ -144,6 +145,7 @@ const RatingAndReview = ({ navigation, route }) => {
         );
         // Review đã được tạo thành công
         console.log("Review đã được tạo thành công");
+        setInputValue("");
 
         // Thực hiện cập nhật danh sách review bằng cách dispatch action
         // dispatch(addReview({ reviews: data.data }));
@@ -154,6 +156,7 @@ const RatingAndReview = ({ navigation, route }) => {
     } catch (error) {
       console.error(error);
     }
+    getAllReviewsRestaurant(restaurantId);
   };
 
   return (

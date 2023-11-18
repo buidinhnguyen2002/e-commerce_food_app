@@ -99,6 +99,7 @@ export const CustomTextInputWithIcon = ({ placeholder, iconSource, onIconPress, 
         style={{flex: 95}}
         placeholder={placeholder}
         {...props}
+        editable={false}
       />
        <TouchableOpacity onPress={onIconPress} style={[Padding.pl_10,{flex:5}]}>
         <Image source = {iconSource} style = {styles.icon}  />

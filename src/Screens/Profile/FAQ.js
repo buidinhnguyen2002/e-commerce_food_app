@@ -10,7 +10,7 @@ import { TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { Image } from "react-native";
 import { ButtonWithIcon, ShowDropDown, TabCustom } from "./ButtonProfile";
-import CustomDropdown from "./Demo";
+// import CustomDropdown from "./Demo";
 
 const FAQ = () => {
     const [questionStates, setQuestionStates] = useState({});
@@ -41,60 +41,63 @@ const FAQ = () => {
         { id: "exit", label: "How do I exit the app?", content:'' },
       ];
     return (
-        <View>
-            <View style={Padding.pd_horizontal_30}>
-            <FlatList 
-            contentContainerStyle={[
-                Padding.pd_vertical_10,
-                { paddingHorizontal: 2},
-            ]}
-            ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
-            showsHorizontalScrollIndicator={false}
-            data={FAQItems}
-            horizontal={true}
-            renderItem={({ item, index }) => (
-                <TabCustom
-                    text={item.text}
-                    source={null}
-                    isChoose={FAQ == index}
-                    onPress={() => {
-                        setFAQ(index);
-                    }}
-                />
-            )}
-            />
-            <View style={Margin.mb_25}>
-                <SearchInput
-                value={textSearch}
-                onChangeText={(text) => {
-                    setTextSearch(text);
-                }}
-                placeholder={"Search"}
-                />
-            </View>
-            <View style={styles.contentProfileDetail}>
-                        {/* {questions.map((item) => (
-                            <ShowDropDown
-                                key={item.id}
-                                label={item.label}
-                                content={`Content for ${item.label}`}  
-                            />
-                        ))}
-                    */}
-                    <ShowDropDown
-                        label = {"what?"}
-                        content={"content"}
+        <View style = {styles.page}>
+             {/* <View>
+                <Text>{props.navigation.route.title}</Text>
+            </View> */}
+            <View>
+                <FlatList 
+                contentContainerStyle={[
+                    Padding.pd_vertical_10,
+                    { paddingHorizontal: 2},
+                ]}
+                ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
+                showsHorizontalScrollIndicator={false}
+                data={FAQItems}
+                horizontal={true}
+                renderItem={({ item, index }) => (
+                    <TabCustom
+                        text={item.text}
+                        source={null}
+                        isChoose={FAQ == index}
+                        onPress={() => {
+                            setFAQ(index);
+                        }}
                     />
-                    {/* {Object.keys(questionStates).map((id) =>
-                    questionStates[id] ? (
-                    <View style={styles.buttonContent} key={id}>
-                        <Text>content</Text>
-                    </View>
-                    ) : null
-                )} */}
-               
+                )}
+                />
+                <View style={Margin.mb_25}>
+                    <SearchInput
+                    value={textSearch}
+                    onChangeText={(text) => {
+                        setTextSearch(text);
+                    }}
+                    placeholder={"Search"}
+                    />
+                </View>
+                <View style={styles.contentProfileDetail}>
+                            {/* {questions.map((item) => (
+                                <ShowDropDown
+                                    key={item.id}
+                                    label={item.label}
+                                    content={`Content for ${item.label}`}  
+                                />
+                            ))}
+                        */}
+                        <ShowDropDown
+                            label = {"what?"}
+                            content={"content"}
+                        />
+                        {/* {Object.keys(questionStates).map((id) =>
+                        questionStates[id] ? (
+                        <View style={styles.buttonContent} key={id}>
+                            <Text>content</Text>
+                        </View>
+                        ) : null
+                    )} */}
+                
+                </View>
             </View>
-        </View>
     </View>
     );
 }

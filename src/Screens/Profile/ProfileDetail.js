@@ -5,7 +5,8 @@ import { Avatar, color } from '@rneui/base';
 import { ButtonBottom, CustomDropdown, CustomTextInputWithIcon, CustomTextInputWithSelectList, EditButton, EditButton2 } from './ButtonProfile';
 import CustomTextInput from '../../components/Inputs/CustomTextInput';
 import { Colors } from '../../utils/Colors';
-
+import PhoneInputComponent from './PhoneInputComponent';
+import DatePicker from 'react-native-neat-date-picker';
   
 
 const ProfileDetail = () => {
@@ -22,6 +23,25 @@ const ProfileDetail = () => {
        {id:'male', label: 'Male', value: 'male' },
        {id:'female', label: 'Female', value: 'female' },
     ];  
+    const [showDatePickerSingle, setShowDatePickerSingle] = useState(false);
+    const [date, setDate] = useState('');
+    const openDatePickerSingle = () => setShowDatePickerSingle(true);
+    const onCancelSingle = () => {
+      setShowDatePickerSingle(false)
+    }
+    const onConfirmSingle = (output) => {
+      setShowDatePickerSingle(false)
+      console.log(output)
+      setDate(output.dateString)
+    }
+    const colorOptions = {
+      headerColor: Colors.green,
+      backgroundColor:Colors.white,
+      selectedDateBackgroundColor: Colors.green,
+      changeYearModalColor: Colors.green,
+      weekDaysColor: Colors.green,
+      confirmButtonColor: Colors.green
+    }
     return (
         <View style = {styles.page}>      
             <View style = {styles.content}>
@@ -48,8 +68,11 @@ const ProfileDetail = () => {
                                 }}
                             />
                             <CustomTextInputWithIcon
-                                placeholder={null}
+                                placeholder={"Enter date"}
                                 iconSource={require('../../../assets/Icons/lich.png')}
+                                onIconPress={openDatePickerSingle}
+                                value={date}
+                                editable={false}
                             />
                             {/* <CustomDropdown
                                 selectedValue={selectedGender}
@@ -68,22 +91,24 @@ const ProfileDetail = () => {
                                 placeholder={null}
                                 iconSource={require('../../../assets/Icons/lich.png')}
                             />
-                             <CustomTextInputWithIcon
-                                placeholder={"Country"}
-                                iconSource={require('../../../assets/Icons/caret-down.png')}
-                            />
+                            <View>
+                                <PhoneInputComponent/>
+                            </View>
+
                     </ScrollView>
                 </View>    
-                        
-                        {/* <View style={{justifyContent: 'flex-end', marginBottom: 20, marginTop:20}}>
-                            <TouchableOpacity style={styles.button}>
-                            <Text style={[styles.text, { color: Colors.white, fontWeight: 'bold' }]}>Add New Address</Text>
-                            </TouchableOpacity>
-                        </View> */}
                         <ButtonBottom
                             buttonText="Update"
                         />
                 </View> 
+                <DatePicker
+                                isVisible={showDatePickerSingle}
+                                mode={'single'}
+                                onCancel={onCancelSingle}
+                                onConfirm={onConfirmSingle}
+                                colorOptions={colorOptions}
+                                
+                            />
         </View>
         )
 }

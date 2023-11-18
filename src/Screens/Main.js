@@ -15,7 +15,6 @@ import Restaurant from "./Restaurant/Restaurant";
 
 
 
-
 const Main = ({ navigation, route }) => {
   const tabIndex = route.params !== undefined ? route.params.selectedTab : null;
   const [selectedTab, setSelectedTab] = useState(route.params !== undefined ? route.params.selectedTab : 0);

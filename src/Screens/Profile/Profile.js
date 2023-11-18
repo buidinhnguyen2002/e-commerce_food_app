@@ -9,7 +9,7 @@ import { CommonStyles, Margin, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
 import { ButtonWithIcon, EditButton, MoreButton, ToggleButton} from './ButtonProfile'
 import { useNavigation } from '@react-navigation/native'
-import { useNavigateToAddress, useNavigateToHelpCenter, useNavigateToInviteFriends, useNavigateToLanguage, useNavigateToMyFavoriteRestaurants, useNavigateToNotification, useNavigateToPayment, useNavigateToProfileDetail, useNavigateToSecurity } from './CustomNavigationHook';
+import { useNavigateToAddress, useNavigateToHelpCenter, useNavigateToInviteFriends, useNavigateToLanguage, useNavigateToMyFavoriteRestaurants, useNavigateToNotification, useNavigateToPayment, useNavigateToProfileDetail, useNavigateToSecurity, useNavigateToSpecialOffer } from './CustomNavigationHook';
 import Logout from './Logout'
 import LogoutDialog from './Logout'
 
@@ -32,7 +32,7 @@ const Profile = () => {
   ];
  
   const { navigate : navigateToMyFavoriteRestaurants} = useNavigateToMyFavoriteRestaurants();
-  // const { navigate: useNavigateToSpecialOffer } = useNavigateToSpecialOffer();
+  const { navigate: navigateToSpecialOffer } = useNavigateToSpecialOffer();
   const { navigate: navigateToPayMethod } = useNavigateToPayment();
   const { navigate: navigateToProfileDetail } = useNavigateToProfileDetail();
   const { navigate: navigateToInvitedFriends} = useNavigateToInviteFriends();
@@ -64,6 +64,7 @@ const Profile = () => {
         break;
       case 'specOfPro':
         // Handle 'Special Offer & Promo' button click
+        navigateToSpecialOffer();
         break;
       case 'payMed':
         // Handle 'Payment Methods' button click

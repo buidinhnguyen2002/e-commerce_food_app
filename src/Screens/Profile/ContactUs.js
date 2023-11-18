@@ -2,7 +2,7 @@ import { ScrollView, View } from 'react-native';
 import styles from './Profile.Styles';
 import { ButtonWithIcon } from './ButtonProfile';
 
-const ContactUs = () => {
+const ContactUs = (props) => {
     const contactUs = [
         { id: "service",iconSource: require('../../../assets/Icons/headphones.png'), label: "Customer Service" },
         { id: "whatsApp",iconSource: require('../../../assets/Icons/whatsapp.png'), label: "WhatsApp" },
@@ -10,10 +10,14 @@ const ContactUs = () => {
         { id: "facebook",iconSource: require('../../../assets/Icons/facebook.png'), label: "Facebook" },
         { id: "twitter",iconSource: require('../../../assets/Icons/twitter.png'), label: "Twitter" },
         { id: "instagram",iconSource: require('../../../assets/Icons/instagram.png'), label: "Instagram" },
+       
       ];
     return(
-        <ScrollView showsVerticalScrollIndicator ={false}>
-            <View style = {styles.page}>
+        <ScrollView showsVerticalScrollIndicator ={false} style = {styles.page}>
+            {/* <View style = {styles.page}> */}
+            {/* <View>
+                <Text>{props.navigation.route.title}</Text>
+            </View> */}
             {contactUs.map((item) => (
                 <ButtonWithIcon
                     key={item.id}
@@ -23,7 +27,7 @@ const ContactUs = () => {
                     onPress={null}
                 />
             ))}
-            </View>
+            {/* </View> */}
          </ScrollView>
     )
 

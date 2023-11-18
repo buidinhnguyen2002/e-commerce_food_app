@@ -16,7 +16,7 @@ export const useNavigateToSpecialOffer = () => {
     const navigation = useNavigation();
   
     const navigate = () => {
-      navigation.navigate('SpecialOffers');
+      navigation.navigate(Routers.SpecialOffers);
     };
     return { navigate };
 };

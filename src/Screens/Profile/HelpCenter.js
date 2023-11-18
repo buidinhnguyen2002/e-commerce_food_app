@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { StyleSheet } from 'react-native'
@@ -7,77 +7,77 @@ import { Colors } from '../../utils/Colors'
 import { useState } from 'react'
 import FAQ from './FAQ'
 import ContactUs from './ContactUs'
-const HelpCenter = () => {
-    const [tabIndex, setTabIndex] = useState(0);
-    const [currentPage, setCurrentPage] = useState(null);
+import { TabView, SceneMap } from 'react-native-tab-view';
+import { StatusBar } from 'react-native'
+import { Animated } from 'react-native'
 
-    const TabHelpCenter = ({ title, isActive, onPress }) => {
-        return (
-            <View style={[Styles.tabHelpCenterItem, CommonStyles.center]}>
-                <TouchableOpacity onPress={onPress}>
-                    <Text style={[TypographyStyles.normal, { color: isActive ? Colors.primaryColor : Colors.grey_02, fontSize: 22, fontWeight: '600' }]}>{title}</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-    const GetBody = () => {
-        if (tabIndex == 0) return (
-                <FAQ/>
-            )
-        if (tabIndex == 1) return( 
-            <ContactUs/>
-          )
-        }
+const renderTabBar = (props) => {
+    const inputRange = props.navigationState.routes.map((x, i) => i);
+    
     return (
-        <View style={[Styles.container, Padding.pd_horizontal_30, Padding.pd_vertical_20, { marginBottom: 240 }]} >
-            <View style={[CommonStyles.horizontal_direction, { justifyContent: 'space-between', alignItems: 'center' }]}>
-                <View style={[CommonStyles.horizontal_direction, Styles.topLeft]}>
-                    <Image style={[Styles.topLeftLogo, Margin.mr_20]} source={require('../../../assets/Images/foodu.png')} />
-                    <Text style={TypographyStyles.big}>HelpCenter</Text>
-                </View>
-                <View>
-                    <TouchableOpacity>
-                        <Image style={Styles.actionTopRight} source={require('../../../assets/Icons/search.png')} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[CommonStyles.horizontal_direction, Styles.tabOrder, Padding.pd_vertical_15, Margin.mt_20]}>
-                <HelpCenter title={'FAQ'} isActive={tabIndex == 0} onPress={()=>setTabIndex(0)}/>
-                <HelpCenter title={'Contact Us'} isActive={tabIndex == 1} onPress={()=>setTabIndex(1)}/>  
-            </View>
-            <View style={[Padding.pd_vertical_20]}>
-                {GetBody()}
-            </View>
-        </View>
+      <View style={styles.tabbar}>
+        {props.navigationState.routes.map((route, i) => {
+        const isRouteActive = i === props.navigationState.index;
+        const textColor = isRouteActive ? Colors.green : Colors.grey_01;
+
+
+          return (
+            <TouchableOpacity
+            key={route.key}
+            style={styles.tab}
+            onPress={() => props.jumpTo(route.key)}
+            >
+            <Text style={[styles.label, { color: textColor }]}>{route.title}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     )
 }
-const Styles = StyleSheet.create({
-    container: {
-        paddingTop: 40,
-        paddingBottom: 100,
-    },
-    topLeft: {
-        alignItems: 'center',
-    },
-    topLeftLogo: {
-        width: 40,
-        height: 40,
-        resizeMode: 'contain',
-    },
-    actionTopRight: {
-        width: 25,
-        height: 25,
-        resizeMode: 'contain',
-    },
-    tabHelpCenter: {
-        bHelpCenterColor: Colors.paleGray,
-        borderBottomWidth: 2,
-        justifyContent: 'space-between',
-    },
-    tabHelpCenterItem: {
-        width: '33%',
+const renderScene = SceneMap({
+    first: FAQ,
+    second: ContactUs,
+  });
+  
+  export default function HelpCenter() {
+    const layout = useWindowDimensions();
+  
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+      { key: 'first', title: 'FAQ' },
+      { key: 'second', title: 'Contact Us' },
+    ]);
+  
+    return (
+            <TabView
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                renderTabBar={renderTabBar}
+                onIndexChange={setIndex}
+                initialLayout={[Padding.pd_vertical_10,{width: layout.width}]}
+            />
+    );
+  }
+const styles = StyleSheet.create({
+    tabbar: {
+      backgroundColor: Colors.white,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderColor: Colors.paleGray,
+      borderBottomWidth: 2,
+      justifyContent: 'space-between',
+      paddingHorizontal: 80,
 
+    },
+    tab: {
+     alignItems: 'center',
+     justifyContent:'center',
+    },
+    label: {
+      textAlign: 'center',
+      fontSize: 22,
+      fontWeight: 600,
+      paddingVertical: 10,
     }
-});
-
-export default HelpCenter;
+  });
+    

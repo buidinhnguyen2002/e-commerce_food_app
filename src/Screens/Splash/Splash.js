@@ -10,7 +10,7 @@ import { loadCart, loadOrder } from '../../store/actions/userAction'
 import ApiUrlConstants from '../../utils/api_constants';
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
-import { saveAllCategorys } from '../../store/actions/categorysAction'
+import { saveAllCategorys, setFoodByCategory } from '../../store/actions/categorysAction'
 import { saveAllRestaurant } from "../../store/actions/restaurantAction";
 import { StyleSheet } from 'react-native'
 const Splash = () => {
@@ -18,12 +18,15 @@ const Splash = () => {
   const navigation = useNavigation();
   const cartId = useSelector(state => state.userReducer.cart.cartId);
   const userId = useSelector(state => state.userReducer.id);
+  const catId= useSelector(state => state.categorysReducer.id);
+  // console.log(catId);
   useEffect(() => {
     getAllProducts();
     getAllCategory();
     loadInitCart(cartId);
     loadMyOrder(userId);
     getAllRestaurant();
+    getFoodOfCategory(catId);
     const timer = setTimeout(() => {
       navigation.navigate(Routers.Main);
     }, 1000);
@@ -129,6 +132,28 @@ const Splash = () => {
       if (data['status'] == 'success') {
         const orderObj = data['data'];
         dispatch(loadOrder({ orders: orderObj }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getFoodOfCategory = async (catId) => {
+    try {
+      const response = await fetch(ApiUrlConstants.getFoodOfCategory + "?id=",catId, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+      const data = await response.json();
+      if (data['status'] == 'success') {
+        const foc = data['data'];
+        dispatch(setFoodByCategory({ foodByCategory: foc }));
       }
     } catch (error) {
       console.error(error);

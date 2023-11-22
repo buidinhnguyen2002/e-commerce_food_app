@@ -1,5 +1,7 @@
 const initialState = {
     categorys: [],
+    foodByCategory: [],
+    selectedCategoryId:null,
 }
 export default function categorysReducer(state = initialState, action) {
     switch (action.type) {
@@ -8,7 +10,18 @@ export default function categorysReducer(state = initialState, action) {
                 ...state,
                 categorys: action.payload,
             };
+        case 'SET_FOOD_BY_CATEGORY':
+            return {
+                ...state,
+                foodByCategory: action.payload,
+            };
+        case 'SELECT_CATEGORY':
+            return {
+                ...state,
+                selectedCategoryId: action.payload,
+            };
         default:
             return state;
     }
 }
+

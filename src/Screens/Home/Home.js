@@ -28,10 +28,10 @@ import MyCart from "../Cart/MyCart";
 import { useSelector, useDispatch } from "react-redux";
 import { Center } from "native-base";
 import { setFoodByCategory, selectCategory } from '../../store/actions/categorysAction';
-
+import unorm from 'unorm';
 
 const Home = () => {
-  const [textSearch, setTextSearch] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [chip, setChip] = useState(1);
   const navigation = useNavigation();
   const products = useSelector((state) => state.productsReducer.products);
@@ -43,6 +43,13 @@ const Home = () => {
   const selectedCategoryId = useSelector(state => state.categorysReducer.selectedCategoryId);
   const foodByCategory = useSelector(state => state.categorysReducer.foodByCategory);
 
+  const filterProductsByKeyword = () => {
+    const normalizedKeyword = unorm.nfc(searchKeyword.toLowerCase());
+    return products.filter((product) =>
+      unorm.nfc(product.food_name.toLowerCase()).includes(normalizedKeyword)
+    );
+  };
+  
   const getFoodByCategory = async (categoryId) => {
     try {
       const response = await fetch(ApiUrlConstants.getFoodOfCategory + "?id=" + categoryId, {
@@ -71,7 +78,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(selectCategory(1));
     setChip(1); // Chọn category_id số 1
-  }, []);
+  }, [searchKeyword]);
   // Khi người dùng chọn một danh mục, sử dụng useEffect để gọi hàm getFoodByCategory
   useEffect(() => {
     if (selectedCategoryId) {
@@ -107,6 +114,56 @@ const Home = () => {
       </View>
     );
   };
+
+  const renderFoodList = () => {
+    // Nếu không có từ khóa tìm kiếm, hiển thị danh sách theo danh mục
+    if (!searchKeyword ) {
+      return (
+        <FlatList
+          contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 2 }]}
+          ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
+          showsVerticalScrollIndicator={false}
+          data={foodByCategory}
+          renderItem={({ item, index }) => (
+            <ListTileCard
+              key={item.id}
+              foodName={item.food_name}
+              image={item.image_source}
+              price={item.price}
+              rate={item.rate}
+              isDiscount={item.isDiscount}
+              onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: item.id })}
+            />
+          )}
+        />
+      );
+    } else {
+      // Nếu có từ khóa tìm kiếm, hiển thị danh sách lọc theo từ khóa
+      return (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}
+          style={{ paddingHorizontal: 2 }}
+        >
+          {filterProductsByKeyword().map((food) => (
+            <ListTileCard
+              onPress={() =>
+                redirectFoodDetailScreen(Routers.ProductDetail, {
+                  idProduct: food.id,
+                })
+              }
+              key={food.id}
+              foodName={food.food_name}
+              image={food.image_source}
+              price={food.price}
+              rate={food.rate}
+            />
+          ))}
+        </ScrollView>
+      );
+    }
+  };
+
   const redirectSpecialOffers = () => {
     navigation.navigate(Routers.SpecialOffers);
   };
@@ -164,9 +221,9 @@ const Home = () => {
           </View>
           <View style={Margin.mb_25}>
             <SearchInput
-              value={textSearch}
+              value={searchKeyword}
               onChangeText={(text) => {
-                setTextSearch(text);
+                setSearchKeyword(text);
               }}
               placeholder={"What are you craving?"}
             />
@@ -252,24 +309,8 @@ const Home = () => {
           )}
         />
       </View>
-
-      <FlatList
-        contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 2 }]}
-        ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
-        showsVerticalScrollIndicator={false}
-        data={foodByCategory}
-        renderItem={({ item, index }) => (
-          <ListTileCard
-            key={item.id}
-            foodName={item.food_name}
-            image={item.image_source}
-            price={item.price}
-            rate={item.rate}
-            isDiscount={item.isDiscount}
-            onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: item.id })}
-          />
-        )}
-      />
+      {renderFoodList()}
+      
 </View>
       </ScrollView>
     </SafeAreaView>

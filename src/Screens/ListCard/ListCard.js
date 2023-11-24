@@ -94,7 +94,7 @@ const ListCard = () => {
       </View>
 
       <FlatList
-        contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 2 }]}
+        contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 30 }]}
         ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
         showsVerticalScrollIndicator={false}
         data={foodByCategory}

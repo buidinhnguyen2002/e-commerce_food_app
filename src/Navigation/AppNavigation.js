@@ -31,6 +31,7 @@ import Checkout from "../Screens/Checkout/Checkout";
 import { useSelector } from "react-redux";
 import RestaurantDetail from "../Screens/Restaurant/RestaurantDetail";
 import ProductDetail from "../Screens/Product/ProductDetail";
+import LocationPicker from "../Screens/Checkout/Map";
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   const isSignedIn = useSelector((state) => state.userReducer.isSignIn);
@@ -230,6 +231,15 @@ const AppNavigation = () => {
               }}
               name={Routers.ProductDetail}
               component={ProductDetail}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.LocationPicker}
+              component={LocationPicker}
             />
           </>
         ) : (

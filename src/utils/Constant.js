@@ -32,4 +32,5 @@ export const Routers = {
   CheckOut: " Checkout Orders ",
   ProductDetail: "ProductDetail",
   RestaurantDetail: "RestaurantDetail",
+  LocationPicker: "Maps",
 };

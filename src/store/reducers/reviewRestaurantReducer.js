@@ -1,5 +1,6 @@
 const initialState = {
   reviews: [],
+  reply: [],
 };
 export default function reviewRestaurantReducer(state = initialState, action) {
   switch (action.type) {
@@ -19,6 +20,12 @@ export default function reviewRestaurantReducer(state = initialState, action) {
         ...state,
         reviews: [...state.reviews, newReview],
       };
+    case "REPLY_REVIEWS":
+      return {
+        ...state,
+        reply: action.payload,
+      };
+
     default:
       return state;
   }

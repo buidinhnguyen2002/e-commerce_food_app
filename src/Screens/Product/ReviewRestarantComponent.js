@@ -23,6 +23,7 @@ import { Colors } from "../../utils/Colors";
 import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import styles from "./OverView.Styles";
 import ApiUrlConstants from "../../utils/api_constants";
+
 import {
   CommonStyles,
   Padding,
@@ -32,6 +33,8 @@ import {
 import { Avatar } from "@rneui/themed";
 import Rating from "./RatingAReview.style";
 import { Input } from "native-base";
+import { replyReview } from "../../store/actions/reviewRestaurant";
+
 const ReviewRestarantComponent = ({
   id,
   avatar,
@@ -40,6 +43,42 @@ const ReviewRestarantComponent = ({
   create_at,
 }) => {
   const [count, setCount] = useState(0);
+  const [showRepliesForReviewId, setShowRepliesForReviewId] = useState(null); // New state variable
+  const dispatch = useDispatch();
+  const getAllReply = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.getAllRepLy, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Lỗi mạng");
+      }
+      const data = await response.json();
+      if (data["status"] == "success") {
+        const repObj = data["data"];
+        console.log(repObj);
+        dispatch(replyReview({ reply: repObj }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    // getAllCustomer();
+    getAllReply();
+  }, []);
+  const reply = useSelector((state) => state.reviewRestaurantReducer.reply);
+
+  const toggleReplies = (reviewId) => {
+    // Toggle show replies for a specific review
+    setShowRepliesForReviewId(
+      showRepliesForReviewId === reviewId ? null : reviewId
+    );
+  };
   return (
     <View style={Rating.commnent}>
       <View
@@ -101,17 +140,23 @@ const ReviewRestarantComponent = ({
             marginLeft: 50,
             color: Colors.primaryColor,
           }}
-          // onPress={() => toggleReplies(id)}
+          onPress={() => toggleReplies(id)}
         >
           Reply
         </Text>
       </View>
-      {/* {showReplies[ree.id] && (
-              <View style={Rating.replyContainer}>
-                <Text style={Rating.replyText}>{ree.MessageRep}</Text>
-                <Text style={Rating.replyTime}>{ree.CreateAtRep}</Text>
-              </View>
-            )} */}
+      {showRepliesForReviewId === id && (
+        <FlatList
+          data={reply.filter((rep) => rep.review_id === id)}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={Rating.replyContainer}>
+              <Text style={Rating.replyText}>{item.message}</Text>
+              <Text style={Rating.replyTime}>{item.create_at}</Text>
+            </View>
+          )}
+        />
+      )}
     </View>
   );
 };

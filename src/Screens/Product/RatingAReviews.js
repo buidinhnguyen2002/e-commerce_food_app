@@ -34,6 +34,7 @@ import Rating from "./RatingAReview.style";
 import { Input } from "native-base";
 import { loginSuccess } from "../../store/actions/userAction";
 import ReviewRestarantComponent from "../../Screens/Product/ReviewRestarantComponent";
+import { replyReview } from "../../store/actions/reviewRestaurant";
 const RatingAndReview = ({ navigation, route }) => {
   const restaurantId = route.params.idRestaurant;
   const dispatch = useDispatch();
@@ -244,6 +245,13 @@ const RatingAndReview = ({ navigation, route }) => {
           />
         )}
       />
+      {/* <View>
+        {reply.map((t) => (
+          <Text style={{ marginLeft: 10 }} key={t.id}>
+            {t.message}
+          </Text>
+        ))}
+      </View> */}
       <View>
         <Text style={{ marginLeft: 20, fontWeight: "bold", fontSize: 18 }}>
           Thêm đánh giá

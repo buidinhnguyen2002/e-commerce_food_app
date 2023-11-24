@@ -14,3 +14,9 @@ export function addReview({ restaurant_id, customer_id, message }) {
     },
   };
 }
+export function replyReview({ reply }) {
+  return {
+    type: "REPLY_REVIEWS",
+    payload: reply,
+  };
+}

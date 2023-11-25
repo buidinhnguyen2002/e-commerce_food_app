@@ -87,10 +87,7 @@ const ProfileDetail = () => {
                                 placeholder={"Email"}
                                 iconSource={require('../../../assets/Icons/lich.png')}
                             />
-                             <CustomTextInputWithSelectList
-                                placeholder={null}
-                                iconSource={require('../../../assets/Icons/lich.png')}
-                            />
+
                             <View>
                                 <PhoneInputComponent/>
                             </View>

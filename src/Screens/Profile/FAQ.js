@@ -10,7 +10,7 @@ import { TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { Image } from "react-native";
 import { ButtonWithIcon, ShowDropDown, TabCustom } from "./ButtonProfile";
-// import CustomDropdown from "./Demo";
+import ExpandingComponent from "./ExpandingComponent";
 
 const FAQ = () => {
     const [questionStates, setQuestionStates] = useState({});
@@ -22,6 +22,13 @@ const FAQ = () => {
         { text: "Service", source: "" },
         { text: "Payment", source: "" },
       ];
+      const expandingData = [
+        { headerText: 'What is Foodu?', expandedText: 'Expanded Content 1,Expanded Content 1,Expanded Content 1,Expanded Content 1' },
+        { headerText: 'How I can make a payment?', expandedText: 'Expanded Content 2' },
+        { headerText: 'How do I cancle orders?', expandedText: 'Expanded Content 1' },
+        { headerText: 'How do I delete my account?', expandedText: 'Expanded Content 2' },
+        { headerText: 'How do I exit the app?', expandedText: 'Expanded Content 1' },
+        ];
     const redirectListCardScreen = (name) => {
     navigation.navigate(name);
     };
@@ -33,13 +40,13 @@ const FAQ = () => {
         }));
       };
     
-    const questions = [
-        { id: "foodu", label: "What is Foodu", content:'' },
-        { id: "makePay", label: "How can I make a payment?", content:'' },
-        { id: "cancelOrder", label: "How do I can cancel orders?", content:'' },
-        { id: "deleteAccount", label: "How do I delete my account?", content:'' },
-        { id: "exit", label: "How do I exit the app?", content:'' },
-      ];
+    // const questions = [
+    //     { id: "foodu", label: "What is Foodu", content:'' },
+    //     { id: "makePay", label: "How can I make a payment?", content:'' },
+    //     { id: "cancelOrder", label: "How do I can cancel orders?", content:'' },
+    //     { id: "deleteAccount", label: "How do I delete my account?", content:'' },
+    //     { id: "exit", label: "How do I exit the app?", content:'' },
+    //   ];
     return (
         <View style = {styles.page}>
              {/* <View>
@@ -75,7 +82,7 @@ const FAQ = () => {
                     placeholder={"Search"}
                     />
                 </View>
-                <View style={styles.contentProfileDetail}>
+                {/* <View style={styles.contentProfileDetail}>
                             {/* {questions.map((item) => (
                                 <ShowDropDown
                                     key={item.id}
@@ -83,20 +90,17 @@ const FAQ = () => {
                                     content={`Content for ${item.label}`}  
                                 />
                             ))}
-                        */}
-                        <ShowDropDown
-                            label = {"what?"}
-                            content={"content"}
-                        />
-                        {/* {Object.keys(questionStates).map((id) =>
-                        questionStates[id] ? (
-                        <View style={styles.buttonContent} key={id}>
-                            <Text>content</Text>
-                        </View>
-                        ) : null
-                    )} */}
-                
-                </View>
+                        */} 
+                <ScrollView contentContainerStyle={{flexGrow:1}} showsHorizontalScrollIndicator={false}>
+                       {expandingData.map((item, index) => (
+                            <ExpandingComponent
+                            key={index}
+                            headerText={item.headerText}
+                            expandedText={item.expandedText}
+                            />
+                        ))}
+                </ScrollView>
+                {/* </View> */}
             </View>
     </View>
     );

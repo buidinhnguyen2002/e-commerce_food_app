@@ -32,7 +32,7 @@ const PhoneInputComponent = () => {
         // withDarkTheme
         // withShadow
         autoFocus
-        flagButtonStyle={{ height: 60, width: 60, alignSelf:'center', backgroundColor: Colors.lightGrey}}
+        flagButtonStyle={{ marginLeft:-15,height: 60, width: 60, alignSelf:'center', backgroundColor: Colors.lightGrey}}
        // textInputStyle={styles.input}
         // textContainerStyle={styles.textContainer}
         onEndEditing={handlePhoneInputEndEditing}

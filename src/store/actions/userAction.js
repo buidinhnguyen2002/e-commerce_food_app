@@ -49,3 +49,24 @@ export function clearCart() {
         payload: "",
     }
 }
+//load Profile
+export function loadProfile({ id, userName, phoneNumber, avatar, cartId, address }) {
+    return {
+        type: 'LOAD_PROFILE',
+        payload: {
+            id: id,
+            userName: userName,
+            phoneNumber: phoneNumber,
+            avatar: avatar,
+            cartId: cartId,
+            address: address,
+        }
+    }
+}
+
+export function updateProfile() {
+    return {
+        type: 'UPDATE_PROFILE',
+        payload
+    }
+}

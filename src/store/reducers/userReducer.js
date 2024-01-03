@@ -10,6 +10,8 @@ const initialState = {
         products: [],
     },
     order: [],
+    address:'',
+    
 }
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -26,6 +28,7 @@ export default function userReducer(state = initialState, action) {
                     ...state.cart,
                     cartId: action.payload.cartId,
                 }
+
             };
         case 'LOAD_CART':
             return {
@@ -85,6 +88,19 @@ export default function userReducer(state = initialState, action) {
                 }
             }
         }
+        case "LOAD_PROFILE": {
+            return action.payload
+              ? {
+                  ...state,
+                  id: action.payload.id,
+                  userName: action.payload.userName,
+                  phoneNumber: action.payload.phoneNumber,
+                  avatar: action.payload.avatar,
+                  cartId: action.payload.cartId,
+                }
+              : state;
+          }
+          
         default:
             return state;
     }

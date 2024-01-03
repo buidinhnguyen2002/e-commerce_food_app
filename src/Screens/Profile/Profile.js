@@ -1,9 +1,8 @@
-import { View, Text, Image, SafeAreaViewComponent, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useRef, useState } from 'react'
+import { View, Text, Image, SafeAreaViewComponent, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './Profile.Styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Styles } from '../../components/Inputs/CustomTextInput.style'
-import { FontSize } from '../../utils/Constant'
 import { Avatar } from '@rneui/themed'
 import { CommonStyles, Margin, TypographyStyles } from '../../utils/StyleUtil'
 import { Colors } from '../../utils/Colors'
@@ -12,8 +11,9 @@ import { useNavigation } from '@react-navigation/native'
 import { useNavigateToAddress, useNavigateToHelpCenter, useNavigateToInviteFriends, useNavigateToLanguage, useNavigateToMyFavoriteRestaurants, useNavigateToNotification, useNavigateToPayment, useNavigateToProfileDetail, useNavigateToSecurity, useNavigateToSpecialOffer } from './CustomNavigationHook';
 import Logout from './Logout'
 import LogoutDialog from './Logout'
-
-
+import { useDispatch, useSelector } from "react-redux";
+import ApiUrlConstants from "../../utils/api_constants";
+import { loginSuccess } from "../../store/actions/userAction";
 
 const Profile = () => {
   const buttons = [
@@ -30,7 +30,8 @@ const Profile = () => {
     { id: 'invite', iconSource: require('../../../assets/Icons/friend.png'), label: 'Invite Friends' },
     { id: 'logOut', iconSource: require('../../../assets/Icons/logout.png'), label: 'Logout' },
   ];
- 
+  const [isLoading, setLoading] = useState(true);
+
   const { navigate : navigateToMyFavoriteRestaurants} = useNavigateToMyFavoriteRestaurants();
   const { navigate: navigateToSpecialOffer } = useNavigateToSpecialOffer();
   const { navigate: navigateToPayMethod } = useNavigateToPayment();
@@ -43,7 +44,6 @@ const Profile = () => {
   const { navigate: navigateToLanguage } = useNavigateToLanguage();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
-  const LogoutDialogRef = useRef(null);
   const handleLogout = () => {
     // Thực hiện đăng xuất ở đây
     // Sau khi đăng xuất, có thể đóng dialog và overlay
@@ -95,7 +95,7 @@ const Profile = () => {
         break;
       case 'help':
         // Handle 'Help Center' button click
-        navigateToHelpCenter();
+        navigateToHelpCenter();     
         break;
       case 'invite':
         // Handle 'Invite Friends' button click
@@ -109,8 +109,57 @@ const Profile = () => {
         break;
     }
   };
+  const [userData,setUserData] = useState(null);
+  const userId = useSelector((state) => state.userReducer.id);
+  const username = useSelector((state) => state.userReducer.userName);
+  const phoneNumber = useSelector((state) => state.userReducer.phoneNumber);
+  const avatar = useSelector((state) => state.userReducer.avatar);
+  const address = useSelector((state) => state.userReducer.address);
+  const dispatch = useDispatch();
+
+  // Trong hàm useEffect hoặc bất kỳ nơi nào bạn muốn gọi reducer
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from API
+        const response = await fetch(ApiUrlConstants.user, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          // body: JSON.stringify({ /*... your data */ }),
+        });
   
+        if (!response.ok) {
+          throw new Error('Error');
+        }
   
+        // Parse the response
+        const userData = await response.json();
+        console.log('Fetched user data:', userData); // Log the fetched data
+        
+        // Dispatch the action to update the Redux state
+        dispatch(loginSuccess({
+          id: userId,
+          userName: username,
+          phoneNumber: phoneNumber,
+          avatar: avatar,
+          cartId: '', 
+        }));
+  
+        // Set loading to false
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+  
+    // Call the fetchData function
+    fetchData();
+  }, [dispatch]); 
+
     return (
       <SafeAreaView style = {styles.page}> 
           <View style = {[CommonStyles.horizontal_direction, { justifyContent: 'space-between', alignItems: 'center'}]}>
@@ -122,17 +171,21 @@ const Profile = () => {
                   <MoreButton/>
               </View>
           </View>
-          <ScrollView showsVerticalScrollIndicator = {false} >
+          <ScrollView showsVerticalScrollIndicator={false}>
+              {isLoading ? (
+                   <ActivityIndicator size="large" color={Colors.primaryColor} style={styles.loader} />
+                 ) : (
+            // userData && (
             <View  style = {[styles.content, Margin.mt_10]}>
                     <View style={[styles.avatar,{borderColor: Colors.grey_01,}]}>
                         <Avatar
                             size={55}
                             rounded
-                            source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
+                            source={{ uri: avatar }}
                         />
                         <View style={Margin.ml_25}>
-                            <Text style={[TypographyStyles.normal, Margin.mb_5]}>Andrew Ainsley</Text>
-                            <Text style={[TypographyStyles.normal, Colors.grey_01 ]}>+1 111 467 378 399</Text>
+                            <Text style={[TypographyStyles.normal, Margin.mb_5]}>{username}</Text>
+                            <Text style={[TypographyStyles.normal, Colors.grey_01 ]}>{phoneNumber}</Text>
                         </View>
                         
                         <View style = {styles.editbutton}><EditButton/></View>
@@ -166,6 +219,8 @@ const Profile = () => {
                     </View>
                     
             </View>
+            // )
+            )}
         </ScrollView>
         {showOverlay && (
                       <View style={styles.overlay}>
@@ -183,5 +238,5 @@ const Profile = () => {
 
     )
 }  
-  
-export default Profile
+
+export default Profile;

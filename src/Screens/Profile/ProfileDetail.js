@@ -7,6 +7,7 @@ import CustomTextInput from '../../components/Inputs/CustomTextInput';
 import { Colors } from '../../utils/Colors';
 import PhoneInputComponent from './PhoneInputComponent';
 import DatePicker from 'react-native-neat-date-picker';
+import { useNavigateToProfileDetail } from './CustomNavigationHook';
   
 
 const ProfileDetail = () => {
@@ -17,7 +18,7 @@ const ProfileDetail = () => {
       setSelectedGender(itemValue);
     };
     const handleIconPress = () => {
-        // Xử lý sự kiện khi icon được nhấn
+       
       }
     const genderItems = [
        {id:'male', label: 'Male', value: 'male' },

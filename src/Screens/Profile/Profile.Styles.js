@@ -4,6 +4,9 @@ import { FontSize } from "../../utils/Constant";
 import { Margin, Padding, TypographyStyles } from "../../utils/StyleUtil";
 
 const  styles = StyleSheet.create({
+    loader: {
+        marginTop: 20,
+      },
     page:{
         paddingTop: 20,
         flex: 100,

@@ -12,6 +12,7 @@ import CardMenu from "../../components/Cards/CardMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAllReviewRestaurant } from "../../store/actions/reviewRestaurant";
 import { useEffect } from "react";
+import QRCode from "react-native-qrcode-svg";
 
 const RestaurantDetail = ({ navigation, route }) => {
   // const navigation = useNavigation();

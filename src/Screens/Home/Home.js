@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import CommonButton, {
   OutlineButton,
 } from "../../components/Buttons/CommonButton";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from "../../utils/Colors";
 import {
   CommonStyles,
@@ -85,6 +85,9 @@ const Home = () => {
   const redirectFoodDetailScreen = (name, { idProduct }) => {
     navigation.navigate(name, { idProduct: idProduct });
   };
+  const changePage = () => {
+    navigation.navigate(Routers.QRCodeScannerScreen);
+  };
   return (
     <SafeAreaView style={Styles.screenContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -135,6 +138,12 @@ const Home = () => {
               }}
               placeholder={"What are you craving?"}
             />
+            <TouchableOpacity onPress={() => changePage()}>
+              <Image
+                style={CommonStyles.imageCart}
+                source={require("../../../assets/Icons/SearchQR.webp")}
+              ></Image>
+            </TouchableOpacity>
           </View>
           <View style={[Margin.mb_30]}>
             {getHeaderHomeFragment({

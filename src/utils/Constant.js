@@ -33,4 +33,5 @@ export const Routers = {
   ProductDetail: "ProductDetail",
   RestaurantDetail: "RestaurantDetail",
   LocationPicker: "Maps",
+  QRCodeScannerScreen: "QRCodeScannerScreen",
 };

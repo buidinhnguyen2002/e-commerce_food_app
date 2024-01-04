@@ -14,6 +14,7 @@ import { saveAllProducts } from "../store/actions/productsAction";
 import Restaurant from "./Restaurant/Restaurant";
 import { Provider } from 'react-redux';
 import store from "../store/store";
+import GenderSelect from "./Profile/GenderSelect";
 
 const Main = ({ navigation, route }) => {
   const tabIndex = route.params !== undefined ? route.params.selectedTab : null;

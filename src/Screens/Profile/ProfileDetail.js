@@ -8,7 +8,7 @@ import { Colors } from '../../utils/Colors';
 import PhoneInputComponent from './PhoneInputComponent';
 import DatePicker from 'react-native-neat-date-picker';
 import { useNavigateToProfileDetail } from './CustomNavigationHook';
-  
+
 
 const ProfileDetail = () => {
     const [firstName, setFirstName] = useState("");
@@ -88,7 +88,6 @@ const ProfileDetail = () => {
                                 placeholder={"Email"}
                                 iconSource={require('../../../assets/Icons/lich.png')}
                             />
-
                             <View>
                                 <PhoneInputComponent/>
                             </View>

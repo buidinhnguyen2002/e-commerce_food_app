@@ -33,6 +33,13 @@ import RestaurantDetail from "../Screens/Restaurant/RestaurantDetail";
 import ProductDetail from "../Screens/Product/ProductDetail";
 import LocationPicker from "../Screens/Checkout/Map";
 import QRCodeScannerScreen from "../Screens/Home/ScannerQR";
+import AccountAdmin from "../Screens/Admin/AccountAdmin";
+import OrderDetailsAdmin from "../Screens/Admin/OrderDetailsAdmin";
+import SalesAdmin from "../Screens/Admin/SalesAdmin";
+import ProductsAdmin from "../Screens/Admin/ProductsAdmin";
+
+
+
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   const isSignedIn = useSelector((state) => state.userReducer.isSignIn);
@@ -251,6 +258,43 @@ const AppNavigation = () => {
               name={Routers.QRCodeScannerScreen}
               component={QRCodeScannerScreen}
             />
+             <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.AccountAdmin}
+              component={AccountAdmin}
+            /> 
+             <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.OrderDetailsAdmin}
+            component={OrderDetailsAdmin}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.ProductsAdmin}
+            component={ProductsAdmin}
+          />
+        
+            <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.SalesAdmin}
+            component={SalesAdmin}
+          />
           </>
         ) : (
           <>

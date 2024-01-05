@@ -6,19 +6,18 @@ import { Colors } from "../../utils/Colors";
 import { Margin, Padding } from "../../utils/StyleUtil";
 import SeparatorComponent from "../../components/SeparatorComponent";
 import AddressDeliver from "../../components/AddressDeliver";
-import { saveUserAddress } from "../../store/actions/userAction";
-import CommonButton from "../../components/Buttons/CommonButton";
-import { Routers } from "../../utils/Constant";
+import LocationPicker from "./Map";
 
-const DeliverTo = ({ navigation }) => {
-  const address = useSelector((state) => state.userReducer.address);
-  console.log("ADD", address);
-  const AddAddress = () => {
-    navigation.navigate(Routers.AddAddress);
-  };
-  const handleAddAddress = () => {
-    console.log('New Restaurant ID:',restau );
-  };
+const DeliverTo = ({ route }) => {
+  const { selectedAddress } = route.params;
+  const dataDiscount = [
+    {
+      imageUrl: require("../../../assets/Icons/locate.png"),
+      text: "Home",
+      textDetail: selectedAddress,
+    },
+  ];
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <View

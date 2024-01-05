@@ -4,6 +4,8 @@ include '../database_connect.php';
 $db = new dbConnect();
 $connection = $db->getConnection();
 $table = 'review';
+$tableCustomer= 'customer';
+$tableRep ='reply_review';
 $response = array();
 $result;
 header("Content-Type: application/json");
@@ -11,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['restaurant_id'])) {
         $restaurantId = $_GET['restaurant_id'];
-        $query = "SELECT * FROM $table WHERE restaurant_id= ?";
+        $query = "SELECT r.*,c.avatar,c.full_name FROM $table r INNER JOIN $tableCustomer c ON r.customer_id = c.id  WHERE r.restaurant_id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('s', $restaurantId);
@@ -40,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $response['message'] = 'Not found';
         echo json_encode($response);
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+}  elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
     if (isset($data->restaurant_id, $data->customer_id, $data->message)) {
         $restaurantId = $data->restaurant_id;
@@ -49,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query = "INSERT INTO $table( restaurant_id, customer_id, message) VALUES (?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("iis", $restaurant_id, $customer_id, $message);
+            $prepareStatement->bind_param("iis", $restaurantId, $customerId, $message);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';

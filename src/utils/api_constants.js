@@ -8,4 +8,8 @@ export default ApiUrlConstants = {
   order: baseURL + "/order/order.php",
   getAllRestaurants: baseURL + "/restaurant/restaurant.php",
   address : baseURL + "/address/customerAddress.php",
+  getReviewRestaurant: baseURL + "/review/restaurant_review.php",
+  getAllCustomers: baseURL + "/users/customer.php",
+  getAllRepLy: baseURL + "/review/reply_review.php",
+
 };

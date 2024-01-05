@@ -3,19 +3,18 @@ include '../database_connect.php';
 
 $db = new dbConnect();
 $connection = $db->getConnection();
-$table = 'review';
-$tableCustomer = 'customer'
+$table = 'delivery_driver';
 $response = array();
 $result;
 header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['id'])) {
-        $reviewId = $_GET['id'];
-        $query = "SELECT r.* FROM $table r WHERE r.id= ?";
+        $driverId = $_GET['id'];
+        $query = "SELECT * FROM $table WHERE id= ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param('s', $reviewId);
+            $prepareStatement->bind_param('s', $driverId);
             $prepareStatement->execute();
             $result = $prepareStatement->get_result();
             $prepareStatement->close();
@@ -28,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $result = $connection->query($query);
     }
     if ($result->num_rows > 0) {
-        $reviews = array();
+        $drivers = array();
         while ($row = $result->fetch_assoc()) {
-            $reviews[] = $row;
+            $drivers[] = $row;
         }
         $response['status'] = 'success';
-        $response['message'] = 'Get review successful';
-        $response['data'] = $reviews;
+        $response['message'] = 'Get driver successful';
+        $response['data'] = $drivers;
         echo json_encode($response);
     } else {
         $response['status'] = 'error';
@@ -43,18 +42,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->restaurant_id, $data->customer_id, $data->message)) {
-        $restaurantId = $data->restaurant_id;
-        $customerId = $data->customer_id;
-        $message = $data->message;
-        $query = "INSERT INTO $table( restaurant_id, customer_id, message) VALUES (?,?,?)";
+    if (isset($data->id, $data->first_name, $data->last_name, $data->phone_number, $data->rate, $data->gender)) {
+        $id = $data->id;
+        $firstName = $data->first_name;
+        $lastName = $data->last_name;
+        $phoneNumber = $data->phone_number;
+        $rate = $data->rate;
+        $gender = $data->gender;
+        $query = "INSERT INTO $table(id,first_name, last_name, phone_number, rate, gender) VALUES (?,?,?,?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("iis", $restaurantId, $customerId, $message);
+            $prepareStatement->bind_param("ssssii", $id, $firstName, $lastName, $phoneNumber, $rate, $gender);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review created successful';
+            $response['message'] = 'Delivery driver created successful';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';
@@ -66,22 +68,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->id, $data->restaurant_id, $data->customer_id, $data->rate, $data->message, $data->create_at)) {
-        $reviewId = $data->id;
-        $restaurantId = $data->restaurant_id;
-        $customerId = $data->customer_id;
+    if (isset($data->id, $data->first_name, $data->last_name, $data->phone_number, $data->rate, $data->gender)) {
+        $id = $data->id;
+        $firstName = $data->first_name;
+        $lastName = $data->last_name;
+        $phoneNumber = $data->phone_number;
         $rate = $data->rate;
-        $message = $data->message;
-        $create_at = $data->create_at;
-        $query = "UPDATE $table SET restaurant_id = ? , customer_id = ?, rate = ?,
-        message = ?, create_at = ? WHERE id = ?";
+        $gender = $data->gender;
+        $query = "UPDATE $table SET first_name = ? , last_name = ?, phone_number = ?, rate = ?,
+        gender = ? WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("iiissi", $restaurant_id, $customer_id, $rate, $message, $create_at, $id);
+            $prepareStatement->bind_param("sssiis", $firstName, $lastName, $phoneNumber, $rate, $gender, $id);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review updated successful';
+            $response['message'] = 'Delivery driver updated successful';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';
@@ -94,35 +96,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     $data = json_decode(file_get_contents("php://input"));
     if (isset($data->id)) {
-        $reviewId = $data->id;
+        $driverId = $data->id;
         $setFields = array();
-        if (isset($data->restaurant_id)) {
-            $setFields[] = "restaurant_id = '$data->restaurant_id'";
+        if (isset($data->first_name)) {
+            $setFields[] = "first_name = '$data->first_name'";
         }
-        if (isset($data->customer_id)) {
-            $setFields[] = "customer_id = '$data->customer_id'";
+        if (isset($data->last_name)) {
+            $setFields[] = "last_name = '$data->last_name'";
+        }
+        if (isset($data->phone_number)) {
+            $setFields[] = "phone_number = '$data->phone_number'";
         }
         if (isset($data->rate)) {
             $setFields[] = "rate = '$data->rate'";
         }
-        if (isset($data->message)) {
-            $setFields[] = "message = '$data->message'";
-        }
-        if (isset($data->date)) {
-            $setFields[] = "date = '$data->date'";
+        if (isset($data->gender)) {
+            $setFields[] = "gender = '$data->gender'";
         }
         $setFields = implode(", ", $setFields);
         $query = "UPDATE $table SET $setFields WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("s", $reviewId);
+            $prepareStatement->bind_param("s", $driverId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review information updated successfully';
+            $response['message'] = 'Driver information updated successfully';
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Review preparation failed';
+            $response['message'] = 'Query preparation failed';
         }
     } else {
         $response['status'] = 'error';
@@ -130,16 +132,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $reviewId = isset($_GET['id']) ? $_GET['id'] : null;
-    if ($reviewId) {
+    $driverId = isset($_GET['id']) ? $_GET['id'] : null;
+    if ($driverId) {
         $query = "DELETE FROM $table WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("s", $reviewId);
+            $prepareStatement->bind_param("s", $driverId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review deleted successfully';
+            $response['message'] = 'Delivery driver deleted successfully';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';

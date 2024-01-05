@@ -1,10 +1,35 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { CommonStyles, Margin, TypographyStyles } from "../utils/StyleUtil";
 import { StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
+import MapView, { Marker } from "react-native-maps";
+import Geolocation from "react-native-geolocation-service";
+import { useEffect } from "react";
+import { Routers } from "../utils/Constant";
+import { useNavigation } from "@react-navigation/native";
+import Checkout from "../Screens/Checkout/Checkout";
+import { useDispatch, useSelector } from "react-redux";
 
-const AddressDeliver = ({ imageUrl, text,test1,test2,test3, textDetail }) => {
+const AddressDeliver = ({ imageUrl, text, textDetail }) => {
+  const [isSelected, setIsSelected] = useState(false);
+  const navigation = useNavigation();
+  const myCart = useSelector((state) => state.userReducer.cart.products);
+  const totalCost = myCart.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+  const handleSelectAddress = () => {
+    setIsSelected(!isSelected);
+    changPage();
+  };
+  const changPage = () => {
+    navigation.navigate(Routers.CheckOut, {
+      products: myCart,
+      totalCost: totalCost,
+      textDetail: textDetail,
+    });
+  };
   return (
     <View style={[Styles.specialOfferBanner]}>
       <View
@@ -14,18 +39,17 @@ const AddressDeliver = ({ imageUrl, text,test1,test2,test3, textDetail }) => {
             width: 40,
             height: 40,
             borderRadius: 50,
-            alignItems: "center", // Căn giữa hình ảnh theo chiều dọc và ngang
+            alignItems: "center",
             justifyContent: "center",
           },
         ]}
       >
         <Image
-          style={[CommonStyles.iconSize, { alignItems: "center" }]} // Tuỳ chỉnh kích thước của hình ảnh
-          source={imageUrl} // Truyền đường dẫn hình ảnh vào đây
+          style={[CommonStyles.iconSize, { alignItems: "center" }]}
+          source={imageUrl}
         />
       </View>
       <View style={[{ alignItems: "center", justifyContent: "space-between" }]}>
-        <Text style={[{ fontSize: 18, fontWeight: 700 }]}>{text}</Text>
         <Text style={[{ color: "grey" }]}>{textDetail}</Text>
       </View>
       <TouchableOpacity
@@ -34,25 +58,14 @@ const AddressDeliver = ({ imageUrl, text,test1,test2,test3, textDetail }) => {
             width: 30,
             height: 30,
             borderRadius: 30,
-            // backgroundColor: Colors.primaryColor,
             borderColor: Colors.primaryColor,
             borderWidth: 2,
             marginRight: 10,
           },
+          isSelected && { backgroundColor: Colors.primaryColor },
         ]}
-      >
-        {/* <Text
-          style={[
-            {
-              color: Colors.white,
-              textAlign: "center",
-              marginTop: 10,
-            },
-          ]}
-        >
-          Claim
-        </Text> */}
-      </TouchableOpacity>
+        onPress={handleSelectAddress}
+      ></TouchableOpacity>
     </View>
   );
 };
@@ -62,10 +75,10 @@ const Styles = StyleSheet.create({
     height: 100,
     backgroundColor: Colors.white,
     borderRadius: 30,
-    flexDirection: "row", // Để hình ảnh và văn bản được hiển thị cạnh nhau
-    alignItems: "center", // Để canh giữa theo chiều dọc
-    justifyContent: "space-between", // Để các phần tử hiển thị cách đều nhau
-    paddingHorizontal: 10, // Khoảng cách ngang giữa các phần tử
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
   },
 });
 

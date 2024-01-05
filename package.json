@@ -24,6 +24,8 @@
     "@rneui/themed": "^0.0.0-edge.2",
     "axios": "^1.5.0",
     "expo": "~49.0.11",
+    "expo-barcode-scanner": "~12.5.3",
+    "expo-camera": "~13.4.4",
     "expo-font": "~11.4.0",
     "expo-linear-gradient": "~12.3.0",
     "expo-location": "~16.1.0",
@@ -31,7 +33,7 @@
     "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.72.5",
+    "react-native": "0.72.6",
     "react-native-camera": "^4.2.1",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "~2.12.0",
@@ -49,8 +51,7 @@
     "react-native-web": "~0.19.6",
     "react-redux": "^8.1.3",
     "redux": "^4.2.1",
-    "expo-camera": "~13.4.4",
-    "expo-barcode-scanner": "~12.5.3"
+    "unorm": "^1.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, Badge } from "@rneui/themed";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -25,12 +25,14 @@ import { Routers } from "../../utils/Constant";
 import SpecialOfferItem from "../../components/SpecialOfferItem";
 import SeparatorComponent from "../../components/SeparatorComponent";
 import MyCart from "../Cart/MyCart";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Center } from "native-base";
+import { setFoodByCategory, selectCategory } from '../../store/actions/categorysAction';
+import unorm from 'unorm';
 
 const Home = () => {
-  const [textSearch, setTextSearch] = useState("");
-  const [chip, setChip] = useState(0);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [chip, setChip] = useState(1);
   const navigation = useNavigation();
   const products = useSelector((state) => state.productsReducer.products);
   const categorys = useSelector((state) => state.categorysReducer.categorys);
@@ -40,15 +42,60 @@ const Home = () => {
     0
   );
   const [showAllCategories, setShowAllCategories] = useState(false);
-  const dummyChip = [
-    { text: "All", source: "" },
-    { text: "Hamburger", source: "" },
-    { text: "Pizza", source: "" },
-    { text: "Drink", source: "" },
-    { text: "All", source: "" },
-    { text: "All", source: "" },
-    { text: "All", source: "" },
-  ];
+  const dispatch = useDispatch();
+  const selectedCategoryId = useSelector(state => state.categorysReducer.selectedCategoryId);
+  const foodByCategory = useSelector(state => state.categorysReducer.foodByCategory);
+
+  const filterProductsByKeyword = () => {
+    const normalizedKeyword = unorm.nfc(searchKeyword.toLowerCase());
+    return products.filter((product) =>
+      unorm.nfc(product.food_name.toLowerCase()).includes(normalizedKeyword)
+    );
+  };
+  
+  const getFoodByCategory = async (categoryId) => {
+    try {
+      const response = await fetch(ApiUrlConstants.getFoodOfCategory + "?id=" + categoryId, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Lỗi mạng');
+      }
+
+      const data = await response.json();
+
+      if (data['status'] === 'success') {
+        const foc = data['data'];
+        dispatch(setFoodByCategory({ foodByCategory: foc }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(selectCategory(1));
+    setChip(1); // Chọn category_id số 1
+  }, [searchKeyword]);
+  // Khi người dùng chọn một danh mục, sử dụng useEffect để gọi hàm getFoodByCategory
+  useEffect(() => {
+    if (selectedCategoryId) {
+      getFoodByCategory(selectedCategoryId);
+    }
+  }, [selectedCategoryId]);
+
+  // Khi người dùng chọn một danh mục
+  const handleCategorySelect = categoryId => {
+    dispatch(selectCategory(categoryId));
+    getFoodByCategory(categoryId);
+    setChip(categoryId);
+  };
+
   const getHeaderHomeFragment = ({ name, icon, onPress }) => {
     return (
       <View style={[Styles.specialOfferHeader, Margin.mb_30]}>
@@ -70,6 +117,56 @@ const Home = () => {
       </View>
     );
   };
+
+  const renderFoodList = () => {
+    // Nếu không có từ khóa tìm kiếm, hiển thị danh sách theo danh mục
+    if (!searchKeyword ) {
+      return (
+        <FlatList
+          contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 2 }]}
+          ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
+          showsVerticalScrollIndicator={false}
+          data={foodByCategory}
+          renderItem={({ item, index }) => (
+            <ListTileCard
+              key={item.id}
+              foodName={item.food_name}
+              image={item.image_source}
+              price={item.price}
+              rate={item.rate}
+              isDiscount={item.isDiscount}
+              onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: item.id })}
+            />
+          )}
+        />
+      );
+    } else {
+      // Nếu có từ khóa tìm kiếm, hiển thị danh sách lọc theo từ khóa
+      return (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}
+          style={{ paddingHorizontal: 2 }}
+        >
+          {filterProductsByKeyword().map((food) => (
+            <ListTileCard
+              onPress={() =>
+                redirectFoodDetailScreen(Routers.ProductDetail, {
+                  idProduct: food.id,
+                })
+              }
+              key={food.id}
+              foodName={food.food_name}
+              image={food.image_source}
+              price={food.price}
+              rate={food.rate}
+            />
+          ))}
+        </ScrollView>
+      );
+    }
+  };
+
   const redirectSpecialOffers = () => {
     navigation.navigate(Routers.SpecialOffers);
   };
@@ -134,9 +231,9 @@ const Home = () => {
           </View>
           <View style={Margin.mb_25}>
             <SearchInput
-              value={textSearch}
+              value={searchKeyword}
               onChangeText={(text) => {
-                setTextSearch(text);
+                setSearchKeyword(text);
               }}
               placeholder={"What are you craving?"}
             />
@@ -214,49 +311,26 @@ const Home = () => {
             icon: "abc",
             onPress: () => redirectListCardScreen(Routers.Recommended),
           })}
-          <FlatList
-            contentContainerStyle={[
-              Padding.pd_vertical_5,
-              Margin.mb_25,
-              { paddingHorizontal: 2 },
-            ]}
-            ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
-            showsHorizontalScrollIndicator={false}
-            data={categorys.map((category) => category.name)}
-            horizontal={true}
-            renderItem={({ item, index }) => (
-              <ChipCustom
-                text={item}
-                isChoose={chip == index}
-                onPress={() => {
-                  setChip(index);
-                }}
-              />
-            )}
-          />
-          <View style={Styles.recommendContainer}>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              nestedScrollEnabled={true}
-              style={{ paddingHorizontal: 10 }}
-            >
-              {products.map((food) => (
-                <ListTileCard
-                  onPress={() =>
-                    redirectFoodDetailScreen(Routers.ProductDetail, {
-                      idProduct: food.id,
-                    })
-                  }
-                  key={food.id}
-                  foodName={food.food_name}
-                  image={food.image_source}
-                  price={food.price}
-                  rate={food.rate}
-                />
-              ))}
-            </ScrollView>
-          </View>
-        </View>
+          <View style={[ Margin.mb_25]}>
+        <FlatList
+          contentContainerStyle={[Padding.pd_vertical_5, { height: 60 }]}
+          ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
+          showsHorizontalScrollIndicator={false}
+          data={categorys.map(category => category.name)}
+          horizontal={true}
+          renderItem={({ item, index }) => (
+            <ChipCustom
+            text={item}
+            isChoose={selectedCategoryId === categorys[index].id}
+            onPress={() => handleCategorySelect(categorys[index].id)}
+            
+            />
+          )}
+        />
+      </View>
+      {renderFoodList()}
+      
+</View>
       </ScrollView>
     </SafeAreaView>
   );

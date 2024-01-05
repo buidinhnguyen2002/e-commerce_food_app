@@ -3,18 +3,23 @@ include '../database_connect.php';
 
 $db = new dbConnect();
 $connection = $db->getConnection();
-$table = 'category_of_food';
+$tableCOF = 'category_of_food';
+$tableFood= 'food';
+$tableCategory='category';
 $response = array();
 $result;
 header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
-    if (isset($_GET['food_id'])) {
-        $cofId = $_GET['food_id'];
-        $query = "SELECT * FROM $table WHERE food_id= ?";
+    if (isset($_GET['id'])) {
+        $catId = $_GET['id'];
+        $query = "SELECT f.* FROM $tableCOF fc
+        JOIN $tableFood f ON fc.food_id = f.id
+        JOIN $tableCategory c ON fc.category_id = c.id
+        WHERE c.id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param('s', $cofId);
+            $prepareStatement->bind_param('s', $catId);
             $prepareStatement->execute();
             $result = $prepareStatement->get_result();
             $prepareStatement->close();
@@ -23,7 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $response['message'] = 'Query preparation failed';
         }
     } else {
-        $query = "SELECT * FROM $table";
+        $query = "SELECT f.* FROM $tableCOF fc
+        JOIN $tableFood f ON fc.food_id = f.id
+        JOIN $tableCategory c ON fc.category_id = c.id
+        WHERE c.id = ?";
         $result = $connection->query($query);
     }
     if ($result->num_rows > 0) {
@@ -32,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $cofs[] = $row;
         }
         $response['status'] = 'success';
-        $response['message'] = 'Get category of food successful';
+        $response['message'] = 'Get food of category successful';
         $response['data'] = $cofs;
         echo json_encode($response);
     } else {

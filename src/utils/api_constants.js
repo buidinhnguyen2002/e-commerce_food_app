@@ -11,5 +11,5 @@ export default ApiUrlConstants = {
   getReviewRestaurant: baseURL + "/review/restaurant_review.php",
   getAllCustomers: baseURL + "/users/customer.php",
   getAllRepLy: baseURL + "/review/reply_review.php",
-
+  getFoodOfCategory: baseURL + "/category/category_of_food.php",
 };

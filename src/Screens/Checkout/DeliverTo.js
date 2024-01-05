@@ -1,21 +1,24 @@
-import React, { useEffect } from "react";
-import { View, Text, FlatList, Image } from "react-native";
-import VoucherClaim from "../../components/VoucherClaim";
-import { Padding } from "../../utils/StyleUtil";
-import SeparatorComponent from "../../components/SeparatorComponent";
-import { StyleSheet } from "react-native";
-import { Colors } from "../../utils/Colors";
-import { ScrollView } from "react-native";
+import React from "react";
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { Colors } from "../../utils/Colors";
+import { Margin, Padding } from "../../utils/StyleUtil";
+import SeparatorComponent from "../../components/SeparatorComponent";
 import AddressDeliver from "../../components/AddressDeliver";
 import { saveUserAddress } from "../../store/actions/userAction";
-import { useDispatch, useSelector } from "react-redux";
+import CommonButton from "../../components/Buttons/CommonButton";
+import { Routers } from "../../utils/Constant";
 
-const DeliverTo = () => {
-  const address = useSelector(state=> state.userReducer.address);
-  console.log("ADD",address);
-
-  
+const DeliverTo = ({ navigation }) => {
+  const address = useSelector((state) => state.userReducer.address);
+  console.log("ADD", address);
+  const AddAddress = () => {
+    navigation.navigate(Routers.AddAddress);
+  };
+  const handleAddAddress = () => {
+    console.log('New Restaurant ID:',restau );
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <View
@@ -25,33 +28,58 @@ const DeliverTo = () => {
           Padding.pd_vertical_20,
           { backgroundColor: Colors.background },
         ]}
-      >
+        >
         <FlatList
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
+         showsVerticalScrollIndicator={false}
+         
+         contentContainerStyle={[
             Padding.pd_vertical_5,
-            // { paddingHorizontal: 2 },
           ]}
           ItemSeparatorComponent={() => <SeparatorComponent height={20} />}
           data={address}
           renderItem={({ item }) => (
             <AddressDeliver
-              imageUrl={item.imageUrl}
-              text={item.city}
-              textDetail={` ${item.restaurant_id}, ${item.unit_number} ,${item.street_number} ,${item.district}`}
+            imageUrl={item.imageUrl}
+            text={item.city}
+            textDetail={` ${item.restaurant_id}, ${item.unit_number} ,${item.street_number} ,${item.district}`}
             />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            />
+      <CommonButton 
+        title={'Add New Address'} 
+        size={18}
+        onPress={() => navigation.navigate(Routers.AddAddress)}
+        textColor={Colors.green}
+        bgColor={Colors.lightGreen}
+        height={40}
+        fontWeight = {700}
+        borderRadius= {50}
+        borderWidth={0}
+      /> 
+      </View>  
+      <CommonButton 
+        title={'Apply'} 
+        size={18}
+        onPress={() => navigation.navigate()}
+        textColor={Colors.white}
+        bgColor={Colors.green}
+        margin={20}
+        height={40}
+        fontWeight = {700}
+        borderRadius= {45}
+        borderWidth={0}
+      /> 
     </SafeAreaView>
   );
 };
-
+ 
 const Styles = StyleSheet.create({
+
   specialOfferContainer: {
     backgroundColor: Colors.white,
   },
+  
 });
 
 export default DeliverTo;

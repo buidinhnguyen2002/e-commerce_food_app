@@ -1,4 +1,4 @@
-import { View, Text, Image, test1,test2,test3, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { CommonStyles, Margin, TypographyStyles } from "../utils/StyleUtil";
 import { StyleSheet } from "react-native";

@@ -148,6 +148,7 @@ const Splash = () => {
         throw new Error("Lỗi mạng");
       }
       const data = await response.json();
+      console.log("la", "ABCr");
       if (data["status"] == "success") {
         const addressObj = data["data"];
         dispatch(saveUserAddress(addressObj));

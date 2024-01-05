@@ -34,4 +34,8 @@ export const Routers = {
   RestaurantDetail: "RestaurantDetail",
   LocationPicker: "Maps",
   QRCodeScannerScreen: "QRCodeScannerScreen",
+  OrderDetailsAdmin: "OrderDetailsAdmin",
+  AccountAdmin:"AccountAdmin",
+  SalesAdmin:"SalesAdmin",
+  ProductsAdmin:"ProductsAdmin"
 };

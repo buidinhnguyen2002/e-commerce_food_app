@@ -36,7 +36,6 @@ const HomeAdmin = () => {
 
   return (
     <SafeAreaView style={Styles.screenContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[Padding.pd_horizontal_30]}>
           <View style={[Styles.topContainer, Margin.mb_15]}>
             <View style={Styles.topLeftContainer}>
@@ -70,7 +69,6 @@ const HomeAdmin = () => {
             keyExtractor={(item) => item.key}
           />
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };

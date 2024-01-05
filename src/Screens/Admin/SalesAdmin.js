@@ -3,10 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const SalesAdmin = () => {
   const data = [
-    { id: '1', fullname: 'John Doe', gender: 'Male', phoneNumber: '123-456-7890' },
-    { id: '2', fullname: 'John Doe', gender: 'Male', phoneNumber: '123-456-7890' },
-    { id: '3', fullname: 'John Doe', gender: 'Male', phoneNumber: '123-456-7890' },
-    { id: '4', fullname: 'John Doe', gender: 'Male', phoneNumber: '123-456-7890' },
+    { id: '1', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
+    { id: '2', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
+    { id: '3', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
+    { id: '4', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
   ];
 
   return (
@@ -15,7 +15,7 @@ const SalesAdmin = () => {
         <Text style={styles.headerCell}>ID</Text>
         <Text style={styles.headerCell}>Fullname</Text>
         <Text style={styles.headerCell}>Gender</Text>
-        <Text style={styles.headerCell}>Phone Number</Text>
+        <Text style={styles.headerCell}>Total</Text>
       </View>
 
       {data.map((item) => (
@@ -23,7 +23,7 @@ const SalesAdmin = () => {
           <Text style={styles.dataCell}>{item.id}</Text>
           <Text style={styles.dataCell}>{item.fullname}</Text>
           <Text style={styles.dataCell}>{item.gender}</Text>
-          <Text style={styles.dataCell}>{item.phoneNumber}</Text>
+          <Text style={styles.dataCell}>{item.total}</Text>
         </View>
       ))}
     </View>

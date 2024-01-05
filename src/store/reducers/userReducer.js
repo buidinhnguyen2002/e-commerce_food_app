@@ -100,7 +100,12 @@ export default function userReducer(state = initialState, action) {
                 }
               : state;
           }
-          
+        case "LOGOUT": {
+            return {
+                ...initialState,
+                isSignIn: false,
+            };
+        }  
         default:
             return state;
     }

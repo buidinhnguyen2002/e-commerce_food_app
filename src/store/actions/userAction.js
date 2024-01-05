@@ -70,3 +70,8 @@ export function updateProfile() {
         payload
     }
 }
+export function logout(){
+    return {
+        type: 'LOGOUT',
+    }
+}

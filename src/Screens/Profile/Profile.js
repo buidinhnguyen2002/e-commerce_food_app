@@ -14,6 +14,7 @@ import LogoutDialog from './Logout'
 import { useDispatch, useSelector } from "react-redux";
 import ApiUrlConstants from "../../utils/api_constants";
 import { loginSuccess } from "../../store/actions/userAction";
+import { logout } from "../../store/actions/userAction";
 
 const Profile = () => {
   const buttons = [
@@ -49,6 +50,7 @@ const Profile = () => {
     // Sau khi đăng xuất, có thể đóng dialog và overlay
     setShowLogoutDialog(false);
     setShowOverlay(false);
+    dispatch(logout());
   };
  
   const openDialog = () => {
@@ -181,7 +183,7 @@ const Profile = () => {
                         <Avatar
                             size={55}
                             rounded
-                            source={{ uri: avatar }}
+                            source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg'}}
                         />
                         <View style={Margin.ml_25}>
                             <Text style={[TypographyStyles.normal, Margin.mb_5]}>{username}</Text>

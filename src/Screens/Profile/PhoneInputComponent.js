@@ -69,10 +69,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
 
   },
-  // textContainer: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center', // Đảm bảo lá cờ và input cùng nằm trên một dòng
-  // },
   text: {
     marginTop: 10,
   },

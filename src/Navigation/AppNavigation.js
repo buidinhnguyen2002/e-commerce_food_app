@@ -313,6 +313,14 @@ const AppNavigation = () => {
                     name={Routers.Address}
                     component={Address}
                 />
+                {/* <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.AddAddress} />)
+                    }}
+                    name={Routers.AddAddress}
+                    component={AddAddress}
+                /> */}
                 <Stack.Screen
                     options={{
                         headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

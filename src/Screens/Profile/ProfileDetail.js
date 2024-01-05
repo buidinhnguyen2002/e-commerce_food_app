@@ -8,7 +8,9 @@ import { Colors } from '../../utils/Colors';
 import PhoneInputComponent from './PhoneInputComponent';
 import DatePicker from 'react-native-neat-date-picker';
 import { useNavigateToProfileDetail } from './CustomNavigationHook';
-
+import SelectDropdown from 'react-native-select-dropdown';
+import { useDispatch, useSelector } from "react-redux";
+import { Padding } from '../../utils/StyleUtil';
 
 const ProfileDetail = () => {
     const [firstName, setFirstName] = useState("");
@@ -17,13 +19,12 @@ const ProfileDetail = () => {
     const handleGenderChange = (itemValue) => {
       setSelectedGender(itemValue);
     };
+    const avatar = useSelector((state) => state.userReducer.avatar);
     const handleIconPress = () => {
        
       }
-    const genderItems = [
-       {id:'male', label: 'Male', value: 'male' },
-       {id:'female', label: 'Female', value: 'female' },
-    ];  
+    const gender = ["Male", "Female", "Others"];
+
     const [showDatePickerSingle, setShowDatePickerSingle] = useState(false);
     const [date, setDate] = useState('');
     const openDatePickerSingle = () => setShowDatePickerSingle(true);
@@ -80,9 +81,54 @@ const ProfileDetail = () => {
                                 onValueChange={handleGenderChange}
                                 items={genderItems}
                             /> */}
-                             <CustomTextInputWithIcon
-                                placeholder={"Male"}
-                                iconSource={require('../../../assets/Icons/caret-down.png')}
+                             <SelectDropdown
+                                data={gender}
+                                onSelect={(selectedItem, index) => {
+                                    console.log(selectedItem, index)
+                                }}
+                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    return selectedItem
+                                }}
+                                rowTextForSelection={(item, index) => {
+                                    return item
+                                }}
+                                buttonStyle ={{
+                                    width: '100%',
+                                    height: 60,
+                                    borderRadius: 20,
+                                    padding: 15,
+                                    marginTop: 20,
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    backgroundColor: Colors.lightGrey,
+                       
+                                  }}
+                                defaultButtonText='Gender'
+                                buttonTextStyle = {{
+                                    color: 'green',
+                                    textAlign:'center',
+                                    fontSize: 14,
+                                    backgroundColor: 'red',
+                                  
+                                }}
+                                renderDropdownIcon={isOpened => {
+                                    return <Image source={require('../../../assets/Icons/caret-down.png')} style = {styles.icon}/>
+                                }}
+                                dropdownIconPosition={'right'}
+                                dropdownStyle={{
+                                    backgroundColor: Colors.lightGrey,
+                                    borderBottomLeftRadius:12,
+                                    borderBottomRightRadius:12,
+                                }}
+                                rowStyle={{
+                                    backgroundColor: Colors.lightGrey,
+                                    borderBottomColor: Colors.grey_01,
+                                }}
+                                rowTextStyle={{
+                                    color: Colors.grey_01,
+                                    textAlign:'left',
+                                    fontWeight:'bold'
+                                }}
                             />
                              <CustomTextInputWithIcon
                                 placeholder={"Email"}
@@ -91,7 +137,8 @@ const ProfileDetail = () => {
                             <View>
                                 <PhoneInputComponent/>
                             </View>
-
+                            
+                            
                     </ScrollView>
                 </View>    
                         <ButtonBottom
@@ -99,13 +146,13 @@ const ProfileDetail = () => {
                         />
                 </View> 
                 <DatePicker
-                                isVisible={showDatePickerSingle}
-                                mode={'single'}
-                                onCancel={onCancelSingle}
-                                onConfirm={onConfirmSingle}
-                                colorOptions={colorOptions}
-                                
-                            />
+                    isVisible={showDatePickerSingle}
+                    mode={'single'}
+                    onCancel={onCancelSingle}
+                    onConfirm={onConfirmSingle}
+                    colorOptions={colorOptions}
+                    
+                />
         </View>
         )
 }

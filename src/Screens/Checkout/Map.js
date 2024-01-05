@@ -10,8 +10,8 @@ import { Center } from "native-base";
 const LocationPicker = () => {
   const navigation = useNavigation();
   const [initialRegion, setInitialRegion] = useState({
-    latitude: 10.636070883273998,
-    longitude: 106.99145145714283,
+    latitude: 10.870637153968282,
+    longitude: 106.7916165669726,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });

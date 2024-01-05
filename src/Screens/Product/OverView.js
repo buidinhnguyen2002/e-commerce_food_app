@@ -32,16 +32,20 @@ const OverView = ({ navigation, route }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View style={{ backgroundColor: Colors.white }}>
-        <QRCode 
-          value={generateQRCodeData(restaurantId)}
-  // logo={restaurantsId && restaurantsId.image ? { uri: restaurantsId.image } : null}
-        />
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <Text style={[TypographyStyles.soBig, Margin.ml_15, Margin.mt_15]}>
+              {restaurantsId.name}
+            </Text>
+            <QRCode value={generateQRCodeData(restaurantId)} />
+          </View>
 
-
-
-          <Text style={[TypographyStyles.soBig, Margin.ml_15, Margin.mt_15]}>
-            {restaurantsId.name}
-          </Text>
           <View style={Styles.divider} />
           <View
             style={[{ flexDirection: "row", justifyContent: "space-between" }]}

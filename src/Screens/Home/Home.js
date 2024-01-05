@@ -111,15 +111,17 @@ const Home = () => {
                 >
                   Deliver to
                 </Text>
-                <Text style={[TypographyStyles.medium]}>Ho Chi Minh City</Text>
+                <Text style={[TypographyStyles.normal]}>Ho Chi Minh City</Text>
               </View>
             </View>
             <View style={Styles.topRightContainer}>
               <View>
-                <OutlineButton
-                  image={require("../../../assets/Icons/notification-light_mode.png")}
-                  quantity={0}
-                />
+                <TouchableOpacity onPress={() => changePage()}>
+                  <Image
+                    style={CommonStyles.iconSize}
+                    source={require("../../../assets/Icons/SearchQR.webp")}
+                  ></Image>
+                </TouchableOpacity>
               </View>
               <View style={Margin.ml_15}>
                 <OutlineButton
@@ -138,12 +140,6 @@ const Home = () => {
               }}
               placeholder={"What are you craving?"}
             />
-            <TouchableOpacity onPress={() => changePage()}>
-              <Image
-                style={CommonStyles.imageCart}
-                source={require("../../../assets/Icons/SearchQR.webp")}
-              ></Image>
-            </TouchableOpacity>
           </View>
           <View style={[Margin.mb_30]}>
             {getHeaderHomeFragment({

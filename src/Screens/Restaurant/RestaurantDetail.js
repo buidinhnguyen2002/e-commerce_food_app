@@ -10,11 +10,14 @@ import { Routers } from "../../utils/Constant";
 import CardProductDetail from "../../components/Cards/CardProductDetail";
 import CardMenu from "../../components/Cards/CardMenu";
 import { useDispatch, useSelector } from "react-redux";
-import restaurantsReducer from "../../store/reducers/restaurantReducer";
+import { saveAllReviewRestaurant } from "../../store/actions/reviewRestaurant";
+import { useEffect } from "react";
+import QRCode from "react-native-qrcode-svg";
 
 const RestaurantDetail = ({ navigation, route }) => {
   // const navigation = useNavigation();
   const restaurantId = route.params.idRestaurant;
+  const dispatch = useDispatch();
   console.log(restaurantId);
   const restaurants = useSelector((state) =>
     state.restaurantsReducer.restaurant.find(
@@ -26,8 +29,12 @@ const RestaurantDetail = ({ navigation, route }) => {
     (product) => product.restaurant_id === restaurantId
   );
   console.log(productInRestaurants);
-
-  // console.log(products);
+  // const reviews = useSelector((state) => state.reviewRestaurantReducer.reviews);
+  // console.log(reviews);
+  // const reviewRes = reviews.filter(
+  //   (review) => review.restaurant_id === restaurantId
+  // );
+  // console.log(reviewRes);
   // useEffect(() => {
   //   navigation.setOptions({
   //     title: restaurant.name,
@@ -60,8 +67,10 @@ const RestaurantDetail = ({ navigation, route }) => {
   const OverViewScreen = ({ idRestaurant }) => {
     navigation.navigate(Routers.OverView, { idRestaurant: idRestaurant });
   };
-  const RatingAndReview = () => {
-    navigation.navigate(Routers.RatingAndReview);
+  const RatingAndReview = ({ idRestaurant }) => {
+    navigation.navigate(Routers.RatingAndReview, {
+      idRestaurant: idRestaurant,
+    });
   };
   const OffersAreAvailable = () => {
     navigation.navigate(Routers.OffersAreAvailable);
@@ -113,7 +122,12 @@ const RestaurantDetail = ({ navigation, route }) => {
             </TouchableOpacity>
             <View>
               <View style={Styles.divider} />
-              <TouchableOpacity onPress={RatingAndReview}>
+              <TouchableOpacity
+                key={restaurants.id}
+                onPress={() =>
+                  RatingAndReview({ idRestaurant: restaurants.id })
+                }
+              >
                 <View
                   style={[
                     {
@@ -256,7 +270,8 @@ const RestaurantDetail = ({ navigation, route }) => {
                   image={item.image_source}
                   name={item.food_name}
                   price={item.price}
-                  idProduct={item.id} key={item.id}
+                  idProduct={item.id}
+                  key={item.id}
                 />
               ))}
             </View>

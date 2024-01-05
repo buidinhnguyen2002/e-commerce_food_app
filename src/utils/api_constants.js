@@ -1,4 +1,4 @@
-const baseURL = "http://192.168.1.85/food_app";
+const baseURL = "http://192.168.1.67/food_app";
 export default ApiUrlConstants = {
   signIn: baseURL + "/authentication/sign-in.php",
   signUp: baseURL + "/authentication/sign-up.php",
@@ -7,5 +7,8 @@ export default ApiUrlConstants = {
   cart: baseURL + "/cart/cart.php",
   order: baseURL + "/order/order.php",
   getAllRestaurants: baseURL + "/restaurant/restaurant.php",
+  getReviewRestaurant: baseURL + "/review/restaurant_review.php",
+  getAllCustomers: baseURL + "/users/customer.php",
+  getAllRepLy: baseURL + "/review/reply_review.php",
   getFoodOfCategory: baseURL + "/category/category_of_food.php",
 };

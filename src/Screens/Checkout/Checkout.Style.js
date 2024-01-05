@@ -34,8 +34,8 @@ const CheckoutStyles = StyleSheet.create({
     backgroundColor: "#EDF9F1",
     textAlign: "center",
     color: Colors.green,
-    top: -25,
-    left: 85,
+    top: -10,
+    left: 100,
   },
   addressText: {
     marginTop: -40,

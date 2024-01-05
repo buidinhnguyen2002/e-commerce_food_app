@@ -12,11 +12,13 @@ import ApiUrlConstants from "../utils/api_constants";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAllProducts } from "../store/actions/productsAction";
 import Restaurant from "./Restaurant/Restaurant";
-
+import LocationPicker from "./Checkout/Map";
 
 const Main = ({ navigation, route }) => {
   const tabIndex = route.params !== undefined ? route.params.selectedTab : null;
-  const [selectedTab, setSelectedTab] = useState(route.params !== undefined ? route.params.selectedTab : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    route.params !== undefined ? route.params.selectedTab : 0
+  );
   useEffect(() => {
     if (tabIndex != null) setSelectedTab(tabIndex);
   }, [route]);
@@ -35,7 +37,8 @@ const Main = ({ navigation, route }) => {
     <View style={Styles.container}>
       {getBody()}
       <BottomNavigation
-        changeBottomNavigationIndex={(index) => setSelectedTab(index)} currentIndex={selectedTab}
+        changeBottomNavigationIndex={(index) => setSelectedTab(index)}
+        currentIndex={selectedTab}
       />
     </View>
   );

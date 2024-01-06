@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->user_name, $data->password, $data->phone_number, $data->cart_id)) {
+    if (isset($data->user_name, $data->password, $data->phone_number,$data->cart_id)) {
         $userName = $data->user_name;
         $passWord = $data->password;
         $phoneNumber = $data->phone_number;
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query = "INSERT INTO $table(user_name, password, phone_number, cart_id) VALUES (?,?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("sssi", $userName, $passWord, $phoneNumber, $cartId);
+            $prepareStatement->bind_param("sssssi", $userName, $passWord, $phoneNumber,$dob,$genDer, $cartId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
@@ -66,18 +66,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->id, $data->user_name, $data->password, $data->phone_number, $data->avatar, $data->cart_id)) {
+    if (isset($data->id, $data->user_name, $data->password, $data->phone_number,$data->dob,$data->gender, $data->avatar, $data->cart_id)) {
         $id = $data->id;
         $userName = $data->user_name;
         $passWord = $data->password;
         $phoneNumber = $data->phone_number;
+        $dob = $data->dob;
+        $genDer = $data->gender;
         $avatar = $data->avatar;
         $cartId = $data->cart_id;
-        $query = "UPDATE $table SET user_name = ? , password = ?, phone_number = ?, avatar = ?,
+        $query = "UPDATE $table SET user_name = ? , password = ?, phone_number = ?, dob = ?, gender = ?, avatar = ?,
         cart_id = ? WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("ssssii", $userName, $passWord, $phoneNumber, $avatar, $cartId, $id);
+            $prepareStatement->bind_param("ssssssii", $userName, $passWord, $phoneNumber,$dob,$genDer, $avatar, $cartId, $id);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
@@ -104,6 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         if (isset($data->phoneNumber)) {
             $setFields[] = "phoneNumber = '$data->phone_number'";
+        }
+        
+        if (isset($data->dob)) {
+            $setFields[] = "dob = '$data->dob'";
+        }
+        
+        if (isset($data->gender)) {
+            $setFields[] = "Gender = '$data->gender'";
         }
         if (isset($data->avatar)) {
             $setFields[] = "avatar = '$data->avatar'";

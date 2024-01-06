@@ -15,9 +15,9 @@ import OverView from "../Screens/Product/OverView";
 import { StyleSheet } from "react-native";
 import ListCard from "../Screens/ListCard/ListCard";
 import CustomHeader from "../components/CustomHeader";
+import MyCart from "../Screens/Cart/MyCart";
 import Category from "../Screens/Category/Category";
 import CategoryDetail from "../Screens/Category/CategoryDetail";
-import MyCart from "../Screens/Cart/MyCart";
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import RatingAndReview from "../Screens/Product/RatingAReviews";
@@ -38,14 +38,22 @@ import OrderDetailsAdmin from "../Screens/Admin/OrderDetailsAdmin";
 import SalesAdmin from "../Screens/Admin/SalesAdmin";
 import ProductsAdmin from "../Screens/Admin/ProductsAdmin";
 import CreateProductsAdmin from "../Screens/Admin/CreateProductsAdmin";
-
-
+import Profile from "../Screens/Profile/Profile";
+import ProfileDetail from "../Screens/Profile/ProfileDetail";
+import MyFavoriteRestaurants from "../Screens/Profile/MyFavoriteRestaurants";
+import InviteFriends from "../Screens/Profile/InviteFriends";
+import Language from "../Screens/Profile/Language";
+import Notification from "../Screens/Profile/Notification";
+import Security from "../Screens/Profile/Security";
+import PayMethod from "../Screens/Profile/PayMethod";
+import Address from "../Screens/Profile/Address";
+import HelpCenter from "../Screens/Profile/HelpCenter";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
   const isSignedIn = useSelector((state) => state.userReducer.isSignIn);
   return (
-    <NavigationContainer>
+       <NavigationContainer>
       <Stack.Navigator>
         {isSignedIn ? (
           <>
@@ -242,22 +250,90 @@ const AppNavigation = () => {
               component={ProductDetail}
             />
             <Stack.Screen
-              options={{
-                headerShown: true,
-                headerTitleStyle: Styles.headerTitleStyle,
-                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-              }}
-              name={Routers.LocationPicker}
-              component={LocationPicker}
-            />
-            <Stack.Screen
-              options={{
-                headerShown: true,
-                headerTitleStyle: Styles.headerTitleStyle,
-                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-              }}
-              name={Routers.QRCodeScannerScreen}
-              component={QRCodeScannerScreen}
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.ProfileDetail}
+                    component={ProfileDetail}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.MyFavoriteRestaurants} imageSource={require('../../assets/Icons/search.png')} />)
+                     }}
+                    name={Routers.MyFavoriteRestaurants}
+                    component={MyFavoriteRestaurants}
+                />
+                 <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.InviteFriends} />)
+                     }}
+                    name={Routers.InviteFriends}
+                    component={InviteFriends}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.Notification}
+                    component={Notification}
+                />
+                 <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.Language} />)
+                    }}
+                    name={Routers.Language}
+                    component={Language}
+                />
+                 <Stack.Screen
+                    options={{
+                        headerShown: false, headerTitleStyle: Styles.headerTitleStyle, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+                    }}
+                    name={Routers.Profile}
+                    component={Profile}
+                />
+                 <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.Security} />)
+                    }}
+                    name={Routers.Security}
+                    component={Security}
+                />
+                 
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.PayMethod} imageSource={require('../../assets/Icons/scan.png')} />)
+                    }}
+                    name={Routers.PayMethod}
+                    component={PayMethod}
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.Address} />)
+                    }}
+                    name={Routers.Address}
+                    component={Address}
+                />
+                {/* <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.AddAddress} />)
+                    }}
+                    name={Routers.AddAddress}
+                    component={AddAddress}
+                /> */}
+                <Stack.Screen
+                    options={{
+                        headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                        headerTitle: () => (<CustomHeader title={Routers.HelpCenter} />)
+                    }}
+                    name={Routers.HelpCenter}
+                    component={HelpCenter}
             />
              <Stack.Screen
               options={{
@@ -304,7 +380,7 @@ const AppNavigation = () => {
             }}
             name={Routers.CreateProductsAdmin}
             component={CreateProductsAdmin}
-          />
+              />  
           </>
         ) : (
           <>
@@ -316,13 +392,13 @@ const AppNavigation = () => {
           </>
         )}
       </Stack.Navigator>
-    </NavigationContainer>
-  );
+    </NavigationContainer>  
+      );
 };
 const Styles = StyleSheet.create({
-  headerTitleStyle: {
-    fontSize: 24,
-  },
+    headerTitleStyle: {
+        fontSize: 24,
+    }
 });
 
 export default AppNavigation;

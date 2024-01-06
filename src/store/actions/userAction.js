@@ -1,10 +1,12 @@
-export function loginSuccess({ id, userName, phoneNumber, avatar, cartId }) {
+export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, cartId }) {
   return {
     type: "LOGIN_SUCCESS",
     payload: {
       id: id,
       userName: userName,
       phoneNumber: phoneNumber,
+      dob: dob,
+      gender:gender,
       avatar: avatar,
       cartId: cartId,
     },
@@ -54,4 +56,16 @@ export function saveAllCustomer({ customers }) {
     type: "SAVE_ALL_CUSTOMERS",
     payload: customers,
   };
+}
+
+export function updateProfile() {
+    return {
+        type: 'UPDATE_PROFILE',
+        payload
+    }
+}
+export function logout(){
+    return {
+        type: 'LOGOUT',
+    }
 }

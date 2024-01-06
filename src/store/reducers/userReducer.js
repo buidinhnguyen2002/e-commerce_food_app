@@ -12,6 +12,7 @@ const initialState = {
     products: [],
   },
   order: [],
+  role:""
 };
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -29,7 +30,8 @@ export default function userReducer(state = initialState, action) {
                 cart: {
                     ...state.cart,
                     cartId: action.payload.cartId,
-                }
+                },
+                role: action.payload.role,
             };
         case 'LOAD_CART':
             return {

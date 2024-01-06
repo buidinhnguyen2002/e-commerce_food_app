@@ -1,4 +1,4 @@
-export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, cartId }) {
+export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, cartId, role }) {
   return {
     type: "LOGIN_SUCCESS",
     payload: {
@@ -9,6 +9,7 @@ export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, ca
       gender:gender,
       avatar: avatar,
       cartId: cartId,
+      role: role,
     },
   };
 }

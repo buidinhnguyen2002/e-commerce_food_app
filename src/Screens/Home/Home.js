@@ -229,13 +229,11 @@ const Home = () => {
         <View style={[Padding.pd_horizontal_30]}>
           <View style={[Styles.topContainer, Margin.mb_15]}>
             <View style={Styles.topLeftContainer}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
+            <Avatar
+                            size={55}
+                            rounded
+                            source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg'}}
+                        />
               <View style={Margin.ml_25}>
                 <Text
                   style={[

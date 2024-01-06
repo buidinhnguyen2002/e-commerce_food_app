@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import CustomTextInput from "../../components/Inputs/CustomTextInput";
 import { Styles } from "./Login.style";
 import { Margin, TypographyStyles } from "../../utils/StyleUtil";
@@ -8,7 +8,7 @@ import { Colors } from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import ApiUrlConstants from "../../utils/api_constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../../store/actions/userAction";
 
 const Login = () => {
@@ -19,6 +19,7 @@ const Login = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [page, setPage] = useState("Login");
   const [notifyMess, setnotifyMess] = useState(null);
+  const userRole = useSelector(state => state.userReducer.role);
 
   const validate = () => {
     let validate = true;
@@ -66,6 +67,7 @@ const Login = () => {
             dob: dataUser["dob"],
             gender: dataUser["gender"],
             userName: dataUser["user_name"],
+            role: dataUser["role"],
           })
         );
       }
@@ -73,6 +75,17 @@ const Login = () => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    const redirectScreens = (name) => {
+      navigation.navigate(name);
+    };
+    // Khi có thay đổi trong giá trị của trường "role"
+    console.log("Role has change:" + userRole);
+    if (userRole === 1) {
+      // Chuyển hướng tới trang có quyền admin
+      redirectScreens(Routers.HomeAdmin);
+    } 
+  }, [userRole]); // Theo dõi thay đổi trong trường "role"
 
   const signUp = async () => {
     if (password !== confirmPassword) {

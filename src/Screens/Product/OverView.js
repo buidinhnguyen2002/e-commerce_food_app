@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native";
 import { ScrollView } from "react-native";
 import ToolBar from "../../components/ToolBar";
 import { useDispatch, useSelector } from "react-redux";
+import QRCode from "react-native-qrcode-svg";
 
 const stars = Array(5).fill(require("../../../assets/Icons/star.png")); // Tạo một mảng với 5 ngôi sao
 
@@ -19,13 +20,32 @@ const OverView = ({ navigation, route }) => {
       (restaurants) => restaurants.id == restaurantId
     )
   );
+  const generateQRCodeData = (id) => {
+    return JSON.stringify({
+      restaurantId: id,
+      name: restaurantsId.name,
+      image: restaurantId.image,
+      description: restaurantsId.description,
+    });
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <View style={{ backgroundColor: Colors.white }}>
-          <Text style={[TypographyStyles.soBig, Margin.ml_15, Margin.mt_15]}>
-            {restaurantsId.name}
-          </Text>
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <Text style={[TypographyStyles.soBig, Margin.ml_15, Margin.mt_15]}>
+              {restaurantsId.name}
+            </Text>
+            <QRCode value={generateQRCodeData(restaurantId)} />
+          </View>
+
           <View style={Styles.divider} />
           <View
             style={[{ flexDirection: "row", justifyContent: "space-between" }]}

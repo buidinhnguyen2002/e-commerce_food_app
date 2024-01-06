@@ -146,6 +146,8 @@ const Profile = () => {
           id: userId,
           userName: username,
           phoneNumber: phoneNumber,
+          gender: gender, 
+          dob: dob,
           avatar: avatar,
           cartId: '', 
         }));

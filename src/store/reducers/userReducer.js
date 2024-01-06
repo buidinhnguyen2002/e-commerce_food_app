@@ -1,18 +1,18 @@
 const initialState = {
-    isSignIn: false,
-    id: null,
-    userName: '',
-    phoneNumber: '',
-    avatar: '',
-    cartId: '',
-    cart: {
-        cartId: '',
-        products: [],
-    },
-    order: [],
-    address:'',
-    
-}
+  isSignIn: false,
+  id: null,
+  userName: "",
+  phoneNumber: "",
+  dob:"",
+  gender:"",
+  avatar: "",
+  cartId: "",
+  cart: {
+    cartId: "",
+    products: [],
+  },
+  order: [],
+};
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
         case 'LOGIN_SUCCESS':
@@ -22,13 +22,14 @@ export default function userReducer(state = initialState, action) {
                 id: action.payload.id,
                 userName: action.payload.userName,
                 phoneNumber: action.payload.phoneNumber,
+                dob: action.payload.dob,
+                gender:action.payload.gender,
                 avatar: action.payload.avatar,
                 cartId: action.payload.cartId,
                 cart: {
                     ...state.cart,
                     cartId: action.payload.cartId,
                 }
-
             };
         case 'LOAD_CART':
             return {
@@ -38,23 +39,27 @@ export default function userReducer(state = initialState, action) {
                     products: action.payload,
                 }
             }
-        case 'ADD_TO_CART':
-            let init = true;
-            const updateProducts = state.cart.products.map((product) => {
-                if (product.id == action.payload.id) {
+            case "ADD_TO_CART":
+                let init = true;
+                const updateProducts = state.cart.products.map((product) => {
+                  if (product.id == action.payload.id) {
                     init = false;
-                    return { ...product, quantity: product.quantity + action.payload.quantity }
-                }
-                return product;
-            });
-            if (init) updateProducts.push(action.payload);
-            return {
-                ...state,
-                cart: {
+                    return {
+                      ...product,
+                      quantity: product.quantity + action.payload.quantity,
+                    };
+                  }
+                  return product;
+                });
+                if (init) updateProducts.push(action.payload);
+                return {
+                  ...state,
+                  cart: {
                     ...state.cart,
                     products: updateProducts,
-                }
-            }
+                  },
+                };
+              
         case 'DELETE_PRODUCT_IN_CART':
             return {
                 ...state,
@@ -88,24 +93,13 @@ export default function userReducer(state = initialState, action) {
                 }
             }
         }
-        case "LOAD_PROFILE": {
-            return action.payload
-              ? {
-                  ...state,
-                  id: action.payload.id,
-                  userName: action.payload.userName,
-                  phoneNumber: action.payload.phoneNumber,
-                  avatar: action.payload.avatar,
-                  cartId: action.payload.cartId,
-                }
-              : state;
-          }
         case "LOGOUT": {
             return {
                 ...initialState,
                 isSignIn: false,
             };
         }  
+        
         default:
             return state;
     }

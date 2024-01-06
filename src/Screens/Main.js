@@ -14,11 +14,14 @@ import { saveAllProducts } from "../store/actions/productsAction";
 import Restaurant from "./Restaurant/Restaurant";
 import { Provider } from 'react-redux';
 import store from "../store/store";
+import AvatarPicker from "./Profile/Avatar";
 
 
 const Main = ({ navigation, route }) => {
   const tabIndex = route.params !== undefined ? route.params.selectedTab : null;
-  const [selectedTab, setSelectedTab] = useState(route.params !== undefined ? route.params.selectedTab : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    route.params !== undefined ? route.params.selectedTab : 0
+  );
   useEffect(() => {
     if (tabIndex != null) setSelectedTab(tabIndex);
   }, [route]);
@@ -29,7 +32,7 @@ const Main = ({ navigation, route }) => {
         {selectedTab == 1 && <Order />}
         {selectedTab == 2 && <Restaurant />}
         {selectedTab == 3 && <EWallet />}
-        {selectedTab == 4 && <Profile/>}
+        {selectedTab == 4 && <AvatarPicker/>}
       </Provider>
     );
   };
@@ -37,7 +40,8 @@ const Main = ({ navigation, route }) => {
     <View style={Styles.container}>
       {getBody()}
       <BottomNavigation
-        changeBottomNavigationIndex={(index) => setSelectedTab(index)} currentIndex={selectedTab}
+        changeBottomNavigationIndex={(index) => setSelectedTab(index)}
+        currentIndex={selectedTab}
       />
     </View>
   );

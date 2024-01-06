@@ -31,6 +31,8 @@ import Checkout from "../Screens/Checkout/Checkout";
 import { useSelector } from "react-redux";
 import RestaurantDetail from "../Screens/Restaurant/RestaurantDetail";
 import ProductDetail from "../Screens/Product/ProductDetail";
+import LocationPicker from "../Screens/Checkout/Map";
+import QRCodeScannerScreen from "../Screens/Home/ScannerQR";
 import Profile from "../Screens/Profile/Profile";
 import ProfileDetail from "../Screens/Profile/ProfileDetail";
 import MyFavoriteRestaurants from "../Screens/Profile/MyFavoriteRestaurants";
@@ -41,7 +43,6 @@ import Security from "../Screens/Profile/Security";
 import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
 import HelpCenter from "../Screens/Profile/HelpCenter";
-
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {

@@ -3,19 +3,22 @@ include '../database_connect.php';
 
 $db = new dbConnect();
 $connection = $db->getConnection();
-$table = 'review';
-$tableCustomer = 'customer'
+$tableCart = 'cart';
+$tableCartDetail = 'cart_detail';
+$tableFood = 'food';
 $response = array();
 $result;
 header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['id'])) {
-        $reviewId = $_GET['id'];
-        $query = "SELECT r.* FROM $table r WHERE r.id= ?";
+        $cartId = $_GET['id'];
+        $query = "SELECT f.*, c.quantity
+        FROM $tableCartDetail c INNER JOIN 
+        $tableFood f ON c.food_id = f.id WHERE c.cart_id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param('s', $reviewId);
+            $prepareStatement->bind_param('s', $cartId);
             $prepareStatement->execute();
             $result = $prepareStatement->get_result();
             $prepareStatement->close();
@@ -23,18 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';
         }
-    } else {
-        $query = "SELECT * FROM $table";
-        $result = $connection->query($query);
     }
     if ($result->num_rows > 0) {
-        $reviews = array();
+        $products = array();
         while ($row = $result->fetch_assoc()) {
-            $reviews[] = $row;
+            $products[] = $row;
         }
         $response['status'] = 'success';
-        $response['message'] = 'Get review successful';
-        $response['data'] = $reviews;
+        $response['message'] = 'Get product in cart successful';
+        $response['data'] = $products;
         echo json_encode($response);
     } else {
         $response['status'] = 'error';
@@ -43,18 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->restaurant_id, $data->customer_id, $data->message)) {
-        $restaurantId = $data->restaurant_id;
-        $customerId = $data->customer_id;
-        $message = $data->message;
-        $query = "INSERT INTO $table( restaurant_id, customer_id, message) VALUES (?,?,?)";
+    if (isset($data->food_id, $data->cart_id, $data->quantity)) {
+        $foodId = $data->food_id;
+        $cartId = $data->cart_id;
+        $quantity = $data->quantity;
+        $query = "INSERT INTO $tableCartDetail(food_id, cart_id, quantity) VALUES (?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("iis", $restaurantId, $customerId, $message);
+            $prepareStatement->bind_param("ssi", $foodId, $cartId, $quantity);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review created successful';
+            $response['message'] = 'Add product successful';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';
@@ -66,22 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->id, $data->restaurant_id, $data->customer_id, $data->rate, $data->message, $data->create_at)) {
-        $reviewId = $data->id;
-        $restaurantId = $data->restaurant_id;
-        $customerId = $data->customer_id;
-        $rate = $data->rate;
-        $message = $data->message;
-        $create_at = $data->create_at;
-        $query = "UPDATE $table SET restaurant_id = ? , customer_id = ?, rate = ?,
-        message = ?, create_at = ? WHERE id = ?";
+    if (isset($data->food_id, $data->cart_id, $data->quantity)) {
+        $foodId = $data->food_id;
+        $cartId = $data->cart_id;
+        $quantity = $data->quantity;
+        $query = "UPDATE $tableCartDetail SET quantity = ? WHERE food_id = ? AND cart_id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("iiissi", $restaurant_id, $customer_id, $rate, $message, $create_at, $id);
+            $prepareStatement->bind_param("iss", $quantity, $foodId, $cartId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review updated successful';
+            $response['message'] = 'Cart updated successful';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';
@@ -94,35 +90,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     $data = json_decode(file_get_contents("php://input"));
     if (isset($data->id)) {
-        $reviewId = $data->id;
+        $cartId = $data->id;
         $setFields = array();
-        if (isset($data->restaurant_id)) {
-            $setFields[] = "restaurant_id = '$data->restaurant_id'";
+        if (isset($data->first_name)) {
+            $setFields[] = "first_name = '$data->first_name'";
         }
-        if (isset($data->customer_id)) {
-            $setFields[] = "customer_id = '$data->customer_id'";
+        if (isset($data->last_name)) {
+            $setFields[] = "last_name = '$data->last_name'";
+        }
+        if (isset($data->phone_number)) {
+            $setFields[] = "phone_number = '$data->phone_number'";
         }
         if (isset($data->rate)) {
             $setFields[] = "rate = '$data->rate'";
         }
-        if (isset($data->message)) {
-            $setFields[] = "message = '$data->message'";
-        }
-        if (isset($data->date)) {
-            $setFields[] = "date = '$data->date'";
+        if (isset($data->gender)) {
+            $setFields[] = "gender = '$data->gender'";
         }
         $setFields = implode(", ", $setFields);
-        $query = "UPDATE $table SET $setFields WHERE id = ?";
+        $query = "UPDATE $tableCart SET $setFields WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("s", $reviewId);
+            $prepareStatement->bind_param("s", $cartId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review information updated successfully';
+            $response['message'] = 'Driver information updated successfully';
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Review preparation failed';
+            $response['message'] = 'Query preparation failed';
         }
     } else {
         $response['status'] = 'error';
@@ -130,16 +126,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $reviewId = isset($_GET['id']) ? $_GET['id'] : null;
-    if ($reviewId) {
-        $query = "DELETE FROM $table WHERE id = ?";
+    $data = json_decode(file_get_contents("php://input"));
+    if (isset($data->food_id, $data->cart_id)) {
+        $foodId = $data->food_id;
+        $cartId = $data->cart_id;
+        $query = "DELETE FROM cart_detail WHERE cart_id = ? AND food_id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("s", $reviewId);
+            $prepareStatement->bind_param("ii", $cartId, $foodId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
-            $response['message'] = 'Review deleted successfully';
+            $response['message'] = 'Product in cart deleted successfully';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Query preparation failed';

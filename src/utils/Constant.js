@@ -32,6 +32,8 @@ export const Routers = {
   CheckOut: " Checkout Orders ",
   ProductDetail: "ProductDetail",
   RestaurantDetail: "RestaurantDetail",
+  LocationPicker: "Maps",
+  QRCodeScannerScreen: "QRCodeScannerScreen",
   MyFavoriteRestaurants: "My Favorite Restaurants",
   ProfileDetail: "Profile Setting",
   Address: "Address",

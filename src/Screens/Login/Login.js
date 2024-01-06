@@ -63,6 +63,8 @@ const Login = () => {
             avatar: dataUser["avatar"],
             cartId: dataUser["cart_id"],
             phoneNumber: dataUser["phone_number"],
+            dob: dataUser["dob"],
+            gender: dataUser["gender"],
             userName: dataUser["user_name"],
           })
         );

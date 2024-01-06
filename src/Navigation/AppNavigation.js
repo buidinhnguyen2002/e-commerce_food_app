@@ -48,6 +48,7 @@ import Security from "../Screens/Profile/Security";
 import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
 import HelpCenter from "../Screens/Profile/HelpCenter";
+import HomeAdmin from "../Screens/Admin/HomeAdmin";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -381,6 +382,11 @@ const AppNavigation = () => {
             name={Routers.CreateProductsAdmin}
             component={CreateProductsAdmin}
               />  
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.HomeAdmin}
+              component={HomeAdmin}
+            />
           </>
         ) : (
           <>

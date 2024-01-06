@@ -16,6 +16,8 @@ import { Provider } from 'react-redux';
 import store from "../store/store";
 import AvatarPicker from "./Profile/Avatar";
 
+import LocationPicker from "./Checkout/Map";
+import HomeAdmin from "./Admin/HomeAdmin";
 
 const Main = ({ navigation, route }) => {
   const tabIndex = route.params !== undefined ? route.params.selectedTab : null;
@@ -31,8 +33,8 @@ const Main = ({ navigation, route }) => {
         {selectedTab == 0 && <Home />}
         {selectedTab == 1 && <Order />}
         {selectedTab == 2 && <Restaurant />}
-        {selectedTab == 3 && <EWallet />}
-        {selectedTab == 4 && <AvatarPicker/>}
+        {selectedTab == 3 && <HomeAdmin />}
+        {selectedTab == 4 && <Profile />}
       </Provider>
     );
   };

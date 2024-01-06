@@ -33,6 +33,11 @@ import RestaurantDetail from "../Screens/Restaurant/RestaurantDetail";
 import ProductDetail from "../Screens/Product/ProductDetail";
 import LocationPicker from "../Screens/Checkout/Map";
 import QRCodeScannerScreen from "../Screens/Home/ScannerQR";
+import AccountAdmin from "../Screens/Admin/AccountAdmin";
+import OrderDetailsAdmin from "../Screens/Admin/OrderDetailsAdmin";
+import SalesAdmin from "../Screens/Admin/SalesAdmin";
+import ProductsAdmin from "../Screens/Admin/ProductsAdmin";
+import CreateProductsAdmin from "../Screens/Admin/CreateProductsAdmin";
 import Profile from "../Screens/Profile/Profile";
 import ProfileDetail from "../Screens/Profile/ProfileDetail";
 import MyFavoriteRestaurants from "../Screens/Profile/MyFavoriteRestaurants";
@@ -329,7 +334,53 @@ const AppNavigation = () => {
                     }}
                     name={Routers.HelpCenter}
                     component={HelpCenter}
-                />  
+            />
+             <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.AccountAdmin}
+              component={AccountAdmin}
+            /> 
+             <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.OrderDetailsAdmin}
+            component={OrderDetailsAdmin}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.ProductsAdmin}
+            component={ProductsAdmin}
+          />
+        
+            <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.SalesAdmin}
+            component={SalesAdmin}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.CreateProductsAdmin}
+            component={CreateProductsAdmin}
+              />  
           </>
         ) : (
           <>

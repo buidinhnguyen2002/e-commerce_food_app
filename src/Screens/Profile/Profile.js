@@ -180,7 +180,7 @@ const Profile = () => {
                    <ActivityIndicator size="large" color={Colors.primaryColor} style={styles.loader} />
                  ) : (
             // userData && (
-            <View  style = {[styles.content, Margin.mt_10]}>
+            <View  style = {[styles.content, Margin.mt_10,{paddingBottom:80}]}>
                     <View style={[styles.avatar,{borderColor: Colors.grey_01,}]}>
                         <Avatar
                             size={55}

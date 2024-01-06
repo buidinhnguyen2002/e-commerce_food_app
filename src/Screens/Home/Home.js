@@ -31,6 +31,9 @@ import { setFoodByCategory, selectCategory } from '../../store/actions/categorys
 import unorm from 'unorm';
 
 const Home = () => {
+  const username = useSelector(state => state.userReducer.userName);
+  const avatar = useSelector(state => state.userReducer.avatar);
+
   const [searchKeyword, setSearchKeyword] = useState("");
   const [chip, setChip] = useState(1);
   const navigation = useNavigation();
@@ -77,11 +80,46 @@ const Home = () => {
       console.error(error);
     }
   };
-
+  const signIn = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.signIn, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_name: username,
+          password: password,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Lỗi mạng");
+      }
+      const data = await response.json();
+      if (data["status"] !== "success") {
+        setnotifyMess("User or password invalid. Please check again");
+      } else {
+        // Đăng nhập thành công
+        const dataUser = data["data"];
+        dispath(
+          loginSuccess({
+            id: dataUser["id"],
+            avatar: dataUser["avatar"],
+            cartId: dataUser["cart_id"],
+            phoneNumber: dataUser["phone_number"],
+            userName: dataUser["user_name"],
+          })
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     dispatch(selectCategory(1));
     setChip(1); // Chọn category_id số 1
-  }, [searchKeyword]);
+  }, [searchKeyword,username]);
   // Khi người dùng chọn một danh mục, sử dụng useEffect để gọi hàm getFoodByCategory
   useEffect(() => {
     if (selectedCategoryId) {
@@ -191,13 +229,11 @@ const Home = () => {
         <View style={[Padding.pd_horizontal_30]}>
           <View style={[Styles.topContainer, Margin.mb_15]}>
             <View style={Styles.topLeftContainer}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
+            <Avatar
+                            size={55}
+                            rounded
+                            source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg'}}
+                        />
               <View style={Margin.ml_25}>
                 <Text
                   style={[
@@ -206,9 +242,9 @@ const Home = () => {
                     Margin.mb_5,
                   ]}
                 >
-                  Deliver to
+                  Welcome
                 </Text>
-                <Text style={[TypographyStyles.normal]}>Ho Chi Minh City</Text>
+                <Text style={[TypographyStyles.normal]}>{username}</Text>
               </View>
             </View>
             <View style={Styles.topRightContainer}>

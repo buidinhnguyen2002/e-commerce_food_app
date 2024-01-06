@@ -50,7 +50,7 @@ const AddressDeliver = ({ imageUrl, text, textDetail }) => {
         />
       </View>
       <View style={[{ alignItems: "center", justifyContent: "space-between" }]}>
-        <Text style={[{ color: "grey" }]}>{textDetail}</Text>
+        <Text style={[{ color: "grey",width:300 }]}>{textDetail}</Text>
       </View>
       <TouchableOpacity
         style={[

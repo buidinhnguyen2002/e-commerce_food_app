@@ -387,6 +387,24 @@ const AppNavigation = () => {
               name={Routers.HomeAdmin}
               component={HomeAdmin}
             />
+               <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.LocationPicker}
+              component={LocationPicker}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: true,
+                headerTitleStyle: Styles.headerTitleStyle,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }}
+              name={Routers.QRCodeScannerScreen}
+              component={QRCodeScannerScreen}
+            />
           </>
         ) : (
           <>

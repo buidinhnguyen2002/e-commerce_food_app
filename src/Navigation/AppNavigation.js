@@ -37,6 +37,7 @@ import AccountAdmin from "../Screens/Admin/AccountAdmin";
 import OrderDetailsAdmin from "../Screens/Admin/OrderDetailsAdmin";
 import SalesAdmin from "../Screens/Admin/SalesAdmin";
 import ProductsAdmin from "../Screens/Admin/ProductsAdmin";
+import CreateProductsAdmin from "../Screens/Admin/CreateProductsAdmin";
 
 
 
@@ -294,6 +295,15 @@ const AppNavigation = () => {
             }}
             name={Routers.SalesAdmin}
             component={SalesAdmin}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.CreateProductsAdmin}
+            component={CreateProductsAdmin}
           />
           </>
         ) : (

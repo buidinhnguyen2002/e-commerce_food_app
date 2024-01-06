@@ -37,5 +37,6 @@ export const Routers = {
   OrderDetailsAdmin: "OrderDetailsAdmin",
   AccountAdmin:"AccountAdmin",
   SalesAdmin:"SalesAdmin",
-  ProductsAdmin:"ProductsAdmin"
+  ProductsAdmin:"ProductsAdmin",
+  CreateProductsAdmin:"CreateProductsAdmin",
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { TypographyStyles } from '../../utils/StyleUtil';
+
 
 const SalesAdmin = () => {
   const data = [
@@ -10,6 +12,10 @@ const SalesAdmin = () => {
   ];
 
   return (
+    <View>
+      <View style={{ alignItems: "center", paddingTop: 16 }}>
+        <Text style={TypographyStyles.medium}>List Sales</Text>
+      </View>
     <View style={styles.container}>
       <View style={styles.headerRow}>
         <Text style={styles.headerCell}>ID</Text>
@@ -26,6 +32,7 @@ const SalesAdmin = () => {
           <Text style={styles.dataCell}>{item.total}</Text>
         </View>
       ))}
+    </View>
     </View>
   );
 };

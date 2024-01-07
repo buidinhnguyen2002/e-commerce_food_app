@@ -8,7 +8,7 @@ $tableFoodOrderDetail = 'food_order_detail';
 $tableFood = 'food';
 $tableRestaurant = 'restaurant';
 $response = array();
-$result;
+$result = null;
 header("Content-Type: application/json");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $response['message'] = 'Query preparation failed';
         }
     }
-    if ($result->num_rows > 0) {
+    if ($result !== null && $result->num_rows > 0) {
         $products = array();
         while ($row = $result->fetch_assoc()) {
             $products[] = $row;

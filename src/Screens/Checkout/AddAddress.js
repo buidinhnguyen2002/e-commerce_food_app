@@ -17,7 +17,7 @@ import { color } from "@rneui/base";
 
 const AddAddress = ({ navigation }) => {
   const address = useSelector((state) => state.userReducer.address);
-  //console.log("ADD", address);
+  console.log("ADD", address);
   const [value, onChangeTextValue] = React.useState('');
   const [value1, onChangeTextValue1] = React.useState('');
   const [value2, onChangeTextValue2] = React.useState('');
@@ -34,47 +34,45 @@ const AddAddress = ({ navigation }) => {
         Padding.pd_vertical_20,
         { backgroundColor: Colors.background },
       ]} >
-        <View style={[{Styles:Styles.rowContainer, justifyContent: "space-between"}, CommonStyles.horizontal_direction] }>
-          <Text style={Styles.textStyle} >ID Nhà hàng: </Text>
-          <TextInput 
-        style= {Styles.styleTextInput}
-        onChangeText={text => onChangeTextValue(text)}
-        value={value}
-      /> 
-        </View>
+        <View >
         <View style={[{Styles:Styles.rowContainer, justifyContent: "space-between"}, CommonStyles.horizontal_direction]}>
           <Text style={Styles.textStyle}>Số nhà: </Text>
           <TextInput
           style= {Styles.styleTextInput}
-        onChangeText={text => onChangeTextValue1(text)}
-        value={value1}
-      /> 
+          onChangeText={text => onChangeTextValue1(text)}
+          value={value1}
+          /> 
         </View>
+        <View style={{ marginBottom: 20 }} />
         <View style={[{Styles:Styles.rowContainer, justifyContent: "space-between"}, CommonStyles.horizontal_direction]}>
           <Text style={Styles.textStyle}>Tên đường: </Text>
           <TextInput
         style= {Styles.styleTextInput}
         onChangeText={text => onChangeTextValue2(text)}
         value={value2}
-      /> 
+        /> 
         </View>
+        <View style={{ marginBottom: 20 }} />
         <View style={[{Styles:Styles.rowContainer, justifyContent: "space-between"}, CommonStyles.horizontal_direction]}>
           <Text style={Styles.textStyle}>Quận/Huyện: </Text>
           <TextInput
         style= {Styles.styleTextInput}
         onChangeText={text => onChangeTextValue3(text)}
         value={value3}
-      /> 
+        /> 
         </View>
+        <View style={{ marginBottom: 20 }} />
         <View style={[{Styles:Styles.rowContainer, justifyContent: "space-between"}, CommonStyles.horizontal_direction]}>
           <Text style={Styles.textStyle}>Tỉnh/Thành phố: </Text>
           <TextInput
         style= {Styles.styleTextInput} 
         onChangeText={text => onChangeTextValue4(text)}
         value={value4}
-      /> 
+        /> 
         </View>
       </View>
+      </View>
+      <View style={{ flex: 1 }} />
       <CommonButton
         title={"Save Address"}
         size={18}
@@ -113,7 +111,6 @@ const Styles = StyleSheet.create({
     borderWidth:1,
     numberOfLines:1,
        maxLength:40 ,
-    //borderColor: Colors.green,
   }
 });
 export default AddAddress;

@@ -1,34 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import api_constants from '../../utils/api_constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrderDetails } from '../../store/actions/orderDetailsAction';
 
 const OrderDetailsAdmin = () => {
-  const data = [
-    { id: '1', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
-    { id: '2', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
-    { id: '3', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
+  const data = useSelector((state) => state.orderDetailsReducer.data);
+  const dispatch = useDispatch(data);
 
-  ];
-
+  useEffect(() => {
+    const apiUrl = api_constants.addressCutomer;
+    console.log("API URL:", apiUrl);
+  
+    fetch(apiUrl)
+      .then((response) => {
+        console.log("Response Status:", response.status);
+        return response.json();
+      })
+      .then((result) => {
+        console.log("API Result:", result);
+        dispatch(setOrderDetails({ data: result.data }));
+      })
+      .catch((error) => console.error('Lỗi khi tải dữ liệu:', error.message, error));
+  }, [dispatch]);
+    console.log("Data:", data);
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
-        <Text style={styles.headerCell}>ID</Text>
-        <Text style={styles.headerCell}>Customer</Text>
-        <Text style={styles.headerCell}>Total</Text>
-        <Text style={styles.headerCell}>Date</Text>
+        <Text style={styles.headerCell}>Number</Text>
+        <Text style={styles.headerCell}>Street</Text>
+        <Text style={styles.headerCell}>District</Text>
+        <Text style={styles.headerCell}>City</Text>
       </View>
 
-      {data.map((item) => (
-        <View key={item.id} style={styles.dataRow}>
-          <Text style={styles.dataCell}>{item.id}</Text>
-          <Text style={styles.dataCell}>{item.customer}</Text>
-          <Text style={styles.dataCell}>{item.Total}</Text>
-          <Text style={styles.dataCell}>{item.date}</Text>
-        </View>
-      ))}
+      {data && Array.isArray(data) && data.map((item) => (
+  <View key={item.id} style={styles.dataRow}>
+    <Text style={styles.dataCell}>{item.restaurant_id || 'N/A'}</Text>
+    <Text style={styles.dataCell}>{item.unit_number || 'N/A'}</Text>
+    <Text style={styles.dataCell}>{item.street_number || 'N/A'}</Text>
+    <Text style={styles.dataCell}>{item.district || 'N/A'}</Text>
+    <Text style={styles.dataCell}>{item.city || 'N/A'}</Text>
+  </View>
+))}
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    paddingVertical: 8,
+    paddingVertical: 6,
   },
   headerCell: {
     flex: 1,

@@ -41,7 +41,7 @@ const AddressDeliver = ({ imageUrl, text, textDetail }) => {
             borderRadius: 50,
             alignItems: "center",
             justifyContent: "center",
-          },
+          }, 
         ]}
       >
         <Image

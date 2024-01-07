@@ -402,7 +402,7 @@ export const CardOrderCancelled = ({ title, totalCost, isPaid, image, quantityIt
           Padding.pd_horizontal_12,
           Styles.labelCardCancelled,
         ]}
-      >r
+      >
         <Text style={[TypographyStyles.verySmall, { color: Colors.white }]}>
           {text}
         </Text>

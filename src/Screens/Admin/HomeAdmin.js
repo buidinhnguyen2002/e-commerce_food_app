@@ -14,10 +14,11 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
-
-
+import { useSelector, useDispatch } from "react-redux";
 const HomeAdmin = () => {
   const navigation = useNavigation();
+  const username = useSelector(state => state.userReducer.userName);
+  const avatar = useSelector(state => state.userReducer.avatar);
   const data = [
     { key: '1', color: '#FA8072', text: 'Số đơn hàng', route: 'OrderDetailsAdmin' },
     { key: '2', color: '#F0E68C', text: 'Số lượng sản phẩm', route: 'ProductsAdmin' },
@@ -36,39 +37,37 @@ const HomeAdmin = () => {
 
   return (
     <SafeAreaView style={Styles.screenContainer}>
-        <View style={[Padding.pd_horizontal_30]}>
-          <View style={[Styles.topContainer, Margin.mb_15]}>
-            <View style={Styles.topLeftContainer}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
-              <View style={Margin.ml_25}>
-                <Text
-                  style={[
-                    TypographyStyles.normal,
-                    { color: Colors.grey },
-                    Margin.mb_5,
-                  ]}
-                >
-                  Deliver to
-                </Text>
-                <Text style={[TypographyStyles.normal]}>Ho Chi Minh City</Text>
-              </View>
+      <View style={[Padding.pd_horizontal_30]}>
+        <View style={[Styles.topContainer, Margin.mb_15]}>
+          <View style={Styles.topLeftContainer}>
+            <Avatar
+              size={55}
+              rounded
+              source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg' }}
+            />
+            <View style={Margin.ml_25}>
+              <Text
+                style={[
+                  TypographyStyles.normal,
+                  { color: Colors.grey },
+                  Margin.mb_5,
+                ]}
+              >
+                Welcome, Admin
+              </Text>
+              <Text style={[TypographyStyles.normal]}>{username}</Text>
             </View>
-            <View style={Styles.topRightContainer}></View>
           </View>
-
-          <FlatList
-            data={data}
-            renderItem={renderSquare}
-            numColumns={2}
-            keyExtractor={(item) => item.key}
-          />
+          <View style={Styles.topRightContainer}></View>
         </View>
+
+        <FlatList
+          data={data}
+          renderItem={renderSquare}
+          numColumns={2}
+          keyExtractor={(item) => item.key}
+        />
+      </View>
     </SafeAreaView>
   );
 };

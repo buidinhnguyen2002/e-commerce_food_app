@@ -2,8 +2,11 @@ import { View, Text, Image, ScrollView, FlatList } from "react-native";
 import React, { useState } from "react";
 import { Avatar, Badge } from "@rneui/themed";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import CommonButton, {
+  OutlineButton,
+} from "../../components/Buttons/CommonButton";
 
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { Colors } from "../../utils/Colors";
 import {
   CommonStyles,
@@ -15,10 +18,12 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../store/actions/userAction";
 const HomeAdmin = () => {
   const navigation = useNavigation();
   const username = useSelector(state => state.userReducer.userName);
   const avatar = useSelector(state => state.userReducer.avatar);
+  const dispatch = useDispatch();
   const data = [
     { key: '1', color: '#FA8072', text: 'Số đơn hàng', route: 'OrderDetailsAdmin' },
     { key: '2', color: '#F0E68C', text: 'Số lượng sản phẩm', route: 'ProductsAdmin' },
@@ -34,6 +39,30 @@ const HomeAdmin = () => {
       <Text>{item.text}</Text>
     </TouchableOpacity>
   );
+
+  const handleLogout = () => {
+    // Hiển thị hộp thoại xác nhận đăng xuất
+    Alert.alert(
+      "Đăng xuất",
+      "Bạn có chắc muốn đăng xuất khỏi tài khoản?",
+      [
+        {
+          text: "Hủy",
+          style: "cancel",
+        },
+        {
+          text: "Đăng xuất",
+          onPress: () => {
+            // Thực hiện đăng xuất ở đây
+            // dispatch một action đăng xuất hoặc xóa dữ liệu đăng nhập từ Redux
+            // navigation.navigate(Routers.Auth); // Chuyển hướng đến màn hình đăng nhập nếu cần
+            dispatch(logout());
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <SafeAreaView style={Styles.screenContainer}>
@@ -58,7 +87,16 @@ const HomeAdmin = () => {
               <Text style={[TypographyStyles.normal]}>{username}</Text>
             </View>
           </View>
-          <View style={Styles.topRightContainer}></View>
+          <View style={Styles.topRightContainer}>
+          <View>
+                <TouchableOpacity onPress={handleLogout}>
+                  <Image
+                    style={CommonStyles.iconSize}
+                    source={require("../../../assets/exit.png")}
+                  ></Image>
+                </TouchableOpacity>
+              </View>
+          </View>
         </View>
 
         <FlatList
@@ -88,6 +126,7 @@ const Styles = StyleSheet.create({
   topRightContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginRight: 20,
   },
   specialOfferHeader: {
     justifyContent: "space-between",

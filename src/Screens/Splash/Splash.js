@@ -28,9 +28,9 @@ const Splash = () => {
     loadInitCart(cartId);
     loadMyOrder(userId);
     getAllRestaurant();
-    // getAllCustomer();
+    // getAllCustomer(); 
     getFoodOfCategory(catId);
-    if(userRole !=1){
+    if(userRole !==1){
       const timer = setTimeout(() => {
         navigation.navigate(Routers.Main);
       }, 1000);

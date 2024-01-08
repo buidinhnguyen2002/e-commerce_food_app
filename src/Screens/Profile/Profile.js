@@ -134,7 +134,7 @@ const Profile = () => {
         });
   
         if (!response.ok) {
-          throw new Error('Error');
+          throw new Error('Network request failed');
         }
   
         // Parse the response
@@ -146,10 +146,10 @@ const Profile = () => {
           id: userId,
           userName: username,
           phoneNumber: phoneNumber,
-          gender: gender, 
-          dob: dob,
+          // gender: gender, 
+          // dob: dob,
           avatar: avatar,
-          cartId: '', 
+          // cartId: '', 
         }));
   
         // Set loading to false
@@ -180,7 +180,7 @@ const Profile = () => {
                    <ActivityIndicator size="large" color={Colors.primaryColor} style={styles.loader} />
                  ) : (
             // userData && (
-            <View  style = {[styles.content, Margin.mt_10]}>
+            <View  style = {[styles.content, Margin.mt_10,{paddingBottom:80}]}>
                     <View style={[styles.avatar,{borderColor: Colors.grey_01,}]}>
                         <Avatar
                             size={55}

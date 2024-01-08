@@ -20,6 +20,7 @@ const Splash = () => {
   const cartId = useSelector(state => state.userReducer.cart.cartId);
   const userId = useSelector(state => state.userReducer.id);
   const catId= useSelector(state => state.categorysReducer.id);
+  const userRole = useSelector(state => state.userReducer.role);
   // console.log(catId);
   useEffect(() => {
     getAllProducts();
@@ -27,12 +28,14 @@ const Splash = () => {
     loadInitCart(cartId);
     loadMyOrder(userId);
     getAllRestaurant();
-    // getAllCustomer();
+    // getAllCustomer(); 
     getFoodOfCategory(catId);
-    const timer = setTimeout(() => {
-      navigation.navigate(Routers.Main);
-    }, 1000);
-    return () => clearTimeout(timer);
+    if(userRole !==1){
+      const timer = setTimeout(() => {
+        navigation.navigate(Routers.Main);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
   }, []);
   const getAllProducts = async () => {
     try {

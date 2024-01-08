@@ -48,6 +48,7 @@ import Security from "../Screens/Profile/Security";
 import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
 import HelpCenter from "../Screens/Profile/HelpCenter";
+import HomeAdmin from "../Screens/Admin/HomeAdmin";
 import AddNewAddress from "../Screens/Profile/AddNewAddress";
 
 const Stack = createStackNavigator();
@@ -382,6 +383,29 @@ const AppNavigation = () => {
             name={Routers.CreateProductsAdmin}
             component={CreateProductsAdmin}
               />  
+               <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.LocationPicker}
+            component={LocationPicker}
+              />  
+              <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleStyle: Styles.headerTitleStyle,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            name={Routers.QRCodeScannerScreen}
+            component={QRCodeScannerScreen}
+              />  
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.HomeAdmin}
+              component={HomeAdmin}
+            />
           </>
         ) : (
           <>

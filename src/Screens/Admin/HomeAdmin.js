@@ -2,8 +2,11 @@ import { View, Text, Image, ScrollView, FlatList } from "react-native";
 import React, { useState } from "react";
 import { Avatar, Badge } from "@rneui/themed";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import CommonButton, {
+  OutlineButton,
+} from "../../components/Buttons/CommonButton";
 
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { Colors } from "../../utils/Colors";
 import {
   CommonStyles,
@@ -14,10 +17,13 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../store/actions/userAction";
 const HomeAdmin = () => {
   const navigation = useNavigation();
+  const username = useSelector(state => state.userReducer.userName);
+  const avatar = useSelector(state => state.userReducer.avatar);
+  const dispatch = useDispatch();
   const data = [
     { key: '1', color: '#FA8072', text: 'Số đơn hàng', route: 'OrderDetailsAdmin' },
     { key: '2', color: '#F0E68C', text: 'Số lượng sản phẩm', route: 'ProductsAdmin' },
@@ -34,41 +40,72 @@ const HomeAdmin = () => {
     </TouchableOpacity>
   );
 
+  const handleLogout = () => {
+    // Hiển thị hộp thoại xác nhận đăng xuất
+    Alert.alert(
+      "Đăng xuất",
+      "Bạn có chắc muốn đăng xuất khỏi tài khoản?",
+      [
+        {
+          text: "Hủy",
+          style: "cancel",
+        },
+        {
+          text: "Đăng xuất",
+          onPress: () => {
+            // Thực hiện đăng xuất ở đây
+            // dispatch một action đăng xuất hoặc xóa dữ liệu đăng nhập từ Redux
+            // navigation.navigate(Routers.Auth); // Chuyển hướng đến màn hình đăng nhập nếu cần
+            dispatch(logout());
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <SafeAreaView style={Styles.screenContainer}>
-        <View style={[Padding.pd_horizontal_30]}>
-          <View style={[Styles.topContainer, Margin.mb_15]}>
-            <View style={Styles.topLeftContainer}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
-              <View style={Margin.ml_25}>
-                <Text
-                  style={[
-                    TypographyStyles.normal,
-                    { color: Colors.grey },
-                    Margin.mb_5,
-                  ]}
-                >
-                  Deliver to
-                </Text>
-                <Text style={[TypographyStyles.normal]}>Ho Chi Minh City</Text>
-              </View>
+      <View style={[Padding.pd_horizontal_30]}>
+        <View style={[Styles.topContainer, Margin.mb_15]}>
+          <View style={Styles.topLeftContainer}>
+            <Avatar
+              size={55}
+              rounded
+              source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg' }}
+            />
+            <View style={Margin.ml_25}>
+              <Text
+                style={[
+                  TypographyStyles.normal,
+                  { color: Colors.grey },
+                  Margin.mb_5,
+                ]}
+              >
+                Welcome, Admin
+              </Text>
+              <Text style={[TypographyStyles.normal]}>{username}</Text>
             </View>
-            <View style={Styles.topRightContainer}></View>
           </View>
-
-          <FlatList
-            data={data}
-            renderItem={renderSquare}
-            numColumns={2}
-            keyExtractor={(item) => item.key}
-          />
+          <View style={Styles.topRightContainer}>
+          <View>
+                <TouchableOpacity onPress={handleLogout}>
+                  <Image
+                    style={CommonStyles.iconSize}
+                    source={require("../../../assets/exit.png")}
+                  ></Image>
+                </TouchableOpacity>
+              </View>
+          </View>
         </View>
+
+        <FlatList
+          data={data}
+          renderItem={renderSquare}
+          numColumns={2}
+          keyExtractor={(item) => item.key}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -89,6 +126,7 @@ const Styles = StyleSheet.create({
   topRightContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginRight: 20,
   },
   specialOfferHeader: {
     justifyContent: "space-between",

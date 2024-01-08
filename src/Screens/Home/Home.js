@@ -31,6 +31,8 @@ import { setFoodByCategory, selectCategory } from '../../store/actions/categorys
 import unorm from 'unorm';
 
 const Home = () => {
+  const username = useSelector(state => state.userReducer.userName);
+  const avatar = useSelector(state => state.userReducer.avatar);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [chip, setChip] = useState(1);
   const navigation = useNavigation();
@@ -191,13 +193,11 @@ const Home = () => {
         <View style={[Padding.pd_horizontal_30]}>
           <View style={[Styles.topContainer, Margin.mb_15]}>
             <View style={Styles.topLeftContainer}>
-              <Avatar
-                size={55}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/men/36.jpg",
-                }}
-              />
+            <Avatar
+                            size={55}
+                            rounded
+                            source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg'}}
+                        />
               <View style={Margin.ml_25}>
                 <Text
                   style={[
@@ -206,9 +206,9 @@ const Home = () => {
                     Margin.mb_5,
                   ]}
                 >
-                  Deliver to
+                  Welcome
                 </Text>
-                <Text style={[TypographyStyles.normal]}>Ho Chi Minh City</Text>
+                <Text style={[TypographyStyles.normal]}>{username}</Text>
               </View>
             </View>
             <View style={Styles.topRightContainer}>

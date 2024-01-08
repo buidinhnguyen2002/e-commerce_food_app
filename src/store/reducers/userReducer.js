@@ -12,11 +12,13 @@ const initialState = {
     products: [],
   },
   order: [],
-//   addressId: "",
-//   addresses:{
-//     addressId: "",
-//     addresses:[],
-//   }
+  role:"",
+  isActive:"",
+  addressId: "",
+  addresses:{
+    addressId: "",
+    addresses:[],
+  }
 };
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -35,11 +37,8 @@ export default function userReducer(state = initialState, action) {
                     ...state.cart,
                     cartId: action.payload.cartId,
                 },
-                // addressId: action.payload.addressId,
-                // addresses: {
-                //     ...state.addresses,
-                //     addressId: action.payload.addressId,
-                // }
+                role: action.payload.role,
+                isActive: action.payload.isActive,
             };
         case 'LOAD_CART':
             return {

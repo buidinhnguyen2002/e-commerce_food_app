@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, Modal, Pressable } from "react-native";
+import React, { useState, useEffect} from "react";
 import CustomTextInput from "../../components/Inputs/CustomTextInput";
 import { Styles } from "./Login.style";
 import { Margin, TypographyStyles } from "../../utils/StyleUtil";
@@ -8,17 +8,22 @@ import { Colors } from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import ApiUrlConstants from "../../utils/api_constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../../store/actions/userAction";
+import { logout } from "../../store/actions/userAction";
 
 const Login = () => {
   const navigation = useNavigation();
   const dispath = useDispatch();
+  const dispatch= useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [page, setPage] = useState("Login");
   const [notifyMess, setnotifyMess] = useState(null);
+  const userRole = useSelector(state => state.userReducer.role);
+  const userActive = useSelector(state => state.userReducer.isActive);
+  const [showModal, setShowModal] = useState(false);
 
   const validate = () => {
     let validate = true;
@@ -34,6 +39,9 @@ const Login = () => {
   };
   const goToSignIn = () => {
     setPage("Login");
+  };
+  const redirectScreens = (name) => {
+    navigation.navigate(name);
   };
   const signIn = async () => {
     try {
@@ -66,14 +74,35 @@ const Login = () => {
             dob: dataUser["dob"],
             gender: dataUser["gender"],
             userName: dataUser["user_name"],
-            // addressId: dataUser["address_id"]
+            role: dataUser["role"],
+            isActive: dataUser["isActive"],
+            // addressId: dataUser["address_id"],
           })
         );
+        if (dataUser['isActive'] === 0) {
+          setnotifyMess('Your account has been locked!');
+          // Nếu muốn đóng thông báo sau một khoảng thời gian, bạn có thể sử dụng setTimeout
+          setTimeout(() => {
+            setnotifyMess('');
+          }, 5000); 
+          dispatch(logout());// Đóng thông báo sau 5 giây (5000 milliseconds)
+        }
       }
+      
     } catch (error) {
       console.error(error);
     }
   };
+  useEffect(() => {
+    const redirectScreens = (name) => {
+      navigation.navigate(name);
+    };
+    // Khi có thay đổi trong giá trị của trường "role"
+    console.log("Role has change:" + userRole);
+     if(userRole === 1) {
+      redirectScreens(Routers.HomeAdmin);
+    }
+  }, [userRole, userActive]); // Theo dõi thay đổi trong trường "role", "isActive"
 
   const signUp = async () => {
     if (password !== confirmPassword) {
@@ -157,18 +186,21 @@ const Login = () => {
 
       <TouchableOpacity onPress={changePage}>
         <Text style={[Margin.mt_15]}>
-          {page == "Login" ? "If i don't have a account. Please sign up" : ""}
+          {page == "Login" ? "If you don't have an account. Please sign up" : ""}
         </Text>
       </TouchableOpacity>
       {page === "Signup" && (
         <TouchableOpacity onPress={goToSignIn}>
           <Text style={{ marginTop: -20 }}>
-            If I have an account. Please sign in
+            If you have an account. Please sign in
           </Text>
         </TouchableOpacity>
       )}
+
     </View>
+    
   );
 };
 
 export default Login;
+

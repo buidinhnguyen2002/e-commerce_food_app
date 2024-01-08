@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $query;
     $data = json_decode(file_get_contents("php://input"));
     if (isset($data->user_name, $data->password)) {
-        $query = "SELECT * FROM $table WHERE user_name = ? AND password = ? ";
+        $query = "SELECT * FROM $table WHERE user_name = ? AND password = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('ss', $data->user_name, $data->password);

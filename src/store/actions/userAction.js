@@ -1,4 +1,4 @@
-export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, cartId }) {
+export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, cartId, role, isActive }) {
   return {
     type: "LOGIN_SUCCESS",
     payload: {
@@ -9,11 +9,13 @@ export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, ca
       gender:gender,
       avatar: avatar,
       cartId: cartId,
+      role: role,
+      isActive: isActive,
       // addressId: addressId,
     },
   };
 }
-export function addAddress({ newAddress }){
+export function addAddress(newAddress){
   return {
     type: 'ADD_ADDRESS',
     payload: newAddress,

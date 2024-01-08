@@ -26,8 +26,7 @@ const AddNewAddress = () => {
             city: city,
           };
           console.log('New Address:', newAddress);
-          if(newAddress && newAddress.number && newAddress.street && newAddress.dí
-            && newAddress.city) {
+          if(newAddress && newAddress.number && newAddress.street && newAddress.district && newAddress.city) {
                 // Dispatch the addAddress action
                 dispatch(addAddress(newAddress));
                 setSuccessMessage('Address added successfully');

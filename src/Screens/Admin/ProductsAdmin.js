@@ -50,6 +50,7 @@ const ProductsAdmin = () => {
     const selectedCategory = categorys.find((category) => category.id === categoryId);
     return selectedCategory ? selectedCategory.name : "";
   };
+  
   // console.log(productsWithCategoryName)
   return (
     <ScrollView>
@@ -60,7 +61,7 @@ const ProductsAdmin = () => {
 
       <View style={styles.container}>
         <View style={styles.headerRow}>
-          {/* <Text style={styles.actionCell}>ID</Text> */}
+          <Text style={styles.actionCell}>ID</Text>
           <Text style={styles.headerCell}>FoodName</Text>
           <Text style={styles.headerCell}>Category</Text>
           <Text style={styles.headerCell}>Quantity</Text>
@@ -68,9 +69,9 @@ const ProductsAdmin = () => {
           <Text style={styles.actionCell}>Action</Text>
         </View>
 
-        {products.map((item) => (
-          <View key={item.id} style={styles.dataRow}>
-            {/* <Text style={styles.actionCell}>{item.id}</Text> */}
+        {products.map((item,index) => (
+          <View key={index} style={styles.dataRow}>
+            <Text style={styles.actionCell}>{item.id}</Text>
             <Text style={styles.dataCell}>{item.food_name}</Text>
             {/* {productsWithCategoryName.map((item) => ( */}
             <Text style={styles.dataCell}>{getCategoryNameById(item.category_id)}</Text>

@@ -23,26 +23,29 @@ const ProductsAdmin = () => {
   const CreateProductsAdmin = () => {
     navigation.navigate(Routers.CreateProductsAdmin);
   };
-  const deleteProducts = async (id) => {
-    try {
-      const response = await fetch(ApiUrlConstants.getAllFoods + `/${id}`, {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Lỗi mạng");
-      }
-      const data = await response.json();
-      if (data["status"] == "success") {
-        dispatch(deleteProduct({ id: id }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const deleteProducts = async (id) => {
+  //   try {
+  //     const response = await fetch(ApiUrlConstants.getAllFoods, {
+  //       method: "DELETE",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         id: id,
+  //       }),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Lỗi mạng");
+  //     }
+  //     const data = await response.json();
+  //     if (data["status"] == "success") {
+  //       dispatch(deleteProduct({ id: id }));
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const products = useSelector((state) => state.productsReducer.products);
   const categorys = useSelector((state) => state.categorysReducer.categorys);
   const selectedCategoryId = useSelector(state => state.categorysReducer.selectedCategoryId);
@@ -50,7 +53,6 @@ const ProductsAdmin = () => {
     const selectedCategory = categorys.find((category) => category.id === categoryId);
     return selectedCategory ? selectedCategory.name : "";
   };
-  
   // console.log(productsWithCategoryName)
   return (
     <ScrollView>
@@ -71,7 +73,7 @@ const ProductsAdmin = () => {
 
         {products.map((item,index) => (
           <View key={index} style={styles.dataRow}>
-            <Text style={styles.actionCell}>{item.id}</Text>
+            {/* <Text style={styles.actionCell}>{item.id}</Text> */}
             <Text style={styles.dataCell}>{item.food_name}</Text>
             {/* {productsWithCategoryName.map((item) => ( */}
             <Text style={styles.dataCell}>{getCategoryNameById(item.category_id)}</Text>
@@ -86,7 +88,7 @@ const ProductsAdmin = () => {
                   source={require("../../../assets/Icons/Vector.png")}
                 ></Image>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => deleteProducts(item.id)}>
+              <TouchableOpacity onPress={() => deleteProducts(id)}>
               <Image
                 style={[CommonStyles.iconSizeSmall]}
                 source={require("../../../assets/Icons/trash-alt.png")}

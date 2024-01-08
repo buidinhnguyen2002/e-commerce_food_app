@@ -48,6 +48,7 @@ import Security from "../Screens/Profile/Security";
 import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
 import HelpCenter from "../Screens/Profile/HelpCenter";
+import AddNewAddress from "../Screens/Profile/AddNewAddress";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -319,14 +320,14 @@ const AppNavigation = () => {
                     name={Routers.Address}
                     component={Address}
                 />
-                {/* <Stack.Screen
+                <Stack.Screen
                     options={{
                         headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                        headerTitle: () => (<CustomHeader title={Routers.AddAddress} />)
+                        headerTitle: () => (<CustomHeader title={Routers.AddNewAddress} />)
                     }}
-                    name={Routers.AddAddress}
-                    component={AddAddress}
-                /> */}
+                    name={Routers.AddNewAddress}
+                    component={AddNewAddress}
+                />
                 <Stack.Screen
                     options={{
                         headerShown: true, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

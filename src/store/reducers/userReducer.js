@@ -12,6 +12,11 @@ const initialState = {
     products: [],
   },
   order: [],
+//   addressId: "",
+//   addresses:{
+//     addressId: "",
+//     addresses:[],
+//   }
 };
 export default function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -29,7 +34,12 @@ export default function userReducer(state = initialState, action) {
                 cart: {
                     ...state.cart,
                     cartId: action.payload.cartId,
-                }
+                },
+                // addressId: action.payload.addressId,
+                // addresses: {
+                //     ...state.addresses,
+                //     addressId: action.payload.addressId,
+                // }
             };
         case 'LOAD_CART':
             return {
@@ -99,7 +109,24 @@ export default function userReducer(state = initialState, action) {
                 isSignIn: false,
             };
         }  
-        
+        case 'SAVE_ALL_ADDRESSES': {
+            return {
+                ...state,
+                addresses: action.payload,
+            };
+        }
+        case 'ADD_ADDRESS':{
+            return {
+                ...state,
+                addresses: [...state.addresses, action.payload],
+            };
+        }
+        case 'LOAD_ADDRESSES': {
+            return {
+                ...state,
+                addresses: action.payload,
+            };
+        }
         default:
             return state;
     }

@@ -4,8 +4,13 @@ import styles from './Profile.Styles';
 import { Colors } from '../../utils/Colors';
 import { ButtonBottom, EditButton } from './ButtonProfile';
 import { Margin, Padding } from '../../utils/StyleUtil';
-
-
+import { useNavigateToNotification } from './CustomNavigationHook';
+import { useNavigation } from '@react-navigation/native';
+import { Routers } from '../../utils/Constant';
+import { useRoute } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadAddress } from '../../store/actions/userAction';
 
     const cardData = [
         { id:'home',title: 'Home', content: 'Times Square NYC, MAnhattan, 27', status:'Defaul' },
@@ -34,11 +39,24 @@ const AddressItem = (card) => (
 );
 
 const Address = () => {
+  const route = useRoute();
+  const {newAddress} = route.params?.newAddress || {};
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const addresses = useSelector((state) => state.addresses);
+
+  useEffect(() => {
+    dispatch(loadAddress());
+  }, []);
+  const handlePress = () => {
+    navigation.navigate(Routers.AddNewAddress);
+  }
   return (
     <View style={styles.page}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style = {{flex: 80}}>
-            {cardData.map((card) => AddressItem(card))}
+            {cardData.map((address) => AddressItem(address))}
+            {newAddress && AddressItem(newAddress)}
         </View>
       </ScrollView>
       {/* <FlatList
@@ -54,6 +72,7 @@ const Address = () => {
       </View> */}
       <ButtonBottom
         buttonText="Add New Address"
+        onPress={handlePress}
       />
     </View>
   );

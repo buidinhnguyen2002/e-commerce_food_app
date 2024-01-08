@@ -92,3 +92,10 @@ export const useNavigateToProfile= () => {
   };
   return { navigate };
 };
+export const useNavigateToAddAddress = () => {
+  const navigation = useNavigateToAddAddress();
+  const navigate = () => {
+    navigation.navigate(Routers.AddNewAddress);
+  };
+  return {navigate};
+}

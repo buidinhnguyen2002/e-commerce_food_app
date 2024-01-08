@@ -50,6 +50,6 @@ export const Routers = {
   PayMethod: "Payment Method",
   HelpCenter: "Help Center",
   FAQ: "FAQ",
-  // AddAddress: "Add New Address",
+  AddNewAddress: "Add New Address",
 };
 

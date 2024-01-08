@@ -9,8 +9,15 @@ export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, ca
       gender:gender,
       avatar: avatar,
       cartId: cartId,
+      // addressId: addressId,
     },
   };
+}
+export function addAddress({ newAddress }){
+  return {
+    type: 'ADD_ADDRESS',
+    payload: newAddress,
+  }
 }
 export function loadCart({ products }) {
   return {
@@ -57,12 +64,11 @@ export function saveAllCustomer({ customers }) {
     payload: customers,
   };
 }
-
-export function updateProfile() {
-    return {
-        type: 'UPDATE_PROFILE',
-        payload
-    }
+export function loadAddress(addresses) {
+  return {
+    type: 'LOAD_ADDRESSES',
+    payload: addresses,
+  };
 }
 export function logout(){
     return {

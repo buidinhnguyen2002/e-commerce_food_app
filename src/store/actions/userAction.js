@@ -15,11 +15,17 @@ export function loginSuccess({ id, userName, phoneNumber,dob, gender, avatar, ca
     },
   };
 }
-export function addAddress(newAddress){
+export function addAddress({customer_Id, number, street, district, city}){
   return {
     type: 'ADD_ADDRESS',
-    payload: newAddress,
-  }
+    payload: {
+      customer_Id: customer_Id,
+      number: number,
+      street: street,
+      district: district,
+      city: city,
+    },
+  };
 }
 export function loadCart({ products }) {
   return {

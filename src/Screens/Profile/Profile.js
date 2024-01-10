@@ -116,7 +116,11 @@ const Profile = () => {
   const username = useSelector((state) => state.userReducer.userName);
   const phoneNumber = useSelector((state) => state.userReducer.phoneNumber);
   const avatar = useSelector((state) => state.userReducer.avatar);
-  const address = useSelector((state) => state.userReducer.address);
+  const gender = useSelector((state) => state.userReducer.gender);
+  const dob = useSelector((state) => state.userReducer.dob);
+  const role = useSelector((state) => state.userReducer.role);
+  const isActive = useSelector((state) => state.userReducer.isActive);
+  const cartId = useSelector((state) => state.userReducer.cartId); 
   const dispatch = useDispatch();
 
   // Trong hàm useEffect hoặc bất kỳ nơi nào bạn muốn gọi reducer
@@ -124,7 +128,7 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         // Fetch data from API
-        const response = await fetch(ApiUrlConstants.user, {
+        const response = await fetch(ApiUrlConstants.getAllCustomers, {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -146,10 +150,12 @@ const Profile = () => {
           id: userId,
           userName: username,
           phoneNumber: phoneNumber,
-          // gender: gender, 
-          // dob: dob,
+          gender: gender, 
+          dob: dob,
           avatar: avatar,
-          // cartId: '', 
+          cartId: cartId, 
+          role: role,
+          isActive: isActive,
         }));
   
         // Set loading to false

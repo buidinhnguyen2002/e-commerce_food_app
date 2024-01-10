@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query = "SELECT a.*, c.full_name FROM $table r INNER JOIN $tableCustomer c on a.customer_id = c.id WHERE id= ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param('s', $addressId);
+            $prepareStatement->bind_param('i', $addressId);
             $prepareStatement->execute();
             $result = $prepareStatement->get_result();
             $prepareStatement->close();
@@ -43,15 +43,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->number, $data->street, $data->district,$data->city)) {
+    if (isset($data-> customer_id, $data->number, $data->street, $data->district,$data->city)) {
+        $customerId =$data-> customer_id;
         $numBer = $data->number;
         $street = $data->street;
         $district = $data->district;
         $city = $data->city;
-        $query = "INSERT INTO $table(number, street, district, city) VALUES (?,?,?,?)";
+        $query = "INSERT INTO $table(customer_id,number, street, district, city) VALUES (?,?,?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("isss", $numBer, $street, $district,$city);
+            $prepareStatement->bind_param("iisss",$customerId, $numBer, $street, $district,$city);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
@@ -96,6 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($data->id)) {
         $address_Id = $data->id;
         $setFields = array();
+        if(isset($data->customer_id)) {
+            $setFields[] = "customerId = '$data->customer_id'";
+        }
         if (isset($data->number)) {
             $setFields[] = "number = '$data->number'";
         }
@@ -110,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $setFields[] = "city = '$data->city'";
         }
         if (isset($data -> customer_id)){
-            $setFields[] = "customer_id = '$data-> customer_id"
+            $setFields[] = "customer_id = '$data-> customer_id'";
         }
         $setFields = implode(", ", $setFields);
         $query = "UPDATE $table SET $setFields WHERE id = ?";
@@ -131,8 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $customerId = isset($_GET['customer_id']) ? $_GET['id'] : null;
-    if ($customerId) {
+    $addressId = isset($_GET['id']) ? $_GET['id'] : null;
+    if ($addressId) {
         $query = "DELETE FROM $table WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {

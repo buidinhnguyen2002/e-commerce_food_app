@@ -42,22 +42,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset( $data->restaurant_id, $data->food_name, $data->description, $data->price, $data->unit, $data->rate, $data->image_source, $data->quantity_init, $data->quantity_available)) {
+    if (isset( $data->restaurant_id,$data->category_id, $data->food_name, $data->description, $data->price, $data->unit, $data->image_source, $data->quantity_init)) {
      
         $restaurantId = $data->restaurant_id;
         $foodName = $data->food_name;
+        $category_id = $data->category_id;
         $description = $data->description;
         $price = $data->price;
         $unit = $data->unit;
-        $rate = $data->rate;
         $imageSource = $data->image_source;
- 
         $quantityInit = $data->quantity_init;
-        $quantityAvailable = $data->quantity_available;
-        $query = "INSERT INTO $table(restaurant_id, food_name, description, price, unit, rate, image_source, quantity_init, quantity_available) VALUES (?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO $table(restaurant_id, food_name, description, price, unit, image_source, quantity_init,category_id) VALUES (?,?,?,?,?,?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("issisisii", $restaurantId, $foodName, $description, $price, $unit, $rate, $imageSource, $quantityInit, $quantityAvailable);
+            $prepareStatement->bind_param("ississii", $restaurantId, $foodName, $description, $price, $unit, $imageSource, $quantityInit,$category_id);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';

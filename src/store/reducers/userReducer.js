@@ -39,6 +39,11 @@ export default function userReducer(state = initialState, action) {
                 },
                 role: action.payload.role,
                 isActive: action.payload.isActive,
+                // addressId: action.payload.addressId,
+                addresses: {
+                    ...state.addresses,
+                    addressId: action.payload.addressId,
+                }
             };
         case 'LOAD_CART':
             return {
@@ -114,12 +119,20 @@ export default function userReducer(state = initialState, action) {
                 addresses: action.payload,
             };
         }
-        case 'ADD_ADDRESS':{
-            return {
-                ...state,
-                addresses: [...state.addresses, action.payload],
-            };
-        }
+        case 'ADD_ADDRESS':  const newAddress = {
+            customer_Id: state.id,
+            number: action.payload.number,
+            street: action.payload.street,
+            district: action.payload.district,
+            city: action.payload.city,
+          };
+          return {
+            addresses: {
+                ...(state.addresses || {}), // Kiểm tra nếu addresses đã tồn tại
+                addresses: [...(state.addresses?.addresses || []), newAddress],
+                isSignIn: true,
+              },
+          };
         case 'LOAD_ADDRESSES': {
             return {
                 ...state,

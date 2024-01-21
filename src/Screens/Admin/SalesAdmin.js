@@ -4,13 +4,7 @@ import { TypographyStyles } from '../../utils/StyleUtil';
 import ApiUrlConstants from "../../utils/api_constants";
 
 const SalesAdmin = () => {
-  const data = [
-    { id: '1', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
-    { id: '2', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
-    { id: '3', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
-    { id: '4', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
-  ];
-
+  
   const [restaurants, setRestaurants] = useState([]);
   useEffect(() => {
     getRestaurants();

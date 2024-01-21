@@ -6,6 +6,7 @@ export default ApiUrlConstants = {
   getAllCategorys: baseURL + "/category/category.php",
   cart: baseURL + "/cart/cart.php",
   order: baseURL + "/order/order.php",
+  getAllOrderAdmin: baseURL + "/order/orderAdmin.php",
   getAllRestaurants: baseURL + "/restaurant/restaurant.php",
   getReviewRestaurant: baseURL + "/review/restaurant_review.php",
   getAllCustomers: baseURL + "/users/customer.php",

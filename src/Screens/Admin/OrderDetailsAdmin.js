@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { CommonStyles, TypographyStyles } from '../../utils/StyleUtil';
 
@@ -9,8 +9,26 @@ const OrderDetailsAdmin = () => {
     { id: '2', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
     { id: '3', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
 
-  ];const navigation = useNavigation();
+  ];
+  const navigation = useNavigation();
+  const [order, setOrder] = useState([]);
+  useEffect(() => {
+    getAllOrder();
+  },[]);
+  const getAllOrder = async() => {
+    try{
+      const response = await fetch(ApiUrlConstants.getAllOrder);
+      const data = await response.json();
 
+      if(data.status === 'success') {
+        setOrder(data.data);
+      }else{
+        console.error('Failed to fetch orders:', data.message);
+      }
+    }catch (error) {
+      console.error('Error fetching orders:', error.message);
+    }
+  };
   return (
     <View>
          <View style={{ alignItems: "center", paddingTop: 16 }}>

@@ -103,6 +103,14 @@ export default function userReducer(state = initialState, action) {
                 isSignIn: false,
             };
         }  
+        case 'UPDATE_CART':
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          products: action.payload,
+        },
+      };
         
         default:
             return state;

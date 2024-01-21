@@ -35,16 +35,16 @@ const ProductDetail = ({ navigation, route }) => {
   const [quantity, setQuantity] = useState(1);
   const [quantityText, setQuantityText] = useState("1"); // Use state for TextInput value
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-      setQuantityText((quantity - 1).toString());
+  const updateQuantity = (newQuantity) => {
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+      setQuantityText(newQuantity.toString());
     }
   };
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-    setQuantityText((quantity + 1).toString());
+  const calculateTotalPrice = (quantity) => {
+    return product.price * quantity;
   };
+  const totalPrice = calculateTotalPrice(quantity);
   useEffect(() => {
     navigation.setOptions({
       title: product.food_name,
@@ -222,7 +222,7 @@ const ProductDetail = ({ navigation, route }) => {
                   }}
                 >
                   <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    Total: 15.000$
+                    Total: {totalPrice}
                   </Text>
                   <View
                     style={[
@@ -233,7 +233,7 @@ const ProductDetail = ({ navigation, route }) => {
                       },
                     ]}
                   >
-                    <TouchableOpacity onPress={decreaseQuantity}>
+                    <TouchableOpacity onPress={() => updateQuantity(quantity - 1)}>
                       <Text
                         style={[
                           CheckoutStyles.buttonQuantity,
@@ -268,7 +268,7 @@ const ProductDetail = ({ navigation, route }) => {
                         }}
                       />
                     </View>
-                    <TouchableOpacity onPress={increaseQuantity}>
+                    <TouchableOpacity onPress={() => updateQuantity(quantity + 1)}>
                       <Text
                         style={[
                           CheckoutStyles.buttonPlus,

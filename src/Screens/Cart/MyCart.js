@@ -19,8 +19,10 @@ import { deleteProductInCart } from "../../store/actions/userAction";
 import ApiUrlConstants from "../../utils/api_constants";
 import CommonButton from "../../components/Buttons/CommonButton";
 import CheckoutStyles from "../Checkout/Checkout.Style";
+import { useEffect } from "react";
+import { updateCart } from "../../store/actions/userAction";
 
-const CartItem = ({ foodName, quantity, price, id, image }) => {
+const CartItem = ({ foodName, quantity, price, id, image,onUpdateQuantity }) => {
   const dispatch = useDispatch();
   const cartId = useSelector((state) => state.userReducer.cart.cartId);
   const rightSwipe = () => {
@@ -32,18 +34,28 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
       </View>
     );
   };
-  const [quantity1, setQuantity] = useState(1);
-  const [quantityText, setQuantityText] = useState("1");
-  const decreaseQuantity = () => {
-    if (quantity1 > 1) {
-      setQuantity(quantity1 - 1);
-      setQuantityText((quantity1 - 1).toString());
+  // const [quantity1, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
+  const [localQuantity, setLocalQuantity] = useState(quantity);
+  const [localTotalPrice, setLocalTotalPrice] = useState(quantity * price);
+  const updateQuantity = (newQuantity) => {
+    if (newQuantity >= 1) {
+      setLocalQuantity(newQuantity);
     }
   };
-  const increaseQuantity = () => {
-    setQuantity(quantity1 + 1);
-    setQuantityText((quantity1 + 1).toString());
+  const updateQuantityInCart = (newQuantity) => {
+    if (newQuantity >= 1) {
+      const newTotalPrice = newQuantity * price;
+      setLocalQuantity(newQuantity);
+      setLocalTotalPrice(newTotalPrice);
+      onUpdateQuantity(id, newQuantity, newTotalPrice);
+    }
   };
+ 
+  // const calculateTotalPrice = (quantity) => {
+  //   return product.price * quantity;
+  // };
+  // const totalPrice = calculateTotalPrice(quantity);
   const deleteProduct = async (id) => {
     try {
       const response = await fetch(ApiUrlConstants.cart, {
@@ -68,6 +80,10 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    // Update the quantity in the cart when 'localQuantity' changes
+    updateQuantityInCart(localQuantity);
+  }, [localQuantity]);
   return (
     <>
       <Swipeable
@@ -136,7 +152,7 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                       color: Colors.primaryColor,
                     }}
                   >
-                    {quantity * price} Đ
+                    {localTotalPrice} Đ
                   </Text>
                 </View>
               </View>
@@ -151,7 +167,7 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                   },
                 ]}
               >
-                <TouchableOpacity onPress={decreaseQuantity}>
+                <TouchableOpacity onPress={() => updateQuantity(localQuantity - 1)}>
                   <Text
                     style={[
                       CheckoutStyles.buttonQuantity,
@@ -176,17 +192,16 @@ const CartItem = ({ foodName, quantity, price, id, image }) => {
                         // width: 30,
                       },
                     ]}
-                    value={quantity + ""}
-                    onChangeText={(text) => {
-                      setQuantityText(text);
-                      const parsedQuantity = parseInt(text, 10);
-                      if (!isNaN(parsedQuantity)) {
-                        setQuantity(parsedQuantity);
-                      }
-                    }}
-                  />
+                    value={localQuantity.toString()}
+              onChangeText={(text) => {
+                const parsedQuantity = parseInt(text, 10);
+                if (!isNaN(parsedQuantity)) {
+                  setLocalQuantity(parsedQuantity);
+                }
+              }}
+              />
                 </View>
-                <TouchableOpacity onPress={increaseQuantity}>
+                <TouchableOpacity onPress={() => updateQuantity(localQuantity + 1)}>
                   <Text
                     style={[
                       CheckoutStyles.buttonPlus,
@@ -231,7 +246,22 @@ const EmptyCart = () => {
 
 const MyCart = ({ navigation, route }) => {
   const myCart = useSelector((state) => state.userReducer.cart.products);
-  const totalCost = myCart.reduce((total, product) => total + product.price * product.quantity, 0);
+  const dispatch = useDispatch();
+  const totalCost = myCart.reduce(
+    (total, product) => total + product.localTotalPrice,
+    0
+  );
+  const updateCartItem = (productId, newQuantity, newTotalPrice) => {
+    // Cập nhật mảng myCart với giá trị mới
+    const updatedCart = myCart.map(item =>
+      item.id === productId
+        ? { ...item, quantity: newQuantity, localTotalPrice: newTotalPrice }
+        : item
+    );
+
+    // Dispatch action để cập nhật giỏ hàng trong Redux
+    dispatch(updateCart(updatedCart));
+  };
   const checkOut = () => {
     navigation.navigate(Routers.CheckOut, {
       products: myCart,
@@ -252,6 +282,7 @@ const MyCart = ({ navigation, route }) => {
               quantity={item.quantity}
               price={item.price}
               id={item.id}
+              onUpdateQuantity={updateCartItem}
             />
           )}
           showsVerticalScrollIndicator={false}
@@ -283,7 +314,9 @@ const MyCart = ({ navigation, route }) => {
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Total</Text>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>{totalCost} VND</Text>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {totalCost} VND
+            </Text>
           </View>
           <CommonButton
             onPress={checkOut}

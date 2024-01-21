@@ -49,6 +49,8 @@ import PayMethod from "../Screens/Profile/PayMethod";
 import Address from "../Screens/Profile/Address";
 import HelpCenter from "../Screens/Profile/HelpCenter";
 import HomeAdmin from "../Screens/Admin/HomeAdmin";
+import UpdateCustomer from "../Screens/Admin/UpdateCustomer";
+
 import AddNewAddress from "../Screens/Profile/AddNewAddress";
 
 const Stack = createStackNavigator();
@@ -405,6 +407,11 @@ const AppNavigation = () => {
               options={{ headerShown: false }}
               name={Routers.HomeAdmin}
               component={HomeAdmin}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={Routers.UpdateCustomer}
+              component={UpdateCustomer}
             />
           </>
         ) : (

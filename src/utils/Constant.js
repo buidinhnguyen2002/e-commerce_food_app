@@ -52,5 +52,6 @@ export const Routers = {
   FAQ: "FAQ",
   AddNewAddress: "Add New Address",
   HomeAdmin:"HomeAdmin",
+  UpdateCustomer: "UpdateCustomer",
 };
 

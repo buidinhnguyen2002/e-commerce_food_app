@@ -35,16 +35,16 @@ const ProductDetail = ({ navigation, route }) => {
   const [quantity, setQuantity] = useState(1);
   const [quantityText, setQuantityText] = useState("1"); // Use state for TextInput value
 
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-      setQuantityText((quantity - 1).toString());
+  const updateQuantity = (newQuantity) => {
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+      setQuantityText(newQuantity.toString());
     }
   };
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-    setQuantityText((quantity + 1).toString());
+  const calculateTotalPrice = (quantity) => {
+    return product.price * quantity;
   };
+  const totalPrice = calculateTotalPrice(quantity);
   useEffect(() => {
     navigation.setOptions({
       title: product.food_name,
@@ -72,7 +72,12 @@ const ProductDetail = ({ navigation, route }) => {
     );
   };
   const CheckOutScreen = () => {
-    navigation.navigate(Routers.CheckOut);
+    addProductToCart({ quantity });
+  navigation.navigate(Routers.CheckOut, {
+    products: [product],  // Truyền mảng sản phẩm hoặc chỉ ID sản phẩm
+    totalCost: product.price * quantity,  // Tính tổng giá tiền
+    textDetail: "Your delivery address",  // Thông tin chi tiết địa chỉ giao hàng (có thể thay đổi tùy theo logic ứng dụng của bạn)
+  });
   };
   const addProductToCart = async ({ quantity }) => {
     product.quantity = quantity ?? 1;
@@ -146,7 +151,7 @@ const ProductDetail = ({ navigation, route }) => {
                 <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
                   {product.description}
                 </Text>
-                <Text style={{ color: Colors.red }}>Sold out</Text>
+                <Text style={{ color: Colors.red }}>Quantity available : {product.quantity_init} </Text>
               </View>
             </View>
             <View>
@@ -217,7 +222,7 @@ const ProductDetail = ({ navigation, route }) => {
                   }}
                 >
                   <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    Total: 15.000$
+                    Total: {totalPrice}
                   </Text>
                   <View
                     style={[
@@ -228,7 +233,7 @@ const ProductDetail = ({ navigation, route }) => {
                       },
                     ]}
                   >
-                    <TouchableOpacity onPress={decreaseQuantity}>
+                    <TouchableOpacity onPress={() => updateQuantity(quantity - 1)}>
                       <Text
                         style={[
                           CheckoutStyles.buttonQuantity,
@@ -263,7 +268,7 @@ const ProductDetail = ({ navigation, route }) => {
                         }}
                       />
                     </View>
-                    <TouchableOpacity onPress={increaseQuantity}>
+                    <TouchableOpacity onPress={() => updateQuantity(quantity + 1)}>
                       <Text
                         style={[
                           CheckoutStyles.buttonPlus,

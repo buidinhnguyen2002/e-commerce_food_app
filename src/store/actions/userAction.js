@@ -88,8 +88,11 @@ export function loadAddress(addresses) {
 export function logout(){
     return {
         type: 'LOGOUT',
-    };
-}
+    }
+}export const updateCart = (updatedCart) => ({
+  type: 'UPDATE_CART',
+  payload: updatedCart,
+});
 export const updateUserProfile = (updateData) => {
   return {
     type: 'UPDATE_USER_PROFILE',

@@ -3,7 +3,8 @@ include '../database_connect.php';
 
 $db = new dbConnect();
 $connection = $db->getConnection();
-$table = 'restaurant';
+$tableRestaurant = 'restaurant';
+$tableFoodOrder = 'food_order';
 $response = array();
 $result;
 header("Content-Type: application/json");
@@ -11,7 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['id'])) {
         $restaurantId = $_GET['id'];
-        $query = "SELECT * FROM $table WHERE id= ?";
+        $query = "SELECT r.*, COUNT(o.id) AS totalOrders, SUM(o.total_amount) AS totalRevenue
+                    FROM $tableRestaurant r
+                    LEFT JOIN $tableFoodOrder o ON r.id = o.restaurant_id
+                    WHERE r.id = ?
+                    GROUP BY r.id";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('s', $restaurantId);
@@ -23,7 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $response['message'] = 'Query preparation failed';
         }
     } else {
-        $query = "SELECT * FROM $table";
+        $query = "SELECT r.*, COUNT(o.id) AS totalOrders, SUM(o.total_amount) AS totalRevenue
+                FROM $tableRestaurant r
+                LEFT JOIN $tableFoodOrder o ON r.id = o.restaurant_id
+                GROUP BY r.id";
         $result = $connection->query($query);
     }
     if ($result->num_rows > 0) {

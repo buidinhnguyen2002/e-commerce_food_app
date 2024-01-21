@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TypographyStyles } from '../../utils/StyleUtil';
-
+import ApiUrlConstants from "../../utils/api_constants";
 
 const SalesAdmin = () => {
   const data = [
@@ -11,25 +11,44 @@ const SalesAdmin = () => {
     { id: '4', fullname: 'John Doe', gender: 'Male', total: '123-456-7890' },
   ];
 
+  const [restaurants, setRestaurants] = useState([]);
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+  const getRestaurants = async() => {
+    try {
+      const response = await fetch(ApiUrlConstants.getAllRestaurants);
+      const data = await response.json();
+
+      if(data.status === 'success') {
+        setRestaurants(data.data);
+      } else {
+        console.error('Failed to fetch restaurants:', data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching restaurants:', error.message);
+    }
+  };
   return (
     <View>
       <View style={{ alignItems: "center", paddingTop: 16 }}>
-        <Text style={TypographyStyles.medium}>List Sales</Text>
+        <Text style={TypographyStyles.medium}>Doanh số của Nhà hàng</Text>
       </View>
     <View style={styles.container}>
-      <View style={styles.headerRow}>
+          <View style={styles.headerRow}>
         <Text style={styles.headerCell}>ID</Text>
-        <Text style={styles.headerCell}>Fullname</Text>
-        <Text style={styles.headerCell}>Gender</Text>
+        <Text style={styles.headerCell}>Name</Text>
+        <Text style={styles.headerCell}>Orders</Text>
         <Text style={styles.headerCell}>Total</Text>
       </View>
 
-      {data.map((item) => (
-        <View key={item.id} style={styles.dataRow}>
-          <Text style={styles.dataCell}>{item.id}</Text>
-          <Text style={styles.dataCell}>{item.fullname}</Text>
-          <Text style={styles.dataCell}>{item.gender}</Text>
-          <Text style={styles.dataCell}>{item.total}</Text>
+
+      {restaurants.map((restaurant) => ( 
+        <View key={restaurant.id} style={styles.dataRow}>
+          <Text style={styles.dataCell}>{restaurant.id}</Text>
+          <Text style={styles.dataCell}>{restaurant.name}</Text>
+          <Text style={styles.dataCell}>{restaurant.totalOrders}</Text>
+          <Text style={styles.dataCell}>{restaurant.totalRevenue}</Text>
         </View>
       ))}
     </View>

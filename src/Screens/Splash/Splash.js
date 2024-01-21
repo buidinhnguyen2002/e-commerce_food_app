@@ -28,7 +28,7 @@ const Splash = () => {
     loadInitCart(cartId);
     loadMyOrder(userId);
     getAllRestaurant();
-    // getAllCustomer(); 
+    getAllCustomers(); 
     getFoodOfCategory(catId);
     if(userRole !==1){
       const timer = setTimeout(() => {
@@ -158,6 +158,27 @@ const Splash = () => {
       if (data['status'] == 'success') {
         const foc = data['data'];
         dispatch(setFoodByCategory({ foodByCategory: foc }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getAllCustomers = async () => {
+    try {
+      const response = await fetch(ApiUrlConstants.getAllCustomers, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Lỗi mạng");
+      }
+      const data = await response.json();
+      if (data["status"] == "success") {
+        const customerObj = data["data"];
+        dispatch(saveAllCustomer({ customers: customerObj }));
       }
     } catch (error) {
       console.error(error);

@@ -17,12 +17,12 @@ import ApiUrlConstants from "../../utils/api_constants";
 import AddressItem from './AddressItem';
 
 
-    // const cardData = [
-    //     { id:'home',title: 'Home', content: 'Times Square NYC, MAnhattan, 27', status:'Defaul' },
-    //     { id:'office',title: 'My Ofice', content: '5259 Blue Bill Park, PC 4627',status:'Defaul' },
-    //     { id:'apartment',title: 'My Apartment', content: '21833 Cycle Gallagher, PC 4662',status:'Defaul'},
-    //     { id:'parent', title: 'Parent House', content: '21833 Cycle Gallagher, PC 4662',status:'Defaul'},
-    //   ];
+    const cardData = [
+        { id:'home',title: 'Home', content: 'Times Square NYC, MAnhattan, 27', status:'Defaul' },
+        { id:'office',title: 'My Ofice', content: '5259 Blue Bill Park, PC 4627',status:'Defaul' },
+        { id:'apartment',title: 'My Apartment', content: '21833 Cycle Gallagher, PC 4662',status:'Defaul'},
+        { id:'parent', title: 'Parent House', content: '21833 Cycle Gallagher, PC 4662',status:'Defaul'},
+      ];
       
 
 
@@ -121,7 +121,7 @@ const Address = () => {
             district={address.district}
             city={address.city}
           />
-        ))}
+         ))} 
 
              {/* {cardData.map((address) => AddressItem(address))} */}
             {/* newAddress && AddressItem(newAddress) */}

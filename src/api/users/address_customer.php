@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query;
     if (isset($_GET['id'])) {
         $addressId = $_GET['id'];
-        $query = "SELECT a.*, c.full_name FROM $table r INNER JOIN $tableCustomer c on a.customer_id = c.id WHERE id= ?";
+        $query = "SELECT a.*, c.full_name FROM $table a INNER JOIN $tableCustomer c on a.customer_id = c.id WHERE id= ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
             $prepareStatement->bind_param('i', $addressId);

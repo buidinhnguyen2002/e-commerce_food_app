@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { CommonStyles, TypographyStyles } from '../../utils/StyleUtil';
-
+import ApiUrlConstants from "../../utils/api_constants";
 import { useNavigation } from "@react-navigation/native";
 const OrderDetailsAdmin = () => {
   const data = [
@@ -17,7 +17,7 @@ const OrderDetailsAdmin = () => {
   },[]);
   const getAllOrder = async() => {
     try{
-      const response = await fetch(ApiUrlConstants.getAllOrder);
+      const response = await fetch(ApiUrlConstants.getAllOrderAdmin);
       const data = await response.json();
 
       if(data.status === 'success') {
@@ -37,19 +37,19 @@ const OrderDetailsAdmin = () => {
       <View style={styles.container}>
       <View style={styles.headerRow}>
         <Text style={styles.actionCell}>ID</Text>
-        <Text style={styles.headerCell}>Customer</Text>
-        <Text style={styles.headerCell}>Total</Text>
-        <Text style={styles.headerCell}>Date</Text>
+        <Text style={styles.headerCell}>Order DateTime</Text>
+        <Text style={styles.headerCell}>Delivery fee</Text>
+        <Text style={styles.headerCell}>Total amount</Text>
         <Text style={styles.actionCell}>Action</Text>
 
       </View>
 
-      {data.map((item) => (
-        <View key={item.id} style={styles.dataRow}>
-          <Text style={styles.actionCell}>{item.id}</Text>
-          <Text style={styles.dataCell}>{item.customer}</Text>
-          <Text style={styles.dataCell}>{item.Total}</Text>
-          <Text style={styles.dataCell}>{item.date}</Text>
+      {order.map((order) => (
+        <View key={order.id} style={styles.dataRow}>
+          <Text style={styles.actionCell}>{order.id}</Text>
+          <Text style={styles.dataCell}>{order.order_datetime}</Text>
+          <Text style={styles.dataCell}>{order.delivery_fee}</Text>
+          <Text style={styles.dataCell}>{order.total_amount}</Text>
           <Text style={styles.actionCell}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("CreateProductsAdmin")}

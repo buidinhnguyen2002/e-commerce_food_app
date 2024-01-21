@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query = "INSERT INTO $table(user_name, password, phone_number, cart_id) VALUES (?,?,?,?)";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("sssssi", $userName, $passWord, $phoneNumber,$dob,$genDer, $cartId);
+            $prepareStatement->bind_param("sssi", $userName, $passWord, $phoneNumber, $cartId);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
@@ -66,20 +66,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->id, $data->user_name, $data->password, $data->phone_number,$data->dob,$data->gender, $data->avatar, $data->cart_id)) {
+    if (isset($data->id,$data->role, $data->full_name, $data->user_name, $data->password, $data->phone_number,$data->dob,$data->gender, $data->avatar,$data-> isActive, $data->cart_id)) {
         $id = $data->id;
+        $role=$data->role;
+        $fullName->full_name;
         $userName = $data->user_name;
         $passWord = $data->password;
         $phoneNumber = $data->phone_number;
         $dob = $data->dob;
         $genDer = $data->gender;
         $avatar = $data->avatar;
+        $isActive = $data-> isActive;
         $cartId = $data->cart_id;
-        $query = "UPDATE $table SET user_name = ? , password = ?, phone_number = ?, dob = ?, gender = ?, avatar = ?,
+        $query = "UPDATE $table SET role = ?, full_name = ?, user_name = ? , password = ?, phone_number = ?, dob = ?, gender = ?, avatar = ?, isActive = ?,
         cart_id = ? WHERE id = ?";
         $prepareStatement = $connection->prepare($query);
         if ($prepareStatement) {
-            $prepareStatement->bind_param("ssssssii", $userName, $passWord, $phoneNumber,$dob,$genDer, $avatar, $cartId, $id);
+            $prepareStatement->bind_param("isssssssiii",$role, $fullName, $userName, $passWord, $phoneNumber,$dob,$genDer, $avatar, $isActive, $cartId, $id);
             $prepareStatement->execute();
             $prepareStatement->close();
             $response['status'] = 'success';
@@ -98,6 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($data->id)) {
         $customerId = $data->id;
         $setFields = array();
+        if (isset($data->role)) {
+            $setFields[] = "role = '$data->role'";
+        } 
+        if (isset($data->full_name)) {
+            $setFields[] = "full_name = '$data->full_name'";
+        }
         if (isset($data->user_name)) {
             $setFields[] = "user_name = '$data->user_name'";
         }
@@ -113,10 +122,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         
         if (isset($data->gender)) {
-            $setFields[] = "Gender = '$data->gender'";
+            $setFields[] = "gender = '$data->gender'";
         }
         if (isset($data->avatar)) {
             $setFields[] = "avatar = '$data->avatar'";
+        }
+        if (isset($data->isActive)) {
+            $setFields[] = "isActive = '$data->isActive'";
         }
         if (isset($data->cart_id)) {
             $setFields[] = "cart_id = '$data->cart_id'";

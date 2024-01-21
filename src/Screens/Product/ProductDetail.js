@@ -72,7 +72,12 @@ const ProductDetail = ({ navigation, route }) => {
     );
   };
   const CheckOutScreen = () => {
-    navigation.navigate(Routers.CheckOut);
+    addProductToCart({ quantity });
+  navigation.navigate(Routers.CheckOut, {
+    products: [product],  // Truyền mảng sản phẩm hoặc chỉ ID sản phẩm
+    totalCost: product.price * quantity,  // Tính tổng giá tiền
+    textDetail: "Your delivery address",  // Thông tin chi tiết địa chỉ giao hàng (có thể thay đổi tùy theo logic ứng dụng của bạn)
+  });
   };
   const addProductToCart = async ({ quantity }) => {
     product.quantity = quantity ?? 1;
@@ -146,7 +151,7 @@ const ProductDetail = ({ navigation, route }) => {
                 <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
                   {product.description}
                 </Text>
-                <Text style={{ color: Colors.red }}>Sold out</Text>
+                <Text style={{ color: Colors.red }}>Quantity available : {product.quantity_init} </Text>
               </View>
             </View>
             <View>

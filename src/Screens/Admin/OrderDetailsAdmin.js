@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, Image,StyleSheet,TouchableOpacity } from 'react-native';
 import { CommonStyles, TypographyStyles } from '../../utils/StyleUtil';
+import ApiUrlConstants from "../../utils/api_constants";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation} from "@react-navigation/native";
 
-import { useNavigation } from "@react-navigation/native";
 const OrderDetailsAdmin = () => {
   const data = [
     { id: '1', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
@@ -10,7 +12,12 @@ const OrderDetailsAdmin = () => {
     { id: '3', customer: 'LyLy', Total: '10000VND',date:"12/12/2024" },
 
   ];const navigation = useNavigation();
+  const orders = useSelector(
+    (state) => state.userReducer.order
+  );
+  const dispatch = useDispatch();
 
+ 
   return (
     <View>
          <View style={{ alignItems: "center", paddingTop: 16 }}>
@@ -26,12 +33,12 @@ const OrderDetailsAdmin = () => {
 
       </View>
 
-      {data.map((item) => (
-        <View key={item.id} style={styles.dataRow}>
+      {orders.map((item,index) => (
+        <View key={index} style={styles.dataRow}>
           <Text style={styles.actionCell}>{item.id}</Text>
-          <Text style={styles.dataCell}>{item.customer}</Text>
-          <Text style={styles.dataCell}>{item.Total}</Text>
-          <Text style={styles.dataCell}>{item.date}</Text>
+          <Text style={styles.dataCell}>{item.name}</Text>
+          <Text style={styles.dataCell}>{item.total_amount}</Text>
+          <Text style={styles.dataCell}>{item.order_datetime}</Text>
           <Text style={styles.actionCell}>
               <TouchableOpacity
                 onPress={() => navigation.navigate("CreateProductsAdmin")}

@@ -130,6 +130,7 @@ const CreateProductsAdmin = () => {
             category_id: category,
 
           })
+          
         );
         console.log("Food đã được tạo thành công");
         alert("Food added success");

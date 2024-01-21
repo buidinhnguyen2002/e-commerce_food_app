@@ -15,6 +15,7 @@ import ApiUrlConstants from "../../utils/api_constants";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAllProducts } from "../../store/actions/productsAction";
 import { deleteProduct } from "../../store/actions/productsAction";
+
 const ProductsAdmin = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const ProductsAdmin = () => {
   //     console.error(error);
   //   }
   // };
+ 
   const products = useSelector((state) => state.productsReducer.products);
   const categorys = useSelector((state) => state.categorysReducer.categorys);
   const selectedCategoryId = useSelector(state => state.categorysReducer.selectedCategoryId);
@@ -63,7 +65,7 @@ const ProductsAdmin = () => {
 
       <View style={styles.container}>
         <View style={styles.headerRow}>
-          <Text style={styles.actionCell}>ID</Text>
+          {/* <Text style={styles.actionCell}>ID</Text> */}
           <Text style={styles.headerCell}>FoodName</Text>
           <Text style={styles.headerCell}>Category</Text>
           <Text style={styles.headerCell}>Quantity</Text>

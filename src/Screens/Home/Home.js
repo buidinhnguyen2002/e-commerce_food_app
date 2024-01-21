@@ -27,12 +27,15 @@ import SeparatorComponent from "../../components/SeparatorComponent";
 import MyCart from "../Cart/MyCart";
 import { useSelector, useDispatch } from "react-redux";
 import { Center } from "native-base";
-import { setFoodByCategory, selectCategory } from '../../store/actions/categorysAction';
-import unorm from 'unorm';
+import {
+  setFoodByCategory,
+  selectCategory,
+} from "../../store/actions/categorysAction";
+import unorm from "unorm";
 
 const Home = () => {
-  const username = useSelector(state => state.userReducer.userName);
-  const avatar = useSelector(state => state.userReducer.avatar);
+  const username = useSelector((state) => state.userReducer.userName);
+  const avatar = useSelector((state) => state.userReducer.avatar);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [chip, setChip] = useState(1);
   const navigation = useNavigation();
@@ -45,8 +48,12 @@ const Home = () => {
   );
   const [showAllCategories, setShowAllCategories] = useState(false);
   const dispatch = useDispatch();
-  const selectedCategoryId = useSelector(state => state.categorysReducer.selectedCategoryId);
-  const foodByCategory = useSelector(state => state.categorysReducer.foodByCategory);
+  const selectedCategoryId = useSelector(
+    (state) => state.categorysReducer.selectedCategoryId
+  );
+  const foodByCategory = useSelector(
+    (state) => state.categorysReducer.foodByCategory
+  );
 
   const filterProductsByKeyword = () => {
     const normalizedKeyword = unorm.nfc(searchKeyword.toLowerCase());
@@ -54,25 +61,28 @@ const Home = () => {
       unorm.nfc(product.food_name.toLowerCase()).includes(normalizedKeyword)
     );
   };
-  
+
   const getFoodByCategory = async (categoryId) => {
     try {
-      const response = await fetch(ApiUrlConstants.getFoodOfCategory + "?id=" + categoryId, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        ApiUrlConstants.getFoodOfCategory + "?id=" + categoryId,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Lỗi mạng');
+        throw new Error("Lỗi mạng");
       }
 
       const data = await response.json();
 
-      if (data['status'] === 'success') {
-        const foc = data['data'];
+      if (data["status"] === "success") {
+        const foc = data["data"];
         dispatch(setFoodByCategory({ foodByCategory: foc }));
       }
     } catch (error) {
@@ -92,7 +102,7 @@ const Home = () => {
   }, [selectedCategoryId]);
 
   // Khi người dùng chọn một danh mục
-  const handleCategorySelect = categoryId => {
+  const handleCategorySelect = (categoryId) => {
     dispatch(selectCategory(categoryId));
     getFoodByCategory(categoryId);
     setChip(categoryId);
@@ -122,14 +132,17 @@ const Home = () => {
 
   const renderFoodList = () => {
     // Nếu không có từ khóa tìm kiếm, hiển thị danh sách theo danh mục
-    if (!searchKeyword ) {
+    if (!searchKeyword) {
       return (
-        <FlatList
-          contentContainerStyle={[Padding.pd_vertical_5, Margin.mb_25, { paddingHorizontal: 2 }]}
-          ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
+        <ScrollView
+          contentContainerStyle={[
+            Padding.pd_vertical_5,
+            Margin.mb_25,
+            { paddingHorizontal: 2 },
+          ]}
           showsVerticalScrollIndicator={false}
-          data={foodByCategory}
-          renderItem={({ item, index }) => (
+        >
+          {products.map((item, index) => (
             <ListTileCard
               key={item.id}
               foodName={item.food_name}
@@ -137,19 +150,19 @@ const Home = () => {
               price={item.price}
               rate={item.rate}
               isDiscount={item.isDiscount}
-              onPress={() => redirectFoodDetailScreen(Routers.ProductDetail, { idProduct: item.id })}
+              onPress={() =>
+                redirectFoodDetailScreen(Routers.ProductDetail, {
+                  idProduct: item.id,
+                })
+              }
             />
-          )}
-        />
+          ))}
+        </ScrollView>
       );
     } else {
       // Nếu có từ khóa tìm kiếm, hiển thị danh sách lọc theo từ khóa
       return (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          nestedScrollEnabled={true}
-          style={{ paddingHorizontal: 2 }}
-        >
+        <ScrollView>
           {filterProductsByKeyword().map((food) => (
             <ListTileCard
               onPress={() =>
@@ -168,6 +181,7 @@ const Home = () => {
       );
     }
   };
+  
 
   const redirectSpecialOffers = () => {
     navigation.navigate(Routers.SpecialOffers);
@@ -193,11 +207,16 @@ const Home = () => {
         <View style={[Padding.pd_horizontal_30]}>
           <View style={[Styles.topContainer, Margin.mb_15]}>
             <View style={Styles.topLeftContainer}>
-            <Avatar
-                            size={55}
-                            rounded
-                            source={{ uri: avatar !== '' ? avatar : 'https://randomuser.me/api/portraits/men/36.jpg'}}
-                        />
+              <Avatar
+                size={55}
+                rounded
+                source={{
+                  uri:
+                    avatar !== ""
+                      ? avatar
+                      : "https://randomuser.me/api/portraits/men/36.jpg",
+                }}
+              />
               <View style={Margin.ml_25}>
                 <Text
                   style={[
@@ -239,11 +258,11 @@ const Home = () => {
             />
           </View>
           <View style={[Margin.mb_30]}>
-            {getHeaderHomeFragment({
+            {/* {getHeaderHomeFragment({
               name: "Special Offers",
               onPress: redirectSpecialOffers,
             })}
-            <SpecialOfferItem />
+            <SpecialOfferItem /> */}
             <View style={[Styles.categoryContainer, Margin.mt_15]}>
               {showAllCategories
                 ? categorys.map((category) => (
@@ -281,13 +300,13 @@ const Home = () => {
                   ]}
                   onPress={() => redirectScreens(Routers.MoreCategory)}
                 >
-                  More
+                  More ...
                 </Text>
               )}
             </View>
           </View>
         </View>
-        <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
+        {/* <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
           {getHeaderHomeFragment({
             name: "Discount Guaranteed!",
             icon: "abc",
@@ -304,33 +323,31 @@ const Home = () => {
             horizontal={true}
             renderItem={({ item }) => <CardDiscount />}
           />
-        </View>
+        </View> */}
         <View style={[Padding.pd_horizontal_30, Margin.mb_30]}>
           {getHeaderHomeFragment({
             name: "Recommended For You",
             icon: "abc",
             onPress: () => redirectListCardScreen(Routers.Recommended),
           })}
-          <View style={[ Margin.mb_25]}>
-        <FlatList
-          contentContainerStyle={[Padding.pd_vertical_5, { height: 60 }]}
-          ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
-          showsHorizontalScrollIndicator={false}
-          data={categorys.map(category => category.name)}
-          horizontal={true}
-          renderItem={({ item, index }) => (
-            <ChipCustom
-            text={item}
-            isChoose={selectedCategoryId === categorys[index].id}
-            onPress={() => handleCategorySelect(categorys[index].id)}
-            
+          <View style={[Margin.mb_25]}>
+            <FlatList
+              contentContainerStyle={[Padding.pd_vertical_5, { height: 60 }]}
+              ItemSeparatorComponent={SeparatorComponent({ width: 15 })}
+              showsHorizontalScrollIndicator={false}
+              data={categorys.map((category) => category.name)}
+              horizontal={true}
+              renderItem={({ item, index }) => (
+                <ChipCustom
+                  text={item}
+                  isChoose={selectedCategoryId === categorys[index].id}
+                  onPress={() => handleCategorySelect(categorys[index].id)}
+                />
+              )}
             />
-          )}
-        />
-      </View>
-      {renderFoodList()}
-      
-</View>
+          </View>
+          {renderFoodList()}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

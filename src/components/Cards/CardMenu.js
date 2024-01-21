@@ -8,10 +8,13 @@ import Styles from "../../Screens/Restaurant/RestaurantDetail.Style";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 
-const CardMenu = ({ image, name, price, id }) => {
+const CardMenu = ({ image, name, price, idProduct }) => {
   const [clickedItems, setClickedItems] = useState([]);
   const [clickedMenuItems, setClickedMenuItems] = useState([]);
-
+  const navigation = useNavigation();
+  const changePage = ({ idProduct }) => {
+    navigation.navigate(Routers.ProductDetail, { idProduct: idProduct });
+  };
   const handleItemClick = (itemIndex) => {
     if (clickedItems.includes(itemIndex)) {
       // Nếu item đã được nhấn, hãy bỏ nó khỏi mảng clickedItems
@@ -26,10 +29,12 @@ const CardMenu = ({ image, name, price, id }) => {
   return (
     <View>
       <TouchableOpacity
-        key={id}
+        // key={id}
         style={[
           styles.menuItem, // Sử dụng một kiểu CSS mới cho các thẻ Menu
         ]}
+        onPress={() => changePage({ idProduct: idProduct })}
+        
       >
         <View style={[Styles.rowContainer, Styles.menuStyle]}>
           <Image style={CommonStyles.imageCart} source={{ uri: image }} />

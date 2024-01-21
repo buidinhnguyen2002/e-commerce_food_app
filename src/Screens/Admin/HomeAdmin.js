@@ -14,10 +14,11 @@ import {
   Padding,
   TypographyStyles,
 } from "../../utils/StyleUtil";
-
+import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Routers } from "../../utils/Constant";
 import { useSelector, useDispatch } from "react-redux";
+import ApiUrlConstants from "../../utils/api_constants";
 import { logout } from "../../store/actions/userAction";
 const HomeAdmin = () => {
   const navigation = useNavigation();
@@ -39,6 +40,7 @@ const HomeAdmin = () => {
       <Text>{item.text}</Text>
     </TouchableOpacity>
   );
+
 
   const handleLogout = () => {
     // Hiển thị hộp thoại xác nhận đăng xuất
@@ -63,7 +65,8 @@ const HomeAdmin = () => {
       { cancelable: false }
     );
   };
-
+ 
+  
   return (
     <SafeAreaView style={Styles.screenContainer}>
       <View style={[Padding.pd_horizontal_30]}>

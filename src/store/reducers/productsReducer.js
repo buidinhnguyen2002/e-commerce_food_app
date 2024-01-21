@@ -10,6 +10,7 @@ export default function productsReducer(state = initialState, action) {
       };
     case "ADD_FOOD":
       const newFood = {
+        id:action.payload.id,
         restaurant_id: action.payload.restaurant_id,
         category_id:action.payload.category_id,
         food_name: action.payload.food_name,

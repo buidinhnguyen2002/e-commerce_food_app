@@ -4,10 +4,11 @@ export function saveAllProducts({ products }) {
         payload: products,
     }
 }
-export function addFood({ restaurant_id, category_id,food_name, description,price,unit,image_source ,quantity_init}) {
+export function addFood({ id,restaurant_id, category_id,food_name, description,price,unit,image_source ,quantity_init}) {
     return {
       type: "ADD_FOOD",
       payload: {
+        id:id,
         restaurant_id: restaurant_id,
         category_id:category_id,
         food_name: food_name,

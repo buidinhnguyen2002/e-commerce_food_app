@@ -71,3 +71,9 @@ export function logout(){
         type: 'LOGOUT',
     }
 }
+// userAction.js
+
+export const updateCart = (updatedCart) => ({
+  type: 'UPDATE_CART',
+  payload: updatedCart,
+});

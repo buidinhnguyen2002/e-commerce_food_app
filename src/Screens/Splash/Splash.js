@@ -184,6 +184,7 @@ const Splash = () => {
       console.error(error);
     }
   };
+
   return (
     <SafeAreaView style={[CommonStyles.center, { flex: 1 }]}>
       <View style={[CommonStyles.horizontal_direction, CommonStyles.center]}>

@@ -45,6 +45,11 @@ export default function userReducer(state = initialState, action) {
                     addressId: action.payload.addressId,
                 }
             };
+            case 'SAVE_ALL_ADDRESSES':
+                return {
+                  ...state,
+                  addresses: action.payload,
+                };
         case 'LOAD_CART':
             return {
                 ...state,
@@ -119,26 +124,58 @@ export default function userReducer(state = initialState, action) {
                 addresses: action.payload,
             };
         }
-        case 'ADD_ADDRESS':  const newAddress = {
+        // case 'ADD_ADDRESS':  const newAddress = {
+        //     customer_Id: state.id,
+        //     number: action.payload.number,
+        //     street: action.payload.street,
+        //     district: action.payload.district,
+        //     city: action.payload.city,
+        //   };
+        //   return {
+        //     addresses: {
+        //         ...(state.addresses || {}), // Kiểm tra nếu addresses đã tồn tại
+        //         addresses: [...(state.addresses?.addresses || []), newAddress],
+        //         isSignIn: true,
+        //       },
+        //   };
+        case 'ADD_ADDRESS':
+        const newAddress = {
             customer_Id: state.id,
             number: action.payload.number,
             street: action.payload.street,
             district: action.payload.district,
             city: action.payload.city,
-          };
-          return {
+        };
+
+        return {
+            ...state,
             addresses: {
-                ...(state.addresses || {}), // Kiểm tra nếu addresses đã tồn tại
-                addresses: [...(state.addresses?.addresses || []), newAddress],
-                isSignIn: true,
-              },
-          };
+            ...(state.addresses || {}), // Kiểm tra nếu addresses đã tồn tại
+            addresses: [...(state.addresses?.addresses || []), newAddress],
+            },
+            isSignIn: true,
+        };
+
         case 'LOAD_ADDRESSES': {
             return {
                 ...state,
-                addresses: action.payload,
-            };
+                addresses: {
+                    ...state.addresses,
+                    addresses: action.payload,
+                },
         }
+    };
+    case 'UPDATE_USER_PROFILE':
+      return {
+        ...state,
+        // id: state.id,
+        fullName: action.payload.fullName || state.fullName,
+        userName: action.payload.userName || state.userName,
+        dob: action.payload.dob || state.dob,
+        gender: action.payload.gender || state.gender,
+        phoneNumber: action.payload.phoneNumber || state.phoneNumber,
+        // Thêm các trường khác cần cập nhật
+      };
         default:
             return state;
     }

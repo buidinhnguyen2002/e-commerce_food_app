@@ -26,13 +26,11 @@ const PhoneInputComponent = () => {
         defaultCode="VN"
         layout="first"
         onChangeText={handlePhoneInputChange}
-        onChangeFormattedText={(text) => {
-          setPhoneNumber(text);
-        }}
+        onChangeFormattedText={setPhoneNumber}
         // withDarkTheme
         // withShadow
         autoFocus
-        flagButtonStyle={{ marginLeft:-15,height: 60, width: 60, alignSelf:'center', backgroundColor: Colors.lightGrey}}
+        flagButtonStyle={{ marginLeft:-15,height: 60, width: 60, alignSelf:'center', backgroundColor: Colors.lightGrey, borderBottomLeftRadius:20,borderTopLeftRadius:20}}
        // textInputStyle={styles.input}
         // textContainerStyle={styles.textContainer}
         onEndEditing={handlePhoneInputEndEditing}

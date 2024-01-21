@@ -66,6 +66,13 @@ export function clearCart() {
     payload: "",
   };
 }
+export function saveAllAddresses({ addresses }) {
+  return {
+    type: 'SAVE_ALL_ADDRESSES',
+    payload: addresses,
+  };
+}
+
 export function saveAllCustomer({ customers }) {
   return {
     type: "SAVE_ALL_CUSTOMERS",
@@ -81,5 +88,11 @@ export function loadAddress(addresses) {
 export function logout(){
     return {
         type: 'LOGOUT',
-    }
+    };
 }
+export const updateUserProfile = (updateData) => {
+  return {
+    type: 'UPDATE_USER_PROFILE',
+    payload: updateData,
+  };
+};

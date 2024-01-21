@@ -14,6 +14,7 @@ import { loadAddress } from '../../store/actions/userAction';
 import api_constants from '../../utils/api_constants';
 import { isLoading } from 'expo-font';
 import ApiUrlConstants from "../../utils/api_constants";
+import AddressItem from './AddressItem';
 
 
     // const cardData = [
@@ -27,11 +28,9 @@ import ApiUrlConstants from "../../utils/api_constants";
 
 
 const Address = () => {
-  // const route = useRoute();
-  // const {newAddress} = route.params?.newAddress || {};
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const addresses = useSelector((state) => state.addressReducer.addresses);
+  const addresses = useSelector((state) => state.addressesReducer.addresses);
   const [isLoading, setLoading] = useState(true);
   
   // const AddressItem = ({item}) => (
@@ -57,35 +56,76 @@ const Address = () => {
   // );
 
   
-
   useEffect(() => {
-    const loadAddress = async () => {
+    const fetchAddresses = async () => {
       try {
         const response = await fetch(ApiUrlConstants.getAllAddresses, {
-          method:'GET',
+          method: 'GET',
           headers: {
             Accept: 'application/json',
-            'Content-Type' : 'application/json',
+            'Content-Type': 'application/json',
           },
         });
-        if(!response.ok) {
+        if (!response.ok) {
           throw new Error('Network request failed');
         }
         const data = await response.json();
         dispatch(loadAddress(data));
-        setLoading(false);
-        return data;
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
         setLoading(false);
       }
     };
-    loadAddress();
+
+    fetchAddresses();
   }, [dispatch]);
+  // useEffect(() => {
+  //   const loadAddress = async () => {
+  //     try {
+  //       const response = await fetch(ApiUrlConstants.getAllAddresses, {
+  //         method:'GET',
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type' : 'application/json',
+  //         },
+  //       });
+  //       if(!response.ok) {
+  //         throw new Error('Network request failed');
+  //       }
+  //       const data = await response.json();
+  //       dispatch(loadAddress(data));
+  //       setLoading(false);
+  //       return data;
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //       setLoading(false);
+  //     }
+  //   };
+  //   loadAddress();
+  // }, [dispatch]);
   const handlePress = () => {
     navigation.navigate(Routers.AddNewAddress);
   }
-  const AddressItem = ({ item }) => (
+  
+  return (
+    <View style={styles.page}>
+       
+      <ScrollView showsVerticalScrollIndicator={false}> 
+        <View style = {{flex: 80}}>
+        {addresses && addresses.map(address => (
+          <AddressItem
+            key={address.id}
+            number={address.number}
+            street={address.street}
+            district={address.district}
+            city={address.city}
+          />
+        ))}
+
+             {/* {cardData.map((address) => AddressItem(address))} */}
+            {/* newAddress && AddressItem(newAddress) */}
+            {/* const AddressItem = ({ item }) => (
     <View style={Margin.mb_20}>
       {isLoading ? (
         <ActivityIndicator size="large" color={Colors.primaryColor} style={styles.loader} />
@@ -96,7 +136,7 @@ const Address = () => {
             <View>
               <Text style={[styles.text, { fontWeight: 'bold' }]}>{item.number} {item.street}</Text>
               {/* {card.status && <Text style={[styles.text, { color: Colors.green, marginEnd: 20 }]}>{card.status}</Text>} */}
-              <Text style={styles.text}>{item.district} {item.city}</Text>
+              {/* <Text style={styles.text}>{item.district} {item.city}</Text>
             </View>
             <View style={[styles.editbutton, Padding.pb_10]}>
               <EditButton />
@@ -105,33 +145,15 @@ const Address = () => {
         </TouchableOpacity>
       )}
     </View>
-  );
-  return (
-    <View style={styles.page}>
-       
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-        {/* <View style = {{flex: 80}}> */}
-            {/* {cardData.map((address) => AddressItem(address))}
-            {newAddress && AddressItem(newAddress)} */}
-            <FlatList
+  ); */} 
+            {/* <FlatList
               data = {addresses}
               renderItem ={({item}) => <AddressItem item = {item}/>}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
-            />
-        {/* </View> */}
-      {/* // </ScrollView> */}
-      {/* <FlatList
-        data={cardData}
-        renderItem={AddressItem}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-      /> */}
-      {/* <View style={{justifyContent: 'flex-end', marginBottom: 20, marginTop:20}}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={[styles.text, { color: Colors.white, fontWeight: 'bold' }]}>Add New Address</Text>
-        </TouchableOpacity>
-      </View> */}
+            /> */}
+        </View> 
+       </ScrollView>
      
       <ButtonBottom
         buttonText="Add New Address"

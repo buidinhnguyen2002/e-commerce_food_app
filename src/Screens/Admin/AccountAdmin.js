@@ -2,35 +2,51 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { TypographyStyles, CommonStyles } from "../../utils/StyleUtil";
 import { useNavigation } from "@react-navigation/native";
+import customerReducer from "../../store/reducers/customerReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCustomerStatus } from "../../store/actions/customerAction";
+import ApiUrlConstants from "../../utils/api_constants";
+import axios from 'axios';
 
-const AccountAdmin = () => {
-  const data = [
-    {
-      id: "1",
-      fullname: "John Doe",
-      gender: "Male",
-      phoneNumber: "123-456-7890",
-    },
-    {
-      id: "2",
-      fullname: "John Doe",
-      gender: "Male",
-      phoneNumber: "123-456-7890",
-    },
-    {
-      id: "3",
-      fullname: "John Doe",
-      gender: "Male",
-      phoneNumber: "123-456-7890",
-    },
-    {
-      id: "4",
-      fullname: "John Doe",
-      gender: "Male",
-      phoneNumber: "123-456-7890",
-    },
-  ];
+const AccountAdmin = ({ customer }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch(); 
+  const customers = useSelector((state) => state.customerReducer.customers);
+  console.log(customers); 
+  const handleImageClick = async (customerId, isActive) => {
+    const newStatus = isActive === 1 ? 0 : 1;
+    console.log(customerId, isActive, newStatus);
+    try {
+      const response = await fetch(ApiUrlConstants.getAllCustomers, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id:customerId,
+          isActive: newStatus,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        // The request was successful, you can dispatch the Redux action if needed
+        dispatch(updateCustomerStatus(customerId, newStatus));
+      } else {
+        console.error('Error updating customer status:', response.status);
+        // Handle error
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle error
+    }
+  };
+
+  const getImageSource = (isActive) => {
+    return isActive === 0
+    ? require("../../../assets/Icons/block_user.png") // Image source for isActive 1
+      : require("../../../assets/Icons/bx-user-x.png"); // Image source for isActive 0
+  };
 
   return (
     <View>
@@ -40,30 +56,30 @@ const AccountAdmin = () => {
       <View style={styles.container}>
         <View style={styles.headerRow}>
           <Text style={styles.actionCell}>ID</Text>
-          <Text style={styles.headerCell}>Fullname</Text>
+          <Text style={styles.headerCell}>Full Name</Text>
           <Text style={styles.headerCell}>Gender</Text>
           <Text style={styles.headerCell}>Phone </Text>
           <Text style={styles.actionCell}>Action</Text>
         </View>
 
-        {data.map((item) => (
-          <View key={item.id} style={styles.dataRow}>
-            <Text style={styles.actionCell}>{item.id}</Text>
-            <Text style={styles.dataCell}>{item.fullname}</Text>
-            <Text style={styles.dataCell}>{item.gender}</Text>
-            <Text style={styles.dataCell}>{item.phoneNumber}</Text>
-            <Text style={styles.actionCell}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("CreateProductsAdmin")}
-              >
-                <Image
-                  style={[CommonStyles.iconSizeSmall, { marginLeft: 10 }]}
-                  source={require("../../../assets/Icons/bx-user-x.png")}
-                ></Image>
-              </TouchableOpacity>
-            </Text>
-          </View>
-        ))}
+        {customers.map((customer) => (
+    <View key={customer.id} style={styles.dataRow}>
+      <Text style={styles.actionCell}>{customer.id}</Text>
+      <Text style={styles.dataCell}>{customer.full_name}</Text>
+      <Text style={styles.dataCell}>{customer.gender}</Text>
+      <Text style={styles.dataCell}>{customer.phone_number}</Text>
+      <Text style={styles.actionCell}>
+        <TouchableOpacity
+          onPress={() => handleImageClick(customer.id, customer.isActive)}
+        >
+          <Image
+            style={[CommonStyles.iconSizeSmall, { marginLeft: 10 }]}
+            source={getImageSource(customer.isActive)}
+          ></Image>
+        </TouchableOpacity>
+      </Text>
+    </View>
+  ))}
       </View>
     </View>
   );
